@@ -192,7 +192,19 @@ con.connect(function(err) {
       });
       console.log("Senate: Line "+n);
   }});
+  
+  con.query("CREATE TABLE IF NOT EXISTS users ( \
+            id int(11) NOT NULL AUTO_INCREMENT, \
+            first_name text NOT NULL, \
+            last_name text NOT NULL, \
+            email text NOT NULL,\
+            user_name varchar(20) NOT NULL,\
+            password varchar(255) NOT NULL, \
+            PRIMARY KEY (`id`))ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8;",
+  function (err, result) {
+    if (err) throw err;
+    console.log("User table created");
+  });
 });
-
 
 module.exports = app;
