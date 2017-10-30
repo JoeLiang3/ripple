@@ -38,7 +38,7 @@ global.db = con;
 
 // all environments
 app.use(cors());
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -52,7 +52,7 @@ app.use(session({
             }))
 var state_abbrev = {
         "AL":"Alabama",   "AK":"Alaska",   "AZ":"Arizona",   "AR":"Arkansas",   "CA":"California",   "CO":"Colorado",
-        "CT":"Conneticut",   "DE":"Delaware",   "FL":"Florida",   "GA":"Georgia",   "HI":"Hawaii",   "ID":"Idaho",   "IL":"Illinois",
+        "CT":"Connecticut",   "DE":"Delaware",   "FL":"Florida",   "GA":"Georgia",   "HI":"Hawaii",   "ID":"Idaho",   "IL":"Illinois",
         "IN":"Indiana",   "IA":"Iowa",   "KS":"Kansas",   "KY":"Kentucky",   "LA":"Louisiana",   "ME":"Maine",   "MD":"Maryland",
         "MA":"Massachusetts",   "MI":"Michigan",   "MN":"Minnesota",   "MS":"Mississippi",   "MO":"Missouri",   "MT":"Montana",
         "NE":"Nebraska",   "NV":"Nevada",   "NH":"New Hampshire",   "NJ":"New Jersey",   "NM":"New Mexico",   "NY":"New York",
@@ -248,7 +248,7 @@ app.get('/members/:state',(req, res) => {
     var i = 0;
     result.forEach((member) => {
       var member = {
-        name: member.firstName + member.lastName,
+        name: member.firstName+" "+member.lastName,
         id: member.id,
         party: member.party,
         homeState: member.homeState,
@@ -263,5 +263,5 @@ app.get('/members/:state',(req, res) => {
 });
 //Middleware
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 app.listen(port);

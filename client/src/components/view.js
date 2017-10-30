@@ -15,7 +15,7 @@ class View extends Component {
   changeState(state) {
     console.log(state);
     // Fetch senator info from API
-    fetch('http://localhost:3000/members/' + state, {
+    fetch('http://localhost:3001/members/' + state, {
       mode: "cors",
       headers : {
         'Content-Type': 'application/json',
@@ -40,13 +40,11 @@ class View extends Component {
   render() {
     // Map state officialArray to an array of Profile components
     var officialComponents = this.state.officialArray.map(function(members, i) {
-            return
-            <div className="profile-image" key={i}>
+            return  <div className="profile-image" key={i}>
               <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
                 <p>Name: {members.name}</p>
                 <p>Party: {members.party}</p>
                 <p>Phone Number: {members.phone}</p>
-                <p>Party: {members.party}</p>
             </div>;
         });
     return(
