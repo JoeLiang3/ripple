@@ -4,9 +4,51 @@ class View extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { currentState: 'Alaska' };
+    this.state = {
+      currentState: '',
+      officialArray: []
+    };
   }
+
+
+
+  changeState(state) {
+    console.log(state);
+    // Fetch senator info from API
+    fetch('http://localhost:3000/members/' + state, {
+      mode: "cors",
+      headers : {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+
+    })
+    .then((response) => response.json())
+    .then(response => {
+      this.setState({
+        // Update state
+        officialArray: response.membersResult,
+        currentState: state,
+      });
+      console.log(response.membersResult);
+    })
+
+
+  }
+
+
   render() {
+    // Map state officialArray to an array of Profile components
+    var officialComponents = this.state.officialArray.map(function(members, i) {
+            return
+            <div className="profile-image" key={i}>
+              <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
+                <p>Name: {members.name}</p>
+                <p>Party: {members.party}</p>
+                <p>Phone Number: {members.phone}</p>
+                <p>Party: {members.party}</p>
+            </div>;
+        });
     return(
       <div id="page-content-wrapper">
         <div className="content-header text-center middle">
@@ -17,57 +59,55 @@ class View extends Component {
 
         <div className="page-content text-center middle">
           <div className="state-container">
-            <div className="state">AL</div>
-            <div className="state">AK</div>
-            <div className="state">AZ</div>
-            <div className="state">AR</div>
-            <div className="state">CA</div>
-            <div className="state">CO</div>
-            <div className="state">CT</div>
-            <div className="state">DE</div>
-            <div className="state">FL</div>
-            <div className="state">GA</div>
-            <div className="state">HI</div>
-            <div className="state">ID</div>
-            <div className="state">IL</div>
-            <div className="state">IN</div>
-            <div className="state">IA</div>
-            <div className="state">KS</div>
-            <div className="state">KY</div>
-            <div className="state">LA</div>
-            <div className="state">ME</div>
-            <div className="state">MD</div>
-            <div className="state">MA</div>
-            <div className="state">MI</div>
-            <div className="state">MN</div>
-            <div className="state">MS</div>
-            <div className="state">MO</div>
-            <div className="state">MT</div>
-            <div className="state">NE</div>
-            <div className="state">NV</div>
-            <div className="state">NH</div>
-            <div className="state">NJ</div>
-            <div className="state">NM</div>
-            <div className="state">NY</div>
-            <div className="state">NC</div>
-            <div className="state">ND</div>
-            <div className="state">OH</div>
-            <div className="state">OK</div>
-            <div className="state">OR</div>
-            <div className="state">PA</div>
-            <div className="state">RI</div>
-            <div className="state">SC</div>
-            <div className="state">SD</div>
-            <div className="state">TN</div>
-            <div className="state">TX</div>
-            <div className="state">UT</div>
-            <div className="state">VT</div>
-            <div className="state">VA</div>
-            <div className="state">WA</div>
-            <div className="state">WV</div>
-            <div className="state">WI</div>
-            <div className="state">WY</div>
-
+            <div className="state" onClick={(event) => this.changeState("Alaska")}>AL</div>
+            <div className="state" onClick={(event) => this.changeState("Alabama")}>AK</div>
+            <div className="state" onClick={(event) => this.changeState("Arizona")}>AZ</div>
+            <div className="state" onClick={(event) => this.changeState("Arkansa")}>AR</div>
+            <div className="state" onClick={(event) => this.changeState("California")}>CA</div>
+            <div className="state" onClick={(event) => this.changeState("Colorado")}>CO</div>
+            <div className="state" onClick={(event) => this.changeState("Connecticut")}>CT</div>
+            <div className="state" onClick={(event) => this.changeState("Delaware")}>DE</div>
+            <div className="state" onClick={(event) => this.changeState("Florida")}>FL</div>
+            <div className="state" onClick={(event) => this.changeState("Georgia")}>GA</div>
+            <div className="state" onClick={(event) => this.changeState("Hawaii")}>HI</div>
+            <div className="state" onClick={(event) => this.changeState("Idaho")}>ID</div>
+            <div className="state" onClick={(event) => this.changeState("Illinois")}>IL</div>
+            <div className="state" onClick={(event) => this.changeState("Iowa")}>IN</div>
+            <div className="state" onClick={(event) => this.changeState("Kansas")}>IA</div>
+            <div className="state" onClick={(event) => this.changeState("Kentucky")}>KS</div>
+            <div className="state" onClick={(event) => this.changeState("Louisiana")}>KY</div>
+            <div className="state" onClick={(event) => this.changeState("Maine")}>LA</div>
+            <div className="state" onClick={(event) => this.changeState("Maryland")}>ME</div>
+            <div className="state" onClick={(event) => this.changeState("Massachutsetts")}>MD</div>
+            <div className="state" onClick={(event) => this.changeState("Michigan")}>MI</div>
+            <div className="state" onClick={(event) => this.changeState("Minnesota")}>MN</div>
+            <div className="state" onClick={(event) => this.changeState("Mississippi")}>MS</div>
+            <div className="state" onClick={(event) => this.changeState("Missouri")}>MO</div>
+            <div className="state" onClick={(event) => this.changeState("Montana")}>MT</div>
+            <div className="state" onClick={(event) => this.changeState("Nebraska")}>NE</div>
+            <div className="state" onClick={(event) => this.changeState("Nevada")}>NV</div>
+            <div className="state" onClick={(event) => this.changeState("New Hampshire")}>NH</div>
+            <div className="state" onClick={(event) => this.changeState("New Jersey")}>NJ</div>
+            <div className="state" onClick={(event) => this.changeState("New Mexico")}>NM</div>
+            <div className="state" onClick={(event) => this.changeState("New York")}>NY</div>
+            <div className="state" onClick={(event) => this.changeState("North Carolina")}>NC</div>
+            <div className="state" onClick={(event) => this.changeState("North Dakota")}>ND</div>
+            <div className="state" onClick={(event) => this.changeState("Ohio")}>OH</div>
+            <div className="state" onClick={(event) => this.changeState("Oklahoma")}>OK</div>
+            <div className="state" onClick={(event) => this.changeState("Oregon")}>OR</div>
+            <div className="state" onClick={(event) => this.changeState("Pennsylvania")}>PA</div>
+            <div className="state" onClick={(event) => this.changeState("Rhode Island")}>RI</div>
+            <div className="state" onClick={(event) => this.changeState("South Carolina")}>SC</div>
+            <div className="state" onClick={(event) => this.changeState("South Dakota")}>SD</div>
+            <div className="state" onClick={(event) => this.changeState("Tennessee")}>TN</div>
+            <div className="state" onClick={(event) => this.changeState("Texas")}>TX</div>
+            <div className="state" onClick={(event) => this.changeState("Utah")}>UT</div>
+            <div className="state" onClick={(event) => this.changeState("Vermont")}>VT</div>
+            <div className="state" onClick={(event) => this.changeState("Virginia")}>VA</div>
+            <div className="state" onClick={(event) => this.changeState("Washington")}>WA</div>
+            <div className="state" onClick={(event) => this.changeState("West Virginia")}>WV</div>
+            <div className="state" onClick={(event) => this.changeState("Wisconsin")}>WI</div>
+            <div className="state" onClick={(event) => this.changeState("Wyoming")}>WY</div>
           </div>
         </div>
 
@@ -77,47 +117,7 @@ class View extends Component {
               <div className="state-name">{this.state.currentState}</div>
             </div>
             <div className="profile-view text-center">
-              <div className="profile-image">
-                <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
-                <p>Name: Joe Liang</p>
-                <p>Party: Democrat</p>
-                <p>Phone Number: 111-111-1111</p>
-              </div>
-
-              <div className="profile-image">
-                <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
-                <p>Name: Joe Liang</p>
-                <p>Party: Democrat</p>
-                <p>Phone Number: 111-111-1111</p>
-              </div>
-
-              <div className="profile-image">
-                <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
-                <p>Name: Joe Liang</p>
-                <p>Party: Democrat</p>
-                <p>Phone Number: 111-111-1111</p>
-              </div>
-
-              <div className="profile-image">
-                <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
-                <p>Name: Joe Liang</p>
-                <p>Party: Democrat</p>
-                <p>Phone Number: 111-111-1111</p>
-              </div>
-
-              <div className="profile-image">
-                <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
-                <p>Name: Joe Liang</p>
-                <p>Party: Democrat</p>
-                <p>Phone Number: 111-111-1111</p>
-              </div>
-
-              <div className="profile-image">
-                <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
-                <p>Name: Joe Liang</p>
-                <p>Party: Democrat</p>
-                <p>Phone Number: 111-111-1111</p>
-              </div>
+              <div>{officialComponents}</div>
             </div>
           </div>
         </div>
@@ -126,6 +126,7 @@ class View extends Component {
     );
 
   }
+
 
 }
 

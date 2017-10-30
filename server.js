@@ -1,33 +1,44 @@
-const express = require('express');
-const fs = require('fs');
-const mysql = require('mysql');
-const app = express();
 /**
 * Module dependencies.
 */
-var routes = require('./routes')
+///
+var express = require('express')
+  , routes = require('./routes')
   , user = require('./routes/user')
   , members = require('./routes/members')
   , http = require('http')
-  , path = require('path')  ;
+  , path = require('path');
+//var methodOverride = require('method-override');
 var session = require('express-session');
-var bcrypt = require('bcrypt');
-var salt = bcrypt.genSaltSync(10);
+var app = express();
+// var bcrypt = require('bcrypt');
+// var salt = bcrypt.genSaltSync(10);
+var mysql = require('mysql');
+var fs = require("fs");
 var request = require('request');
 var bodyParser=require("body-parser");
 var Congress = require( 'propublica-congress-node' );
 var client = new Congress( 'RmrxLK9M6LrHgHTjMbuoIy1sEg5nPhMMx52J4HAe' );
+var cors = require('cors')
 var con = mysql.createConnection({
               host     : 'localhost',
               user     : 'root',
               password : '',
-              database : 'rippledb',
+              database : 'rippleDB',
               multipleStatements: true
+              // host     : 'us-cdbr-iron-east-05.cleardb.net',
+              // user     : 'be9dbda2b18efa',
+              // password : 'f5254516',
+              // database : 'heroku_44af54f55baae38',
+              // multipleStatements: true
             });
-  
+
+
 global.db = con;
- 
+
 // all environments
+app.use(cors());
+app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,28 +51,15 @@ app.use(session({
               cookie: { maxAge: 60000 }
             }))
 var state_abbrev = {
-        "AL":"Alabama",   "AK":"Alaska",   "AZ":"Arizona",   "AR":"Arkansas",   "CA":"California",   "CO":"Colorado",   
+        "AL":"Alabama",   "AK":"Alaska",   "AZ":"Arizona",   "AR":"Arkansas",   "CA":"California",   "CO":"Colorado",
         "CT":"Conneticut",   "DE":"Delaware",   "FL":"Florida",   "GA":"Georgia",   "HI":"Hawaii",   "ID":"Idaho",   "IL":"Illinois",
-        "IN":"Indiana",   "IA":"Iowa",   "KS":"Kansas",   "KY":"Kentucky",   "LA":"Louisiana",   "ME":"Maine",   "MD":"Maryland",   
-        "MA":"Massachusetts",   "MI":"Michigan",   "MN":"Minnesota",   "MS":"Mississippi",   "MO":"Missouri",   "MT":"Montana",   
-        "NE":"Nebraska",   "NV":"Nevada",   "NH":"New Hampshire",   "NJ":"New Jersey",   "NM":"New Mexico",   "NY":"New York",   
+        "IN":"Indiana",   "IA":"Iowa",   "KS":"Kansas",   "KY":"Kentucky",   "LA":"Louisiana",   "ME":"Maine",   "MD":"Maryland",
+        "MA":"Massachusetts",   "MI":"Michigan",   "MN":"Minnesota",   "MS":"Mississippi",   "MO":"Missouri",   "MT":"Montana",
+        "NE":"Nebraska",   "NV":"Nevada",   "NH":"New Hampshire",   "NJ":"New Jersey",   "NM":"New Mexico",   "NY":"New York",
         "NC":"North Carolina",   "ND":"North Dakota",   "OH":"Ohio",   "OK":"Oklahoma", "OR":"Oregon",   "PA":"Pennsylvania",
         "RI":"Rhode Island",   "SC":"South Carolina",   "SD":"South Dakota",   "TN":"Tennessee",   "TX":"Texas",   "UT":"Utah",
         "VT":"Vermont",   "VA":"Virginia",   "WA":"Washington",   "WV":"West Virginia",   "WI":"Wisconsin",   "WY":"Wyoming"};
 
-app.set('port', (process.env.PORT || 3001));
-
-// Express only serves static assets in production
-console.log("NODE_ENV: ", process.env.NODE_ENV);
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-
-  // Return the main index.html, so react-router render the route in the client
-  app.get('/', (req, res) => {
-    res.sendFile(path.resolve('client/build', 'index.html'));
-  });
-}
- 
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -72,12 +70,12 @@ con.connect(function(err) {
             firstName varchar(255) NOT NULL default '', \ lastName varchar(255) NOT NULL default '', \
             party varchar(255) NOT NULL default '', \ homeState varchar(255) NOT NULL default '', \
             phoneNum varchar(255) NOT NULL default '', \ position varchar(255) default 'House of Rep.', \
-            PRIMARY KEY (id))ENGINE=INNODB;", 
+            PRIMARY KEY (id))ENGINE=INNODB;",
   function (err, result) {
     if (err) throw err;
     console.log("House table created");
   });
-  
+
   client.memberLists({
     congressNumber: '115',
     chamber: 'house',
@@ -100,18 +98,18 @@ con.connect(function(err) {
     }
     console.log("House table filled");
   });
-  
+
   con.query("DROP TABLE IF EXISTS senate_members; \ CREATE TABLE senate_members ( \
             id int NOT NULL AUTO_INCREMENT, \ photo varchar(255) NOT NULL default '', \
             firstName varchar(255) NOT NULL default '', \ lastName varchar(255) NOT NULL default '', \
             party varchar(255) NOT NULL default '', \ homeState varchar(255) NOT NULL default '', \
             phoneNum varchar(255) NOT NULL default '', \ position varchar(255) default 'Senator', \
-            PRIMARY KEY (id))ENGINE=INNODB;", 
+            PRIMARY KEY (id))ENGINE=INNODB;",
   function (err, result) {
     if (err) throw err;
     console.log("Senate table created");
   });
-  
+
   client.memberLists({
     congressNumber: '115',
     chamber: 'senate',
@@ -143,11 +141,11 @@ con.connect(function(err) {
   function (err, result) {
     if (err) throw err;
     console.log("User table created");
-  });            
-  
+  });
+
   con.query("DROP TABLE IF EXISTS bills; \ CREATE TABLE bills ( \
             id int NOT NULL AUTO_INCREMENT, \ billID varchar(255) NOT NULL default '', \ type varchar(255) NOT NULL default '', \
-            Bnumber varchar(255) NOT NULL default '', \ title varchar(255) NOT NULL default '', \
+            Bnumber varchar(255) NOT NULL default '', \ title text NOT NULL, \
             sponsorTitle varchar(255) NOT NULL default '', \ sponsor varchar(255) NOT NULL default '', \
             sponsorId varchar(255) NOT NULL default '', \ sponsorState varchar(255) NOT NULL default '', \
             partyAffil varchar(255) NOT NULL default '', \ sponsorUri varchar(255) NOT NULL default '', \
@@ -164,7 +162,7 @@ con.connect(function(err) {
     if (err) throw err;
     console.log("Table created");
   });
-  
+
   client.billsRecent({
       congressNumber: '115',
       chamber: 'house',
@@ -175,39 +173,39 @@ con.connect(function(err) {
       {
         billID= (res.results[0].bills[n].bill_id);
         type= (res.results[0].bills[n].bill_type);
-        Bnumber= (res.results[0].bills[n].number); 
+        Bnumber= (res.results[0].bills[n].number);
 
         title= (res.results[0].bills[n].title).replace("'", "''");
-        //   BillSponsorTitle= (res.results[0].bills[n].sponsor_title);                 
+        //   BillSponsorTitle= (res.results[0].bills[n].sponsor_title);
         sponsor= (res.results[0].bills[n].sponsor_name).replace("'", "''");
 
         sponsorId= (res.results[0].bills[n].sponsor_id);
-        sponsorState= (res.results[0].bills[n].sponsor_state);           
+        sponsorState= (res.results[0].bills[n].sponsor_state);
         partyAffil= (res.results[0].bills[n].sponsor_party=="D") ? "Democrat" : "Republican";
 
-        sponsorUri= (res.results[0].bills[n].sponsor_uri);                 
-        gpoPdf= (res.results[0].bills[n].bill_gpo_pdf_uri);           
-        congressUrl= (res.results[0].bills[n].sponsor_id);   
+        sponsorUri= (res.results[0].bills[n].sponsor_uri);
+        gpoPdf= (res.results[0].bills[n].bill_gpo_pdf_uri);
+        congressUrl= (res.results[0].bills[n].sponsor_id);
 
-        govtrackUrl= (res.results[0].bills[n].govtrack_url);           
-        isActive= (res.results[0].bills[n].active); 
-        lastDate= (res.results[0].bills[n].latest_major_action_date); 
+        govtrackUrl= (res.results[0].bills[n].govtrack_url);
+        isActive= (res.results[0].bills[n].active);
+        lastDate= (res.results[0].bills[n].latest_major_action_date);
 
-        housePassage= (res.results[0].bills[n].house_passage);  
-        senatePassage= (res.results[0].bills[n].senate_passage);            
-        isEnacted= (res.results[0].bills[n].enacted);      
+        housePassage= (res.results[0].bills[n].house_passage);
+        senatePassage= (res.results[0].bills[n].senate_passage);
+        isEnacted= (res.results[0].bills[n].enacted);
 
-        isVetoed= (res.results[0].bills[n].vetoed);            
-        coSponsors= (res.results[0].bills[n].cosponsors);            
-        committees= (res.results[0].bills[n].committees);     
+        isVetoed= (res.results[0].bills[n].vetoed);
+        coSponsors= (res.results[0].bills[n].cosponsors);
+        committees= (res.results[0].bills[n].committees);
 
-        committeeCodes= (res.results[0].bills[n].committee_codes);            
-        subCommitteeCodes= (res.results[0].bills[n].subcommittee_codes);            
-        primarySubject= (res.results[0].bills[n].primary_subject);      
+        committeeCodes= (res.results[0].bills[n].committee_codes);
+        subCommitteeCodes= (res.results[0].bills[n].subcommittee_codes);
+        primarySubject= (res.results[0].bills[n].primary_subject);
 
-        description= (res.results[0].bills[n].summary);            
-        shortDescription= (res.results[0].bills[n].summary_short);           
-        //BillLatestMajorAction= (res.results[0].bills[n].latest_major_action);  
+        description= (res.results[0].bills[n].summary);
+        shortDescription= (res.results[0].bills[n].summary_short);
+        //BillLatestMajorAction= (res.results[0].bills[n].latest_major_action);
 
         var sql = "INSERT INTO bills(billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
                     "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,lastDate,"+
@@ -224,17 +222,17 @@ con.connect(function(err) {
     }
     console.log("Bills table filled");
   });
- 
+
 // development only
- 
-/*app.get('/', routes.index);//call for main index page
+
+app.get('/', routes.index);//call for main index page
 app.get('/signup', user.signup);//call for signup page
-app.post('/signup', user.signup);//call for signup post 
+app.post('/signup', user.signup);//call for signup post
 app.get('/login', routes.index);//call for login page
 app.post('/login', user.login);//call for login post
 app.get('/home/dashboard', user.dashboard);//call for dashboard page after login
 app.get('/home/logout', user.logout);//call for logout
-app.get('/home/profile',user.profile);//to render users profile*/
+app.get('/home/profile',user.profile);//to render users profile
 app.get('/members/:state',(req, res) => {
   // Get state name from url
   var state = req.params.state;
@@ -265,6 +263,5 @@ app.get('/members/:state',(req, res) => {
 });
 //Middleware
 
-app.listen(app.get('port'), () => {
-  console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
-});
+var port = process.env.PORT || 3000;
+app.listen(port);
