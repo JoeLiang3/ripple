@@ -3,7 +3,7 @@
 exports.states = function(req, res){
    message = '';
    if(req.method == "POST"){
-      var bcrypt = require('bcrypt');
+      // var bcrypt = require('bcrypt');
       var post = req.body;
       console.log(post);
       var state= post.state;
@@ -18,45 +18,21 @@ exports.states = function(req, res){
       //res.render('signup');
    }
 };
- 
-//-----------------------------------------------login page call------------------------------------------------------
-exports.login = function(req, res){
-  var message = '';
-  var sess = req.session; 
 
-    if(req.method == "POST"){
+//-----------------------------------------------login page call------------------------------------------------------
+exports.getOfficials = function(req, res){
+    if(req.method == "GET"){
       var bcrypt = require('bcrypt');
       var post  = req.body;
-      var name= post.user_name;
-      var pass= post.password;
-      var passCrypt= bcrypt.hashSync(pass, 10);
-      var sql="SELECT id, first_name, password, user_name FROM users WHERE user_name='"+name+"'";             
-      db.query(sql, function(err, results){      
-        if(results.length){
-          bcrypt.compare(pass, results[0].password, function(err, doesMatch){
-          if(doesMatch){
-            req.session.userId = results[0].id;
-            req.session.user = results[0];
-            res.redirect('/home/dashboard');
-          }else{
-            message = 'Wrong Credentials.';
-            res.render('index.ejs',{message: message});
-          }
-        });
-        }else{
-          message = 'Wrong Credentials.';
-          res.render('index.ejs',{message: message});
-          }         
-      });      
-    } else {
-      res.render('index.ejs',{message: message});
+      console.log(post);
     }
-           
+
+
 };
 //-----------------------------------------------dashboard page functionality----------------------------------------------
-           
+
 exports.dashboard = function(req, res, next){
-           
+
    var user =  req.session.user,
    userId = req.session.userId;
    console.log('ddd='+userId);
@@ -68,8 +44,8 @@ exports.dashboard = function(req, res, next){
    var sql="SELECT * FROM users WHERE id='"+userId+"'";
 
    db.query(sql, function(err, results){
-      res.render('dashboard.ejs', {user:user});    
-   });       
+      res.render('dashboard.ejs', {user:user});
+   });
 };
 //------------------------------------logout functionality----------------------------------------------
 exports.logout=function(req,res){
@@ -86,8 +62,8 @@ exports.profile = function(req, res){
       return;
    }
 
-   var sql="SELECT * FROM users WHERE id='"+userId+"'";          
-   db.query(sql, function(err, result){  
+   var sql="SELECT * FROM users WHERE id='"+userId+"'";
+   db.query(sql, function(err, result){
       res.render('profile.ejs',{data:result});
    });
 };
