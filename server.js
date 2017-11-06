@@ -65,15 +65,15 @@ con.connect(function(err) {
   console.log("Connected!");
 });
 
-  con.query("DROP TABLE IF EXISTS house_members; \ CREATE TABLE house_members ( \
+  con.query("DROP TABLE IF EXISTS members; \ CREATE TABLE members ( \
             id int NOT NULL AUTO_INCREMENT, \ photo varchar(255) NOT NULL default '', \
             firstName varchar(255) NOT NULL default '', \ lastName varchar(255) NOT NULL default '', \
             party varchar(255) NOT NULL default '', \ homeState varchar(255) NOT NULL default '', \
-            phoneNum varchar(255) NOT NULL default '', \ position varchar(255) default 'House of Rep.', \
+            phoneNum varchar(255) NOT NULL default '', \ position varchar(255) NOT NULL default '', \
             PRIMARY KEY (id))ENGINE=INNODB;",
   function (err, result) {
     if (err) throw err;
-    console.log("House table created");
+    console.log("Members table created");
   });
 
   client.memberLists({
@@ -90,24 +90,13 @@ con.connect(function(err) {
       state= state_abbrev[res.results[0].members[n].state];
       phone= (res.results[0].members[n].phone);
       bioguide= (res.results[0].members[n].id);
-      var sql = "INSERT INTO house_members (photo,firstName,lastName,party,homeState,phoneNum) "
-                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+phone+"')";
+      var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,phoneNum,position) "
+                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+phone+"', 'House of Rep.')";
       con.query(sql, function (err, result) {
         if (err) console.log(err);
       });
     }
-    console.log("House table filled");
-  });
-
-  con.query("DROP TABLE IF EXISTS senate_members; \ CREATE TABLE senate_members ( \
-            id int NOT NULL AUTO_INCREMENT, \ photo varchar(255) NOT NULL default '', \
-            firstName varchar(255) NOT NULL default '', \ lastName varchar(255) NOT NULL default '', \
-            party varchar(255) NOT NULL default '', \ homeState varchar(255) NOT NULL default '', \
-            phoneNum varchar(255) NOT NULL default '', \ position varchar(255) default 'Senator', \
-            PRIMARY KEY (id))ENGINE=INNODB;",
-  function (err, result) {
-    if (err) throw err;
-    console.log("Senate table created");
+    console.log("House portion of table filled");
   });
 
   client.memberLists({
@@ -124,13 +113,13 @@ con.connect(function(err) {
       state= state_abbrev[res.results[0].members[n].state];
       phone= (res.results[0].members[n].phone);
       bioguide= (res.results[0].members[n].id);
-      var sql = "INSERT INTO senate_members (photo,firstName,lastName,party,homeState,phoneNum) "
-                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+phone+"')";
+      var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,phoneNum,position) "
+                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+phone+"', 'Senator')";
       con.query(sql, function (err, result) {
         if (err) console.log(err);
       });
     }
-    console.log("Senate table filled");
+    console.log("Senate portion of table filled");
   });
 
   con.query("CREATE TABLE IF NOT EXISTS users ( \
@@ -233,12 +222,23 @@ app.post('/login', user.login);//call for login post
 app.get('/home/dashboard', user.dashboard);//call for dashboard page after login
 app.get('/home/logout', user.logout);//call for logout
 app.get('/home/profile',user.profile);//to render users profile
+/*app.get('/bill/:id'),(req,res) => {
+  var id=req.params.id;
+  var sql="SELECT * FROM bills WHERE billID= '"+id+"'";
+  var query=db.query(sql,function(err,result) {
+    if(err){
+      console.log(err);
+    }
+    var billResult = [result.length];
+    
+  }
+}*/
 app.get('/members/:state',(req, res) => {
   // Get state name from url
   var state = req.params.state;
 
   // QUERY DATABASE based on URL
-  var sql = "SELECT * FROM house_members WHERE homeState= '"+state+"'";
+  var sql = "SELECT * FROM members WHERE homeState= '"+state+"'";
   var query = db.query(sql, function(err, result) {
     if(err) {
       console.log(err);
@@ -248,12 +248,13 @@ app.get('/members/:state',(req, res) => {
     var i = 0;
     result.forEach((member) => {
       var member = {
+        photo: member.photo,
         name: member.firstName+" "+member.lastName,
         id: member.id,
         party: member.party,
         homeState: member.homeState,
         phone: member.phoneNum,
-        position: member.position,
+        position: member.position
       }
       membersResult[i] = member;
       i++;
