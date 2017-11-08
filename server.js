@@ -225,7 +225,7 @@ con.connect(function(err) {
                     +subCommitteeCodes+"', '"+primarySubject+"', '"+latestMajorAction+"', '"+introducedDate+"', '"+latestMajorActionDate+"')";
         con.query(sql, function (err, result) {
         if (err) console.log(err);
-		
+
       });
     }
     console.log("Bills table filled");
@@ -249,7 +249,7 @@ app.get('/home/profile',user.profile);//to render users profile
       console.log(err);
     }
     var billResult = [result.length];
-    
+
   }
 }*/
 app.get('/members/:state',(req, res) => {
