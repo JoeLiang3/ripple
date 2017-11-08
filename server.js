@@ -196,7 +196,7 @@ con.connect(function(err) {
         isActive= (res.results[0].bills[n].active);
         lastDate= (res.results[0].bills[n].latest_major_action_date);
 
-        housePassage= (res.results[0].bills[n].house_passage)
+        housePassage= (res.results[0].bills[n].house_passage);
         senatePassage= (res.results[0].bills[n].senate_passage);
         isEnacted= (res.results[0].bills[n].enacted);
 
@@ -225,7 +225,7 @@ con.connect(function(err) {
                     +subCommitteeCodes+"', '"+primarySubject+"', '"+latestMajorAction+"', '"+introducedDate+"', '"+latestMajorActionDate+"')";
         con.query(sql, function (err, result) {
         if (err) console.log(err);
-		
+
       });
     }
     console.log("Bills table filled");
@@ -249,7 +249,7 @@ app.get('/home/profile',user.profile);//to render users profile
       console.log(err);
     }
     var billResult = [result.length];
-    
+
   }
 }*/
 app.get('/members/:state',(req, res) => {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Datamap from 'react-datamaps';
 
 class View extends Component {
   constructor(props) {
@@ -9,6 +10,32 @@ class View extends Component {
       officialArray: []
     };
   }
+
+  // Event Listening for datamap.
+  addClickHandlers = (ref) => {
+        if (ref && ref.map) {
+            ref.map.svg.selectAll('.datamaps-subunit').on('click', (label) => {
+                var state = label.properties.name;
+                fetch('http://localhost:3000/members/' + state, {
+                  mode: "cors",
+                  headers : {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                   }
+
+                })
+                .then((response) => response.json())
+                .then(response => {
+                  this.setState({
+                    // Update state
+                    officialArray: response.membersResult,
+                    currentState: state,
+                  });
+                  console.log(response.membersResult);
+                });
+            });
+        }
+    };
 
 
   changeState(state) {
@@ -58,55 +85,231 @@ class View extends Component {
 
         <div className="page-content text-center middle">
           <div className="state-container">
-            <div className="state" onClick={(event) => this.changeState("Alaska")}>AL</div>
-            <div className="state" onClick={(event) => this.changeState("Alabama")}>AK</div>
-            <div className="state" onClick={(event) => this.changeState("Arizona")}>AZ</div>
-            <div className="state" onClick={(event) => this.changeState("Arkansa")}>AR</div>
-            <div className="state" onClick={(event) => this.changeState("California")}>CA</div>
-            <div className="state" onClick={(event) => this.changeState("Colorado")}>CO</div>
-            <div className="state" onClick={(event) => this.changeState("Connecticut")}>CT</div>
-            <div className="state" onClick={(event) => this.changeState("Delaware")}>DE</div>
-            <div className="state" onClick={(event) => this.changeState("Florida")}>FL</div>
-            <div className="state" onClick={(event) => this.changeState("Georgia")}>GA</div>
-            <div className="state" onClick={(event) => this.changeState("Hawaii")}>HI</div>
-            <div className="state" onClick={(event) => this.changeState("Idaho")}>ID</div>
-            <div className="state" onClick={(event) => this.changeState("Illinois")}>IL</div>
-            <div className="state" onClick={(event) => this.changeState("Iowa")}>IN</div>
-            <div className="state" onClick={(event) => this.changeState("Kansas")}>IA</div>
-            <div className="state" onClick={(event) => this.changeState("Kentucky")}>KS</div>
-            <div className="state" onClick={(event) => this.changeState("Louisiana")}>KY</div>
-            <div className="state" onClick={(event) => this.changeState("Maine")}>LA</div>
-            <div className="state" onClick={(event) => this.changeState("Maryland")}>ME</div>
-            <div className="state" onClick={(event) => this.changeState("Massachutsetts")}>MD</div>
-            <div className="state" onClick={(event) => this.changeState("Michigan")}>MI</div>
-            <div className="state" onClick={(event) => this.changeState("Minnesota")}>MN</div>
-            <div className="state" onClick={(event) => this.changeState("Mississippi")}>MS</div>
-            <div className="state" onClick={(event) => this.changeState("Missouri")}>MO</div>
-            <div className="state" onClick={(event) => this.changeState("Montana")}>MT</div>
-            <div className="state" onClick={(event) => this.changeState("Nebraska")}>NE</div>
-            <div className="state" onClick={(event) => this.changeState("Nevada")}>NV</div>
-            <div className="state" onClick={(event) => this.changeState("New Hampshire")}>NH</div>
-            <div className="state" onClick={(event) => this.changeState("New Jersey")}>NJ</div>
-            <div className="state" onClick={(event) => this.changeState("New Mexico")}>NM</div>
-            <div className="state" onClick={(event) => this.changeState("New York")}>NY</div>
-            <div className="state" onClick={(event) => this.changeState("North Carolina")}>NC</div>
-            <div className="state" onClick={(event) => this.changeState("North Dakota")}>ND</div>
-            <div className="state" onClick={(event) => this.changeState("Ohio")}>OH</div>
-            <div className="state" onClick={(event) => this.changeState("Oklahoma")}>OK</div>
-            <div className="state" onClick={(event) => this.changeState("Oregon")}>OR</div>
-            <div className="state" onClick={(event) => this.changeState("Pennsylvania")}>PA</div>
-            <div className="state" onClick={(event) => this.changeState("Rhode Island")}>RI</div>
-            <div className="state" onClick={(event) => this.changeState("South Carolina")}>SC</div>
-            <div className="state" onClick={(event) => this.changeState("South Dakota")}>SD</div>
-            <div className="state" onClick={(event) => this.changeState("Tennessee")}>TN</div>
-            <div className="state" onClick={(event) => this.changeState("Texas")}>TX</div>
-            <div className="state" onClick={(event) => this.changeState("Utah")}>UT</div>
-            <div className="state" onClick={(event) => this.changeState("Vermont")}>VT</div>
-            <div className="state" onClick={(event) => this.changeState("Virginia")}>VA</div>
-            <div className="state" onClick={(event) => this.changeState("Washington")}>WA</div>
-            <div className="state" onClick={(event) => this.changeState("West Virginia")}>WV</div>
-            <div className="state" onClick={(event) => this.changeState("Wisconsin")}>WI</div>
-            <div className="state" onClick={(event) => this.changeState("Wyoming")}>WY</div>
+          <div label="label">
+            <Datamap
+              ref={this.addClickHandlers}
+              scope="usa"
+              geographyConfig={{
+                highlightBorderColor: '#bada55',
+                popupTemplate: (geography, data) =>
+                  `<div class='hoverinfo'>${geography.properties.name}\nElectoral Votes: ${data.electoralVotes}`,
+                highlightBorderWidth: 3
+              }}
+              fills={{
+                'Republican': '#cc4731',
+                'Democrat': '#306596',
+                'Heavy Democrat': '#667faf',
+                'Light Democrat': '#a9c0de',
+                'Heavy Republican': '#ca5e5b',
+                'Light Republican': '#eaa9a8',
+                'defaultFill': '#eddc4e'
+              }}
+              data={{
+                AZ: {
+                  name: "Alaska",
+                  fillKey: 'Republican',
+                  electoralVotes: 5
+                },
+                CO: {
+                  fillKey: 'Light Democrat',
+                  electoralVotes: 5
+                },
+                DE: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                FL: {
+                  fillKey: 'UNDECIDED',
+                  electoralVotes: 29
+                },
+                GA: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                HI: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                ID: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                IL: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                IN: {
+                  fillKey: 'Republican',
+                  electoralVotes: 11
+                },
+                IA: {
+                  fillKey: 'Light Democrat',
+                  electoralVotes: 11
+                },
+                KS: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                KY: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                LA: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                MD: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                ME: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                MA: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                MN: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                MI: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                MS: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                MO: {
+                  fillKey: 'Republican',
+                  electoralVotes: 13
+                },
+                MT: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                NC: {
+                  fillKey: 'Light Republican',
+                  electoralVotes: 32
+                },
+                NE: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                NV: {
+                  fillKey: 'Heavy Democrat',
+                  electoralVotes: 32
+                },
+                NH: {
+                  fillKey: 'Light Democrat',
+                  electoralVotes: 32
+                },
+                NJ: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                NY: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                ND: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                NM: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                OH: {
+                  fillKey: 'UNDECIDED',
+                  electoralVotes: 32
+                },
+                OK: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                OR: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                PA: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                RI: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                SC: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                SD: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                TN: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                TX: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                UT: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                WI: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                VA: {
+                  fillKey: 'Light Democrat',
+                  electoralVotes: 32
+                },
+                VT: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                WA: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                WV: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                WY: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                CA: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                CT: {
+                  fillKey: 'Democrat',
+                  electoralVotes: 32
+                },
+                AK: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                AR: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                },
+                AL: {
+                  fillKey: 'Republican',
+                  electoralVotes: 32
+                }
+              }}
+            labels
+            />
+          </div>
           </div>
         </div>
 
