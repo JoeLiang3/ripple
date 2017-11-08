@@ -2,6 +2,10 @@ body {
   font-family: 'Oxygen';
 }
 
+svg {
+  height: 800px;
+}
+
 .profile-view {
   border-style: solid;
   border-color: rgb(224, 235, 235);
