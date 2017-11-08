@@ -161,7 +161,8 @@ con.connect(function(err) {
             committees varchar(255) NOT NULL default '', \ committeeCodes varchar(255) NOT NULL default '', \
             subCommitteeCodes varchar(255) NOT NULL default '', \ primarySubject varchar(255) NOT NULL default '', \
             description text NOT NULL default '', \ shortDescription text NOT NULL default '', \
-            latestMajorAction varchar(255) NOT NULL default '', \ PRIMARY KEY (id))ENGINE=INNODB;",
+            latestMajorAction varchar(255) NOT NULL default '', \ introducedDate varchar(255) NOT NULL default'',\
+			latestMajorActionDate varchar(255) NOT NULL default'',\ PRIMARY KEY (id))ENGINE=INNODB;",
   function (err, result) {
     if (err) throw err;
     console.log("Bill table created");
@@ -209,17 +210,19 @@ con.connect(function(err) {
 
         //description= (res.results[0].bills[n].summary).replace("'", "''");
         //shortDescription= (res.results[0].bills[n].summary_short).replace("'", "''");
-        //BillLatestMajorAction= (res.results[0].bills[n].latest_major_action);
+        latestMajorAction= (res.results[0].bills[n].latest_major_action);
+		introducedDate= (res.results[0].bills[n].introduced_date);
+		latestMajorActionDate= (res.results[0].bills[n].latest_major_action_date);
 
         var sql = "INSERT INTO bills(billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
                     "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,lastDate,"+
                     "housePassage,senatePassage,isEnacted,isVetoed,coSponsors,committees,committeeCodes,"+
-                    "subCommitteeCodes,primarySubject) "+
+                    "subCommitteeCodes,primarySubject,latestMajorAction,introducedDate,latestMajorActionDate) "+
                     "VALUES ('"+billID+"', '"+type+"', '"+Bnumber+"', '"+title+"', '"+sponsor+"', '"+sponsorId+"', '"
                     +sponsorState+"', '"+partyAffil+"','"+sponsorUri+"', '"+gpoPdf+"', '"+congressUrl+"', '"
                     +govtrackUrl+"', '"+isActive+"', '"+lastDate+"','"+housePassage+"', '"+senatePassage+"', '"
                     +isEnacted+"', '"+isVetoed+"', '"+coSponsors+"', '"+committees+"','"+committeeCodes+"','"
-                    +subCommitteeCodes+"', '"+primarySubject+"')";
+                    +subCommitteeCodes+"', '"+primarySubject+"', '"+latestMajorAction+"', '"+introducedDate+"', '"+latestMajorActionDate+"')";
         con.query(sql, function (err, result) {
         if (err) console.log(err);
 		
@@ -289,9 +292,7 @@ app.get('/members/:state',(req, res) => {
     if(err) {
       console.log(err);
     }
-    // Send back an array of objects
-    var membersResult = [result.length];
-    var i = 0;
+    // Send back an object
     var member = {
         photo: member.photo,
         name: member.firstName+" "+member.lastName,
@@ -301,10 +302,8 @@ app.get('/members/:state',(req, res) => {
         phone: member.phoneNum,
         position: member.position
       }
-      membersResult[i] = member;
-      i++;
     });
-    res.send({membersResult})
+    res.send(member)
   });
 });*/
 //Middleware
