@@ -69,9 +69,9 @@ con.connect(function(err) {
             id int NOT NULL AUTO_INCREMENT, \ photo varchar(255) NOT NULL default '', \
             firstName varchar(255) NOT NULL default '', \ lastName varchar(255) NOT NULL default '', \
             party varchar(255) NOT NULL default '', \ homeState varchar(255) NOT NULL default '', \
-			DoB varchar(255) NOT NULL default '', \ office varchar(255) NOT NULL default '', \
-			missedVotes int NOT NULL, \ totalVotes int NOT NULL, \
-			siteURL varchar(255) NOT NULL default '', \
+            DoB varchar(255) NOT NULL default '', \ office varchar(255) NOT NULL default '', \
+            missedVotes int NOT NULL, \ totalVotes int NOT NULL, \
+            siteURL varchar(255) NOT NULL default '', \
             phoneNum varchar(255) NOT NULL default '', \ position varchar(255) NOT NULL default '', \
             PRIMARY KEY (id))ENGINE=INNODB;",
   function (err, result) {
@@ -161,8 +161,8 @@ con.connect(function(err) {
             committees varchar(255) NOT NULL default '', \ committeeCodes varchar(255) NOT NULL default '', \
             subCommitteeCodes varchar(255) NOT NULL default '', \ primarySubject varchar(255) NOT NULL default '', \
             description text NOT NULL default '', \ shortDescription text NOT NULL default '', \
-            latestMajorAction varchar(255) NOT NULL default '', \ introducedDate varchar(255) NOT NULL default'',\
-			latestMajorActionDate varchar(255) NOT NULL default'',\ PRIMARY KEY (id))ENGINE=INNODB;",
+            latestMajorAction text NOT NULL default '', \ introducedDate varchar(255) NOT NULL default'',\
+            latestMajorActionDate varchar(255) NOT NULL default'',\ PRIMARY KEY (id))ENGINE=INNODB;",
   function (err, result) {
     if (err) throw err;
     console.log("Bill table created");
@@ -182,7 +182,7 @@ con.connect(function(err) {
 
         title= (res.results[0].bills[n].title).replace(/'/g,"''");
         //   BillSponsorTitle= (res.results[0].bills[n].sponsor_title);
-        sponsor= (res.results[0].bills[n].sponsor_name);
+        sponsor= (res.results[0].bills[n].sponsor_name).replace(/'/g,"''");
 
         sponsorId= (res.results[0].bills[n].sponsor_id);
         sponsorState= (res.results[0].bills[n].sponsor_state);
@@ -203,16 +203,17 @@ con.connect(function(err) {
         isVetoed= (res.results[0].bills[n].vetoed);
         coSponsors= (res.results[0].bills[n].cosponsors);
         committees= (res.results[0].bills[n].committees);
-
         committeeCodes= (res.results[0].bills[n].committee_codes);
         subCommitteeCodes= (res.results[0].bills[n].subcommittee_codes);
         primarySubject= (res.results[0].bills[n].primary_subject);
 
         //description= (res.results[0].bills[n].summary).replace("'", "''");
         //shortDescription= (res.results[0].bills[n].summary_short).replace("'", "''");
-        latestMajorAction= (res.results[0].bills[n].latest_major_action);
-		introducedDate= (res.results[0].bills[n].introduced_date);
-		latestMajorActionDate= (res.results[0].bills[n].latest_major_action_date);
+        latestMajorAction= (res.results[0].bills[n].latest_major_action).replace(/'/g,"''");
+        console.log(latestMajorAction);
+        introducedDate= (res.results[0].bills[n].introduced_date);
+        latestMajorActionDate= (res.results[0].bills[n].latest_major_action_date);
+    
 
         var sql = "INSERT INTO bills(billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
                     "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,lastDate,"+
