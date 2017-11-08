@@ -11,7 +11,6 @@ class View extends Component {
   }
 
 
-
   changeState(state) {
     console.log(state);
     // Fetch senator info from API
@@ -40,8 +39,9 @@ class View extends Component {
   render() {
     // Map state officialArray to an array of Profile components
     var officialComponents = this.state.officialArray.map(function(members, i) {
+			var imgURL="https://theunitedstates.io/images/congress/original/"+members.photo+".jpg";
             return  <div className="profile-image" key={i}>
-              <img src={"https://theunitedstates.io/images/congress/original/"+members.photo+".jpg"} width="90" height="110" alt="" />
+              <img src={imgURL} width="90" height="110" alt='' />
                 <p>Name: {members.name}</p>
                 <p>Party: {members.party}</p>
                 <p>Phone Number: {members.phone}</p>
@@ -125,8 +125,6 @@ class View extends Component {
     );
 
   }
-
-
 }
 
 export default View;

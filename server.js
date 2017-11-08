@@ -69,6 +69,9 @@ con.connect(function(err) {
             id int NOT NULL AUTO_INCREMENT, \ photo varchar(255) NOT NULL default '', \
             firstName varchar(255) NOT NULL default '', \ lastName varchar(255) NOT NULL default '', \
             party varchar(255) NOT NULL default '', \ homeState varchar(255) NOT NULL default '', \
+			DoB varchar(255) NOT NULL default '', \ office varchar(255) NOT NULL default '', \
+			missedVotes int NOT NULL, \ totalVotes int NOT NULL, \
+			siteURL varchar(255) NOT NULL default '', \
             phoneNum varchar(255) NOT NULL default '', \ position varchar(255) NOT NULL default '', \
             PRIMARY KEY (id))ENGINE=INNODB;",
   function (err, result) {
@@ -89,9 +92,15 @@ con.connect(function(err) {
       partyAffil= (res.results[0].members[n].party=="D") ? "Democrat" : "Republican";
       state= state_abbrev[res.results[0].members[n].state];
       phone= (res.results[0].members[n].phone);
+	  DoB= (res.results[0].members[n].date_of_birth);
+	  office= (res.results[0].members[n].office);
+	  siteURL= (res.results[0].members[n].url);
+	  missedVotes= (res.results[0].members[n].missed_votes);
+	  totalVotes= (res.results[0].members[n].total_votes);
       bioguide= (res.results[0].members[n].id);
-      var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,phoneNum,position) "
-                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+phone+"', 'House of Rep.')";
+      var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,phoneNum,position) "
+                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+DoB+"', '"
+				+office+"', '"+siteURL+"', '"+missedVotes+"', '"+totalVotes+"', '"+phone+"', 'House of Rep.')";
       con.query(sql, function (err, result) {
         if (err) console.log(err);
       });
@@ -107,14 +116,20 @@ con.connect(function(err) {
     num_members = res.results[0].num_results;
     for(var n = 0; n < num_members; n++)
     {
-      firstName= (res.results[0].members[n].first_name).replace("'", "''");
-      lastName= (res.results[0].members[n].last_name).replace("'", "''");
+      firstName= (res.results[0].members[n].first_name).replace(/'/g,"''");
+      lastName= (res.results[0].members[n].last_name).replace(/'/g,"''");
       partyAffil= (res.results[0].members[n].party=="D") ? "Democrat" : "Republican";
       state= state_abbrev[res.results[0].members[n].state];
       phone= (res.results[0].members[n].phone);
+	  DoB= (res.results[0].members[n].date_of_birth);
+	  office= (res.results[0].members[n].office);
+	  siteURL= (res.results[0].members[n].url);
+	  missedVotes= (res.results[0].members[n].missed_votes);
+	  totalVotes= (res.results[0].members[n].total_votes);
       bioguide= (res.results[0].members[n].id);
-      var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,phoneNum,position) "
-                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+phone+"', 'Senator')";
+      var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,phoneNum,position) "
+                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+DoB+"', '"
+				+office+"', '"+siteURL+"', '"+missedVotes+"', '"+totalVotes+"', '"+phone+"', 'Senator')";
       con.query(sql, function (err, result) {
         if (err) console.log(err);
       });
@@ -134,7 +149,7 @@ con.connect(function(err) {
 
   con.query("DROP TABLE IF EXISTS bills; \ CREATE TABLE bills ( \
             id int NOT NULL AUTO_INCREMENT, \ billID varchar(255) NOT NULL default '', \ type varchar(255) NOT NULL default '', \
-            Bnumber varchar(255) NOT NULL default '', \ title text NOT NULL, \
+            Bnumber varchar(255) NOT NULL default '', \ title text NOT NULL default '', \
             sponsorTitle varchar(255) NOT NULL default '', \ sponsor varchar(255) NOT NULL default '', \
             sponsorId varchar(255) NOT NULL default '', \ sponsorState varchar(255) NOT NULL default '', \
             partyAffil varchar(255) NOT NULL default '', \ sponsorUri varchar(255) NOT NULL default '', \
@@ -145,11 +160,11 @@ con.connect(function(err) {
             isVetoed varchar(255) NOT NULL default '', \ coSponsors varchar(255) NOT NULL default '', \
             committees varchar(255) NOT NULL default '', \ committeeCodes varchar(255) NOT NULL default '', \
             subCommitteeCodes varchar(255) NOT NULL default '', \ primarySubject varchar(255) NOT NULL default '', \
-            description varchar(255) NOT NULL default '', \ shortDescription varchar(255) NOT NULL default '', \
+            description text NOT NULL default '', \ shortDescription text NOT NULL default '', \
             latestMajorAction varchar(255) NOT NULL default '', \ PRIMARY KEY (id))ENGINE=INNODB;",
   function (err, result) {
     if (err) throw err;
-    console.log("Table created");
+    console.log("Bill table created");
   });
 
   client.billsRecent({
@@ -164,9 +179,9 @@ con.connect(function(err) {
         type= (res.results[0].bills[n].bill_type);
         Bnumber= (res.results[0].bills[n].number);
 
-        title= (res.results[0].bills[n].title).replace("'", "''");
+        title= (res.results[0].bills[n].title).replace(/'/g,"''");
         //   BillSponsorTitle= (res.results[0].bills[n].sponsor_title);
-        sponsor= (res.results[0].bills[n].sponsor_name).replace("'", "''");
+        sponsor= (res.results[0].bills[n].sponsor_name);
 
         sponsorId= (res.results[0].bills[n].sponsor_id);
         sponsorState= (res.results[0].bills[n].sponsor_state);
@@ -180,7 +195,7 @@ con.connect(function(err) {
         isActive= (res.results[0].bills[n].active);
         lastDate= (res.results[0].bills[n].latest_major_action_date);
 
-        housePassage= (res.results[0].bills[n].house_passage);
+        housePassage= (res.results[0].bills[n].house_passage)
         senatePassage= (res.results[0].bills[n].senate_passage);
         isEnacted= (res.results[0].bills[n].enacted);
 
@@ -192,21 +207,22 @@ con.connect(function(err) {
         subCommitteeCodes= (res.results[0].bills[n].subcommittee_codes);
         primarySubject= (res.results[0].bills[n].primary_subject);
 
-        description= (res.results[0].bills[n].summary);
-        shortDescription= (res.results[0].bills[n].summary_short);
+        //description= (res.results[0].bills[n].summary).replace("'", "''");
+        //shortDescription= (res.results[0].bills[n].summary_short).replace("'", "''");
         //BillLatestMajorAction= (res.results[0].bills[n].latest_major_action);
 
         var sql = "INSERT INTO bills(billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
                     "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,lastDate,"+
                     "housePassage,senatePassage,isEnacted,isVetoed,coSponsors,committees,committeeCodes,"+
-                    "subCommitteeCodes,primarySubject,description,shortDescription) "+
+                    "subCommitteeCodes,primarySubject) "+
                     "VALUES ('"+billID+"', '"+type+"', '"+Bnumber+"', '"+title+"', '"+sponsor+"', '"+sponsorId+"', '"
                     +sponsorState+"', '"+partyAffil+"','"+sponsorUri+"', '"+gpoPdf+"', '"+congressUrl+"', '"
                     +govtrackUrl+"', '"+isActive+"', '"+lastDate+"','"+housePassage+"', '"+senatePassage+"', '"
                     +isEnacted+"', '"+isVetoed+"', '"+coSponsors+"', '"+committees+"','"+committeeCodes+"','"
-                    +subCommitteeCodes+"', '"+primarySubject+"', '"+description+"', '"+shortDescription+"')";
+                    +subCommitteeCodes+"', '"+primarySubject+"')";
         con.query(sql, function (err, result) {
         if (err) console.log(err);
+		
       });
     }
     console.log("Bills table filled");
@@ -262,6 +278,35 @@ app.get('/members/:state',(req, res) => {
     res.send({membersResult})
   });
 });
+
+/*app.get('/members/:id',(req, res) => {
+  // Get state name from url
+  var id = req.params.id;
+
+  // QUERY DATABASE based on URL
+  var sql = "SELECT * FROM members WHERE id= '"+id+"'";
+  var query = db.query(sql, function(err, result) {
+    if(err) {
+      console.log(err);
+    }
+    // Send back an array of objects
+    var membersResult = [result.length];
+    var i = 0;
+    var member = {
+        photo: member.photo,
+        name: member.firstName+" "+member.lastName,
+        id: member.id,
+        party: member.party,
+        homeState: member.homeState,
+        phone: member.phoneNum,
+        position: member.position
+      }
+      membersResult[i] = member;
+      i++;
+    });
+    res.send({membersResult})
+  });
+});*/
 //Middleware
 
 var port = process.env.PORT || 3001;
