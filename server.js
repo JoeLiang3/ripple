@@ -1,7 +1,7 @@
 /**
 * Module dependencies.
 */
-///
+
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
@@ -210,7 +210,6 @@ con.connect(function(err) {
         //description= (res.results[0].bills[n].summary).replace("'", "''");
         //shortDescription= (res.results[0].bills[n].summary_short).replace("'", "''");
         latestMajorAction= (res.results[0].bills[n].latest_major_action).replace(/'/g,"''");
-        console.log(latestMajorAction);
         introducedDate= (res.results[0].bills[n].introduced_date);
         latestMajorActionDate= (res.results[0].bills[n].latest_major_action_date);
     
