@@ -1,0 +1,45 @@
+/* Search Bar */
+.search {
+ width: 100%;
+ position: absolute;
+ padding-top: 7px;
+ left: 75px;
+}
+/*Search Bar attributes*/
+.searchTerm {
+ float: left;
+ width: 100%;
+ border: 1px solid gray;
+ padding: 7px;
+ height: 30px;
+ border-radius: 3px;
+ outline: none;
+ color: teal;
+}
+
+.searchTerm:focus {
+ color: teal;
+}
+/*Search Button attributes*/
+.searchButton {
+ position: absolute;
+ right: -40px;
+ width: 28px;
+ height: 30px;
+ border: 1px solid gray;
+ background: white;
+ text-align: center;
+ color: white;
+ border-radius: 3px;
+ cursor: pointer;
+ font-size: 20px;
+}
+
+.wrap {               /* wrap of the searchbar*/
+ width:78%;
+ position: absolute;
+ top: 9%;
+ left: 150px;
+ display:block;
+
+}
