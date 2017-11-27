@@ -7,9 +7,9 @@ import '../App.css'
 class MainContent extends Component {
   constructor(props) {
     super(props);
-
     this.state = { page: "Feed" };
   }
+  
   render() {
     return(
       <div id="wrapper">
@@ -26,7 +26,6 @@ class MainContent extends Component {
   //   this.setState({term});
   //   this.props.OnSearchTermChange(term);
   // }
-
 }
 
 export default MainContent;

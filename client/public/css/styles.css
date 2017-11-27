@@ -53,8 +53,6 @@ svg {
 
 }
 
-
-
 .middle {
   margin: 0px 0px 0px 70px;
 }
@@ -72,10 +70,7 @@ svg {
 
 }
 
-
-
 /*Navbar*/
-
 
 a > span {
   color: white;
@@ -139,12 +134,6 @@ a > span {
 
 }
 
-
-
-
-
-
-
 .sidebar-nav {
   position: absolute;
   top: 0;
@@ -159,19 +148,11 @@ a > span {
   text-indent: 20px;
 }
 
-
-
-
-
-
 .sidebar-nav > .sidebar-brand {
   height: 65px;
   line-height: 60px;
   font-size: 18px;
 }
-
-
-
 
 .content-header {
   height: 65px;
@@ -184,9 +165,5 @@ a > span {
   line-height: 65px;
   display: inline-block;
 }
-
-
-
-
 
 /*PAGECONTENT*/

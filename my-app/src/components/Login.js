@@ -44,7 +44,6 @@ class Login extends React.Component{
     <center><img src={"https://files.slack.com/files-pri/T7HRTJLMC-F7P0FT830/ripple_logo.png"} width="40" height="50" alt="ripple logo" /></center>
 <h1> Login</h1>
 
-
         <div className="form-group6" >
             <input className="login1"
               border-radius = "0px"
@@ -56,7 +55,6 @@ class Login extends React.Component{
             />
             </div>
 
-
           <div className="form-group7">
               <input className="login2"
                 onChange= {this.onChange}
@@ -67,14 +65,12 @@ class Login extends React.Component{
               />
               </div>
 
-
                 <div className="form-group8">
                   <button className="btn2 btn-primary btn-lg">
                     <b>Login </b>
                   </button>
                 </div>
                   <div className="newlink">
-
 
                 <center><a href="SignupForm.js">New User? Click here to Sign Up!</a> </center>
                   </div>
