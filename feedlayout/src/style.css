@@ -1,0 +1,156 @@
+body {
+  font-family: 'Oxygen';
+}
+
+.profile-view {
+  border-style: solid;
+  border-color: rgb(224, 235, 235);
+  border-width: .5px;
+  margin-left: 100px;
+  padding: 20px;
+  /*display: inline-block;*/
+}
+
+.profile-image {
+  display: inline-block;
+  border-style: solid;
+  border-color: rgb(224, 235, 235);
+  border-width: .5px;
+  margin: -2px;
+  padding: 15px;
+}
+
+.state-officials {
+  height: 300px;
+}
+
+.state-name {
+  font-size: 25px;
+  margin: 0px;
+  float: left;
+  margin-left: 15px;
+}
+
+.state-header {
+  margin: 0px 0px 0px 100px;
+  background-color : #008DD5;
+  padding: 10px;
+  color: white;
+  height: 50px;
+}
+
+
+.state-container {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(224, 235, 235);
+  border-radius: 3px;
+  padding: 30px;
+
+}
+
+
+
+.middle {
+  margin: 0px 0px 0px 70px;
+}
+
+.state {
+  width: 50px;
+  display: inline-block;
+  margin: 10px;
+  background-color: rgb(232, 235, 239);
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(224, 235, 235);
+  border-radius: 3px;
+  padding: 8px;
+
+}
+
+
+
+/*Navbar*/
+
+
+a > span {
+  color: white;
+}
+
+#nav-image {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.container-fluid {
+  padding: 0px;
+}
+
+.navbar-right {
+  margin-right: 15px;
+  /*padding-top: 10px;*/
+  margin-top: 10px;
+}
+
+#signup {
+  background-color: rgb(255, 153, 153);
+  border-radius: 5px;
+  margin-right: 20px;
+  padding: 5px;
+  color: white;
+}
+
+#login {
+  /*background-color: rgb(255, 153, 153);*/
+  border-radius: 5px;
+  margin-right: 10px;
+  /*padding: -30px;*/
+  color: white;
+  padding: 5px; 
+}
+
+#signup > a {
+  color: white;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+.nav>li>a {
+  padding: 0px;
+}
+
+#wrapper {
+  margin-top: 60px;
+}
+
+
+#sidebar-wrapper {
+  margin-left: -100px;
+  left: 100px;
+  width: 100px;
+  background: #000;
+  position: fixed;
+  height: 100%;
+
+}
+
+
+
+
+
+
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  line-height: 40px;
+  text-indent: 20px;
+}
