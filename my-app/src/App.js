@@ -5,13 +5,15 @@ import SideBar from './components/sidebar';
 import Officials from './components/officials';
 import Login from './components/Login';
 import SignupForm from './components/signup';
+import Feed from './components/feed';
+
 
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { page: "Timeline" };
+    this.state = { page: "Feed" };
   }
 
   updateContentView = (View) => {
@@ -21,7 +23,9 @@ class App extends Component {
 
   render() {
     var view;
-    if(this.state.page === "Timeline") {
+    if(this.state.page === "Feed") {
+      view = <Feed />
+    } else if(this.state.page === "Timeline") {
 
       return (
         <div>
