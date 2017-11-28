@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from "./components/navbar";
 import MainContent from "./components/maincontent";
-import Timeline from "./components/timeline";
 import SideBar from './components/sidebar';
 import Officials from './components/officials';
 import Login from './components/Login';
@@ -33,7 +32,6 @@ class App extends Component {
             updateContentView={this.updateContentView}
           />
           <MainContent />
-          <Timeline />;
         </div>
       );
 
