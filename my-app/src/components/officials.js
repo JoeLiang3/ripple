@@ -40,9 +40,9 @@ class Officials extends Component {
     // Map state officialArray to an array of Profile components
     var officialComponents = this.state.officialArray.map(function(members, i) {
       return <div className="profile-image" key={i}>
-        <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
+        <img src={"https://theunitedstates.io/images/congress/original/"+members.photo+".jpg"} width="85" height="100" alt="" />
           <p>Name: {members.name}</p>
-          <p>Party: {members.party}</p>
+          <p>Position: {members.position}</p>
           <p>Phone Number: {members.phone}</p>
           <p>Party: {members.party}</p>
       </div>;

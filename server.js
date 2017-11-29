@@ -221,7 +221,6 @@ app.get('/members/:state',(req, res) => {
 			var member = {
 				photo: member.photo,
 				name: member.firstName+" "+member.lastName,
-				id: member.id,
 				party: member.party,
 				homeState: member.homeState,
 				phone: member.phoneNum,
@@ -247,7 +246,6 @@ app.get('/members/:id',(req, res) => {
 		var member = {
 				photo: member.photo,
 				name: member.firstName+" "+member.lastName,
-				id: member.id,
 				party: member.party,
 				homeState: member.homeState,
 				phone: member.phoneNum,

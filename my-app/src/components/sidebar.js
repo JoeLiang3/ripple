@@ -49,7 +49,7 @@ class SideBar extends Component {
 		              <li>
 		                <a href="#" id="overview" onClick= {(event) => this.update("officials")}>
 		                  <i className="nav-icon fa fa-signal"></i>
-		                  <span className="nav-item-label">Contact</span>
+		                  <span className="nav-item-label">Officials</span>
 		                </a>
 		              </li>
 		              <li>
