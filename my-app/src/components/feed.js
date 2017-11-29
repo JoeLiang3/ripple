@@ -7,49 +7,35 @@ class Feed extends Component {
 		this.state = { billList: [] };
 	}	
 	componentDidMount(){
-	fetch('http://localhost:3000/feed', {
-		mode: "cors",
-		headers : {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json'
-		}
-	})
-	.then( (response) => { return response.feedResult })
-	.then( (feedResult) => { 
-	//.then((response) => response.json())
-	//.then(response => {
-		this.setState({
-			// Update state
-			billList: feedResult,
-		});
-		console.log(feedResult);
-	});
+		fetch('http://localhost:3001/feed', {
+          mode: "cors",
+          headers : {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        })
+		.then((response) => response.json())
+		.then(response => {
+          console.log(response.feedResult);
+		  this.setState({
+			 billList : response.feedResult,
+		  });
+        });
+		
 	};
 		
   render() {
 	  var feedComponents = this.state.billList.map(function(bill, i) {
-      return <div className="profile-image" key={i}>
-        <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
-          <p>Name: {bill.name}</p>
-          <p>Party: {bill.party}</p>
-          <p>Phone Number: {bill.phone}</p>
-          <p>Party: {bill.party}</p>
+      return <div key={i}>
+          <p>Title: {bill.title}</p>
+          <p>Active: {bill.active}</p>
+          <p>lastActionDate: {bill.lastActionDate}</p>
+          <p>introducedDate: {bill.introducedDate}</p>
       </div>;
     });
     return(
       <div className="content-header">
-        <div className="bill-title">
-			title
-        </div>
-        <div className="bill-title">
-          Title
-        </div>
-        <div className="bill-title">
-          Title
-        </div>
-        <div className="bill-title">
-          Title
-        </div>
+		{feedComponents}
       </div>
     );
 

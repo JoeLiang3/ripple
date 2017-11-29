@@ -157,7 +157,7 @@ con.connect(function(err) {
   
   con.query("DROP TABLE IF EXISTS bills; \ CREATE TABLE bills ( \
             id int NOT NULL AUTO_INCREMENT, \ billID varchar(255) NOT NULL default '', \ type varchar(255) NOT NULL default '', \
-            Bnumber varchar(255) NOT NULL default '', \ title text NOT NULL default '', \
+            Bnumber varchar(255) NOT NULL default '', \ title text NOT NULL, \
             sponsorTitle varchar(255) NOT NULL default '', \ sponsor varchar(255) NOT NULL default '', \
             sponsorId varchar(255) NOT NULL default '', \ sponsorState varchar(255) NOT NULL default '', \
             partyAffil varchar(255) NOT NULL default '', \ sponsorUri varchar(255) NOT NULL default '', \
@@ -168,8 +168,8 @@ con.connect(function(err) {
             isVetoed varchar(255) NOT NULL default '', \ coSponsors varchar(255) NOT NULL default '', \
             committees varchar(255) NOT NULL default '', \ committeeCodes varchar(255) NOT NULL default '', \
             subCommitteeCodes varchar(255) NOT NULL default '', \ primarySubject varchar(255) NOT NULL default '', \
-            description text NOT NULL default '', \ shortDescription text NOT NULL default '', \
-            latestMajorAction text NOT NULL default '', \ introducedDate varchar(255) NOT NULL default'',\
+            description text NOT NULL, \ shortDescription text NOT NULL, \
+            latestMajorAction text NOT NULL, \ introducedDate varchar(255) NOT NULL default'',\
             latestMajorActionDate varchar(255) NOT NULL default'',\ PRIMARY KEY (id))ENGINE=INNODB;",
   function (err, result) {
     if (err) throw err;
