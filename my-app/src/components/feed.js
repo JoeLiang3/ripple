@@ -27,7 +27,7 @@ class Feed extends Component {
 	};
 		
   render() {
-	  var feedComponents = this.state.billList.map(function(bill, i) {
+	  /*var feedComponents = this.state.billList.map(function(bill, i) {
       return <div className="profile-image" key={i}>
         <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="100" height="100" alt="" />
           <p>Name: {bill.name}</p>
@@ -35,7 +35,7 @@ class Feed extends Component {
           <p>Phone Number: {bill.phone}</p>
           <p>Party: {bill.party}</p>
       </div>;
-    });
+    });*/
     return(
       <div className="content-header">
         <div className="bill-title">
