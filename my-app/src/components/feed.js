@@ -20,17 +20,17 @@ class Feed extends Component {
 		  this.setState({
 			 billList : response.feedResult,
 		  });
-        });
-		
+        });		
 	};
 		
   render() {
 	  var feedComponents = this.state.billList.map(function(bill, i) {
       return <div key={i}>
-          <p>Title: {bill.title}</p>
-          <p>Active: {bill.active}</p>
-          <p>lastActionDate: {bill.lastActionDate}</p>
-          <p>introducedDate: {bill.introducedDate}</p>
+          <p><b>Title:</b> {bill.title}</p>
+          <p><b>Still Active?:</b> {bill.active}</p>
+          <p><b>Last Date Bill Was Acted On:</b> {bill.lastActionDate}</p>
+          <p><b>Date Bill Was Introduced:</b> {bill.introducedDate}</p>
+		  <p><b>Details...</b></p>
       </div>;
     });
     return(

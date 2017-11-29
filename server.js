@@ -61,7 +61,7 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
-
+	//create the tables we need
   con.query("DROP TABLE IF EXISTS members; \ CREATE TABLE members ( \
             id int NOT NULL AUTO_INCREMENT, \ photo varchar(255) NOT NULL default '', \
             firstName varchar(255) NOT NULL default '', \ lastName varchar(255) NOT NULL default '', \
@@ -75,86 +75,6 @@ con.connect(function(err) {
     if (err) throw err;
     console.log("Members table created");
   });
-
-  client.memberLists({
-    congressNumber: '115',
-    chamber: 'house',
-    responseFormat: '.json'
-  }).then(function(res) {
-    num_members = res.results[0].num_results;
-    for(var n = 0; n < num_members; n++)
-    {
-      var member=res.results[0].members[n];
-      firstName= (member.first_name).replace("'", "''");
-      lastName= (member.last_name).replace("'", "''");
-      partyAffil= (member.party=="D") ? "Democrat" : "Republican";
-      state= state_abbrev[member.state];
-      phone= (member.phone);
-      DoB= (member.date_of_birth);
-      office= (member.office);
-      siteURL= (member.url);
-      missedVotes= (member.missed_votes);
-      totalVotes= (member.total_votes);
-      bioguide= (member.id);
-      var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,phoneNum,position) "
-                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+DoB+"', '"
-				+office+"', '"+siteURL+"', '"+missedVotes+"', '"+totalVotes+"', '"+phone+"', 'House of Rep.')";
-      con.query(sql, function (err, result) {
-        if (err) console.log(err);
-      });
-    }
-    console.log("House portion of table filled");
-  });
-
-  client.memberLists({
-    congressNumber: '115',
-    chamber: 'senate',
-    responseFormat: '.json'
-  }).then(function(res) {
-    num_members = res.results[0].num_results;
-    for(var n = 0; n < num_members; n++)
-    {
-      var member=res.results[0].members[n];
-      firstName= (member.first_name).replace(/'/g,"''");
-      lastName= (member.last_name).replace(/'/g,"''");
-      partyAffil= (member.party=="D") ? "Democrat" : "Republican";
-      state= state_abbrev[member.state];
-      phone= (member.phone);
-      DoB= (member.date_of_birth);
-      office= (member.office);
-      siteURL= (member.url);
-      missedVotes= (member.missed_votes);
-      totalVotes= (member.total_votes);
-      bioguide= (member.id);
-      var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,phoneNum,position) "
-                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+DoB+"', '"
-				+office+"', '"+siteURL+"', '"+missedVotes+"', '"+totalVotes+"', '"+phone+"', 'Senator')";
-      con.query(sql, function (err, result) {
-        if (err) console.log(err);
-      });
-    }
-    console.log("Senate portion of table filled");
-  });
-
-  con.query("CREATE TABLE IF NOT EXISTS users ( \
-            id int NOT NULL AUTO_INCREMENT, \ first_name text NOT NULL,\
-            last_name text NOT NULL, \ email text NOT NULL,\
-            user_name varchar(20) NOT NULL, \ password varchar(255) NOT NULL,\
-            PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;",
-  function (err, result) {
-    if (err) throw err;
-    console.log("User table created");
-  });
-
-  con.query("CREATE TABLE IF NOT EXISTS reviews ( \
-            id int NOT NULL AUTO_INCREMENT, \ bioguide varchar(255), \ stars int NOT NULL,\
-            voteStatus int NOT NULL, \ stance int NOT NULL,\
-            PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 ;",
-  function (err, result) {
-    if (err) throw err;
-    console.log("Reviews table created");
-  });
-  
   con.query("DROP TABLE IF EXISTS bills; \ CREATE TABLE bills ( \
             id int NOT NULL AUTO_INCREMENT, \ billID varchar(255) NOT NULL default '', \ type varchar(255) NOT NULL default '', \
             Bnumber varchar(255) NOT NULL default '', \ title text NOT NULL, \
@@ -175,65 +95,51 @@ con.connect(function(err) {
     if (err) throw err;
     console.log("Bill table created");
   });
+  con.query("CREATE TABLE IF NOT EXISTS users ( \
+            id int NOT NULL AUTO_INCREMENT, \ first_name text NOT NULL,\
+            last_name text NOT NULL, \ email text NOT NULL,\
+            user_name varchar(20) NOT NULL, \ password varchar(255) NOT NULL,\
+            PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;",
+  function (err, result) {
+    if (err) throw err;
+    console.log("User table created");
+  });
+  con.query("CREATE TABLE IF NOT EXISTS reviews ( \
+            id int NOT NULL AUTO_INCREMENT, \ bioguide varchar(255), \ stars int NOT NULL,\
+            voteStatus int NOT NULL, \ stance int NOT NULL,\
+            PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 ;",
+  function (err, result) {
+    if (err) throw err;
+    console.log("Reviews table created");
+  });
+
+  //populate members and bills tables
+  client.memberLists({
+    congressNumber: '115',
+    chamber: 'house',
+    responseFormat: '.json'
+  }).then(function(res) {addMembers(res,false);});
+
+  client.memberLists({
+    congressNumber: '115',
+    chamber: 'senate',
+    responseFormat: '.json'
+  }).then(function(res) {addMembers(res,true);});
 
   client.billsRecent({
       congressNumber: '115',
       chamber: 'house',
       bill_type:'updated'
-  }).then(function(res) {
-      num_bills = res.results[0].num_results;
-      for(var n = 0; n < num_bills; n++)
-      {
-        var bill = res.results[0].bills[n];
-        billID= (bill.bill_id);
-        type= (bill.bill_type);
-        Bnumber= (bill.number);
+  }).then(function(res){addBills(res);});
+  
+  client.billsRecent({
+      congressNumber: '115',
+      chamber: 'senate',
+      bill_type:'updated'
+  }).then(function(res){addBills(res);});
 
-        title= (bill.title).replace(/'/g,"''");
-        //   BillSponsorTitle= (bill.sponsor_title);
-        sponsor= (bill.sponsor_name).replace(/'/g,"''");
-        sponsorId= (bill.sponsor_id);
-        sponsorState= (bill.sponsor_state);
-        partyAffil= (bill.sponsor_party=="D") ? "Democrat" : "Republican";
-        sponsorUri= (bill.sponsor_uri);
-        gpoPdf= (bill.bill_gpo_pdf_uri);
-        congressUrl= (bill.sponsor_id);
-        govtrackUrl= (bill.govtrack_url);
-        isActive= (bill.active);
-        housePassage= (bill.house_passage);
-        senatePassage= (bill.senate_passage);
-        isEnacted= (bill.enacted);
-        isVetoed= (bill.vetoed);
-        coSponsors= (bill.cosponsors);
-        committees= (bill.committees);
-        committeeCodes= (bill.committee_codes);
-        subCommitteeCodes= (bill.subcommittee_codes);
-        primarySubject= (bill.primary_subject);
-        //description= (bill.summary).replace("'", "''");
-        //shortDescription= (bill.summary_short).replace("'", "''");
-        latestMajorAction= (bill.latest_major_action).replace(/'/g,"''");
-        introducedDate= (bill.introduced_date);
-        latestMajorActionDate= (bill.latest_major_action_date);
-    
-
-        var sql = "INSERT INTO bills (billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
-                    "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,"+
-                    "housePassage,senatePassage,isEnacted,isVetoed,coSponsors,committees,committeeCodes,"+
-                    "subCommitteeCodes,primarySubject,latestMajorAction,introducedDate,latestMajorActionDate) "+
-                    "VALUES ('"+billID+"', '"+type+"', '"+Bnumber+"', '"+title+"', '"+sponsor+"', '"+sponsorId+"', '"
-                    +sponsorState+"', '"+partyAffil+"','"+sponsorUri+"', '"+gpoPdf+"', '"+congressUrl+"', '"
-                    +govtrackUrl+"', '"+isActive+"', '"+housePassage+"', '"+senatePassage+"', '"
-                    +isEnacted+"', '"+isVetoed+"', '"+coSponsors+"', '"+committees+"','"+committeeCodes+"','"
-                    +subCommitteeCodes+"', '"+primarySubject+"', '"+latestMajorAction+"', '"+introducedDate+"', '"+latestMajorActionDate+"')";
-        con.query(sql, function (err, result) {
-        if (err) console.log(err);
-
-      });
-    }
-    console.log("Bills table filled");
-  });
-
-// development only
+  
+// linking front/backend
 
 app.get('/feed',(req,res) => {
   var sql="SELECT * FROM bills";
@@ -328,7 +234,86 @@ app.get('/members/:state',(req, res) => {
     res.send(member)
   });
 });*/
-//Middleware
+
+//helper functions
+function addMembers(res,isSenator){
+	num_members = res.results[0].num_results;
+	position = (isSenator==true) ? "Senator" : "House of Rep."
+    for(var n = 0; n < num_members; n++)
+    {
+      var member=res.results[0].members[n];
+      firstName= (member.first_name).replace(/'/g,"''");
+      lastName= (member.last_name).replace(/'/g,"''");
+      partyAffil= (member.party=="D") ? "Democrat" : "Republican";
+      state= state_abbrev[member.state];
+      phone= (member.phone);
+      DoB= (member.date_of_birth);
+      office= (member.office);
+      siteURL= (member.url);
+      missedVotes= (member.missed_votes);
+      totalVotes= (member.total_votes);
+      bioguide= (member.id);
+      var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,phoneNum,position) "
+                +"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+DoB+"', '"
+				+office+"', '"+siteURL+"', '"+missedVotes+"', '"+totalVotes+"', '"+phone+"', '"+position+"')";
+      con.query(sql, function (err, result) {
+        if (err) console.log(err);
+      });
+    }
+    console.log("One portion of members table filled");
+  }
+  
+function addBills(res){
+	num_bills = res.results[0].num_results;
+    for(var n = 0; n < num_bills; n++)
+    {
+		var bill = res.results[0].bills[n];
+        billID= (bill.bill_id);
+        type= (bill.bill_type);
+        Bnumber= (bill.number);
+
+        title= (bill.title).replace(/'/g,"''");
+        //   BillSponsorTitle= (bill.sponsor_title);
+        sponsor= (bill.sponsor_name).replace(/'/g,"''");
+        sponsorId= (bill.sponsor_id);
+        sponsorState= (bill.sponsor_state);
+        partyAffil= (bill.sponsor_party=="D") ? "Democrat" : "Republican";
+        sponsorUri= (bill.sponsor_uri);
+        gpoPdf= (bill.bill_gpo_pdf_uri);
+        congressUrl= (bill.sponsor_id);
+        govtrackUrl= (bill.govtrack_url);
+        isActive= ((bill.active == true) ? "Yes" : "No");
+        housePassage= (bill.house_passage);
+        senatePassage= (bill.senate_passage);
+        isEnacted= (bill.enacted);
+        isVetoed= (bill.vetoed);
+        coSponsors= (bill.cosponsors);
+        committees= (bill.committees);
+        committeeCodes= (bill.committee_codes);
+        subCommitteeCodes= (bill.subcommittee_codes);
+        primarySubject= (bill.primary_subject);
+        //description= (bill.summary).replace("'", "''");
+        //shortDescription= (bill.summary_short).replace("'", "''");
+        latestMajorAction= (bill.latest_major_action).replace(/'/g,"''");
+        introducedDate= (bill.introduced_date);
+        latestMajorActionDate= (bill.latest_major_action_date);
+    
+
+        var sql = "INSERT INTO bills (billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
+                   "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,"+
+                   "housePassage,senatePassage,isEnacted,isVetoed,coSponsors,committees,committeeCodes,"+
+                   "subCommitteeCodes,primarySubject,latestMajorAction,introducedDate,latestMajorActionDate) "+
+                   "VALUES ('"+billID+"', '"+type+"', '"+Bnumber+"', '"+title+"', '"+sponsor+"', '"+sponsorId+"', '"
+                   +sponsorState+"', '"+partyAffil+"','"+sponsorUri+"', '"+gpoPdf+"', '"+congressUrl+"', '"
+                   +govtrackUrl+"', '"+isActive+"', '"+housePassage+"', '"+senatePassage+"', '"
+                   +isEnacted+"', '"+isVetoed+"', '"+coSponsors+"', '"+committees+"','"+committeeCodes+"','"
+                   +subCommitteeCodes+"', '"+primarySubject+"', '"+latestMajorAction+"', '"+introducedDate+"', '"+latestMajorActionDate+"')";
+        con.query(sql, function (err, result) {
+        if (err) console.log(err);
+		});
+    }
+    console.log("One portion of bills table filled");
+}
 
 var port = process.env.PORT || 3001;
 app.listen(port);
