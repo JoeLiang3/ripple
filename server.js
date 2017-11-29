@@ -203,7 +203,6 @@ con.connect(function(err) {
         congressUrl= (bill.sponsor_id);
         govtrackUrl= (bill.govtrack_url);
         isActive= (bill.active);
-        lastDate= (bill.latest_major_action_date);
         housePassage= (bill.house_passage);
         senatePassage= (bill.senate_passage);
         isEnacted= (bill.enacted);
@@ -221,12 +220,12 @@ con.connect(function(err) {
     
 
         var sql = "INSERT INTO bills(billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
-                    "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,lastDate,"+
+                    "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,"+
                     "housePassage,senatePassage,isEnacted,isVetoed,coSponsors,committees,committeeCodes,"+
                     "subCommitteeCodes,primarySubject,latestMajorAction,introducedDate,latestMajorActionDate) "+
                     "VALUES ('"+billID+"', '"+type+"', '"+Bnumber+"', '"+title+"', '"+sponsor+"', '"+sponsorId+"', '"
                     +sponsorState+"', '"+partyAffil+"','"+sponsorUri+"', '"+gpoPdf+"', '"+congressUrl+"', '"
-                    +govtrackUrl+"', '"+isActive+"', '"+lastDate+"','"+housePassage+"', '"+senatePassage+"', '"
+                    +govtrackUrl+"', '"+isActive+"', '"+housePassage+"', '"+senatePassage+"', '"
                     +isEnacted+"', '"+isVetoed+"', '"+coSponsors+"', '"+committees+"','"+committeeCodes+"','"
                     +subCommitteeCodes+"', '"+primarySubject+"', '"+latestMajorAction+"', '"+introducedDate+"', '"+latestMajorActionDate+"')";
         con.query(sql, function (err, result) {
@@ -238,6 +237,30 @@ con.connect(function(err) {
   });
 
 // development only
+
+/*app.get('/bills',(req,res) => {
+  var sql="SELECT * FROM bills;
+  var query=db.query(sql,function(err,result) {
+    if(err){
+      console.log(err);
+    }
+    var billsResult = [result.length];
+    var i = 0;
+    result.forEach((bill) => {
+      var bill = {
+        id: bill.billID,
+        title: bill.title,
+        active: bill.isActive,
+        lastActionDate: bill.latestMajorActionDate,
+        introducedDate: bill.introducedDate,
+      }
+      billsResult[i] = bill;
+      i++;
+    });
+    res.send({billsResult})
+
+  });
+});*/
 
 /*app.get('/bill/:id',(req,res) => {
   var id=req.params.id;

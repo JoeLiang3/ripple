@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './feed.css';
 
 class Feed extends Component {
   constructor(props) {
@@ -8,36 +9,21 @@ class Feed extends Component {
   }
   render() {
     return(
-      <div className = "content-header">
-        <div className="poptag">
-          <div className="header">
-            <u>Popular Tags</u>
 
-            <ul>
-            <button type="button" className="btn">#Technology</button>
-            <button type="button" className="btn">#Agriculture</button>
-            <button type="button" className="btn">#HealthandSafety</button>
-            <button type="button" className="btn">#Marijuana</button>
-            <button type="button" className="btn">#TrumpTwitter</button>
-            <button type="button" className="btn">#Business</button>
-            <button type="button" className="btn">#Military</button>
-            <button type="button" className="btn">#Education</button>
-            <button type="button" className="btn">#Welfare</button>
-            </ul>
-          <div className = "trending">
-            <div className ="header">
-              Trending
-                  <a href="https://imgbb.com/"><img src="https://image.ibb.co/gjftYG/trending_icon.png" width="30" height="30" alt="trending icon" border="0" /></a>
-            </div>
-          </div>
-        <div className = "new">
-          <div className = "header">
-            New
-          </div>
+      <div className="content-header">
+        <div className="bill-title">
+          Title
         </div>
-          </div>
+        <div className="bill-title">
+          Title
         </div>
-    </div>
+        <div className="bill-title">
+          Title
+        </div>
+        <div className="bill-title">
+          Title
+        </div>
+      </div>
     );
 
   }
