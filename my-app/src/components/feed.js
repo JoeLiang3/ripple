@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './feed.css';
+//import './feed.css';
 
 class Feed extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { billList: [] };
-	}	
+	}
 	componentDidMount(){
 		fetch('http://localhost:3001/feed', {
           mode: "cors",
@@ -20,9 +20,9 @@ class Feed extends Component {
 		  this.setState({
 			 billList : response.feedResult,
 		  });
-        });		
+        });
 	};
-		
+
   render() {
 	  var feedComponents = this.state.billList.map(function(bill, i) {
       return <div key={i}>
