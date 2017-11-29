@@ -219,7 +219,7 @@ con.connect(function(err) {
         latestMajorActionDate= (bill.latest_major_action_date);
     
 
-        var sql = "INSERT INTO bills(billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
+        var sql = "INSERT INTO bills (billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
                     "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,"+
                     "housePassage,senatePassage,isEnacted,isVetoed,coSponsors,committees,committeeCodes,"+
                     "subCommitteeCodes,primarySubject,latestMajorAction,introducedDate,latestMajorActionDate) "+
@@ -238,13 +238,13 @@ con.connect(function(err) {
 
 // development only
 
-/*app.get('/bills',(req,res) => {
-  var sql="SELECT * FROM bills;
+app.get('/feed',(req,res) => {
+  var sql="SELECT * FROM bills";
   var query=db.query(sql,function(err,result) {
     if(err){
       console.log(err);
     }
-    var billsResult = [result.length];
+    var feedResult = [result.length];
     var i = 0;
     result.forEach((bill) => {
       var bill = {
@@ -252,15 +252,14 @@ con.connect(function(err) {
         title: bill.title,
         active: bill.isActive,
         lastActionDate: bill.latestMajorActionDate,
-        introducedDate: bill.introducedDate,
+        introducedDate: bill.introducedDate
       }
-      billsResult[i] = bill;
+      feedResult[i] = bill;
       i++;
     });
-    res.send({billsResult})
-
+    res.send({feedResult})
   });
-});*/
+});
 
 /*app.get('/bill/:id',(req,res) => {
   var id=req.params.id;
