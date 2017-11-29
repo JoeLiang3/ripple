@@ -19,7 +19,7 @@ componentDidMount(){
       this.setState({
          billDetails : response.billResult,
       });
-      console.log(response.membersResult);
+      console.log(response.billResult);
       });
   };
 

@@ -177,7 +177,7 @@ app.get('/bill/:id',(req,res) => {
 			number: bill.Bnumber,
 			title: bill.title,
 			sponsor: bill.sponsor,
-			spnosorId: bill.sponsorId
+			spnosorId: bill.sponsorId,
 			sponsorState: bill.sponsorState,
 			partyAffil: bill.partyAffil,
 			sponsorUri: bill.sponsorUri,
@@ -234,10 +234,9 @@ app.get('/members/:state',(req, res) => {
 	});
 });
 
-/*app.get('/members/:id',(req, res) => {
-	// Get state name from url
+app.get('/members/:id',(req, res) => {
+	// Get official id from url
 	var id = req.params.id;
-
 	// QUERY DATABASE based on URL
 	var sql = "SELECT * FROM members WHERE id= '"+id+"'";
 	var query = db.query(sql, function(err, result) {
@@ -252,12 +251,16 @@ app.get('/members/:state',(req, res) => {
 				party: member.party,
 				homeState: member.homeState,
 				phone: member.phoneNum,
-				position: member.position
+				position: member.position,
+				DoB: member.DoB,
+				office: member.office,
+				missedVotes: member.missedVotes,
+				totalVotes: member.totalVotes,
+				siteURL: member.siteURL
 			}
 		});
 		res.send(member)
 	});
-});*/
 
 //helper functions
 function addMembers(res,isSenator){
