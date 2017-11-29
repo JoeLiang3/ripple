@@ -3,9 +3,26 @@ import '../bill.css';
 class Bill extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { currentState: 'Alaska' };
+    this.state = { billDetails: [] };
   }
+
+componentDidMount(){
+   fetch('http://localhost:3001/bill', {
+      mode: "cors",
+      headers : {
+         'Content-Type': 'application/json',
+         'Accept': 'application/json'
+      }
+   })
+   .then((response) => response.json())
+   .then(response => {
+      this.setState({
+         billDetails : response.billResult,
+      });
+      console.log(response.membersResult);
+      });
+  };
+
   render() {
     return(
         <div className="content-header">
