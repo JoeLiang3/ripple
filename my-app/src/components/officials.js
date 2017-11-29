@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Datamap} from 'react-datamaps';
+import Datamap from 'react-datamaps';
 
 class Officials extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Officials extends Component {
     if (ref && ref.map) {
       ref.map.svg.selectAll('.datamaps-subunit').on('click', (label) => {
         var state = label.properties.name;
-        fetch('http://localhost:3000/members/' + state, {
+        fetch('http://localhost:3001/members/' + state, {
           mode: "cors",
           headers : {
             'Content-Type': 'application/json',
