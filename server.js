@@ -3,9 +3,6 @@
 */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , members = require('./routes/members')
   , http = require('http')
   , path = require('path');
 //var methodOverride = require('method-override');
@@ -286,6 +283,7 @@ app.get('/members/:state',(req, res) => {
     if(err) {
       console.log(err);
     }
+	console.log(result);
     // Send back an array of objects
     var membersResult = [result.length];
     var i = 0;
