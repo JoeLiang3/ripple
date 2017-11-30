@@ -25,6 +25,7 @@ class Rate extends Component {
 
   render() {
     return(
+
       <div className="wrap-header">
         //Header
         <div className="rate-header">
@@ -41,11 +42,13 @@ class Rate extends Component {
         <div className="profile-info">
           <ul>
             <li>Party:</li>
+            <li>State:</li>
+            <li>Position:</li>
+            <li>Date of Birth:</li>
+            <li>Address:</li>
             <li>Phone Number:</li>
-            <li>Twitter:</li>
-            <li>Facebook:</li>
-            <li>Youtube:</li>
-            <li>#Votes Had:</li>
+            <li>Website:</li>
+            <li>#Votes:</li>
             <li>#Votes Missed:</li>
             </ul>
         </div>
@@ -76,7 +79,6 @@ class Rate extends Component {
         </div>
 
       </div>
-
 
     );
 
