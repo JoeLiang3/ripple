@@ -44,8 +44,8 @@
 .wrap {               /* wrap of the searchbar*/
  width:78%;
  position: absolute;
- top: 9%;
- left: 150px;
+ top: 15%;
+ left: 10%;
  display:block;
 
 }

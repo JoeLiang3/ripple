@@ -12,14 +12,9 @@ class billSearch extends Component {
               <i class="fa fa-search"></i>
            </button>
          </div>
-      </div> 
-
+      </div>
     );
-
   }
-
 }
 
 export default billSearch;
-
-//FETCH FOR API
