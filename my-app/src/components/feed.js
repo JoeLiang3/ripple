@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../bill.css';
 
 class Feed extends Component {
 	constructor(props) {

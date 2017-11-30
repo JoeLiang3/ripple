@@ -1,0 +1,217 @@
+/* Start Sidebar Styles */
+.sidebar-wrapper {
+  min-width: 30px;
+  width: 15%;
+  height: 100%;
+  position: fixed; /* you can customize here */
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.sidebar-wrapper.is-stacked {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.sidebar-wrapper[aria-expanded='false'] {
+  width: 56px;
+}
+
+.sidebar-wrapper .sidebar-inner {
+  width: 100%;
+  height: inherit;
+  border-right: 1px solid #ccc;
+  background-color: #F5F6F9;
+  position: absolute;
+  top: 0;
+  bottom: auto;
+}
+
+/* sidebar body */
+.sidebar-wrapper .sidebar-inner .sidebar-body {
+  box-sizing: content-box;
+  width: 100%;
+  cursor: pointer;
+  overflow-y: auto;
+  position: absolute;
+  bottom: 40px;
+  top: 40px;
+}
+
+.sidebar-wrapper .sidebar-body .page-header {
+  margin: 30px 20px 0px 15px;
+}
+
+/* Start navigation */
+.sidebar-wrapper .sidebar-body .navgroup {
+  display: block;
+}
+
+.sidebar-wrapper .navgroup .nav-heading {
+  margin: 5px 5px 0px 0px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  padding: 6px 0;
+  color: #707070;
+}
+
+.sidebar-wrapper .navgroup .nav-2heading {
+  margin: 5px 5px 0 0px;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  padding: 18px 0;
+  color: #707070;
+}
+
+[aria-expanded='false'] .navgroup .nav-heading {
+  display: none;
+}
+
+[aria-expanded='false'] .navgroup .nav-2heading {
+  display: none;
+}
+
+.navgroup .nav-heading .assistive {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.sidebar-wrapper .navgroup .nav-heading:first-child {
+  border-top: 0;
+}
+
+.sidebar-wrapper .navgroup .nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 5px 0;
+}
+
+[aria-expanded='false'] .navgroup .nav {
+  display: block;
+  height: auto;
+}
+
+/*elements under legislation/elected officials*/
+.sidebar-wrapper .navgroup .nav li {
+  padding: 0 35px;
+}
+
+[aria-expanded='false'] .navgroup li {
+  display: block;
+}
+
+.navgroup .nav li a {
+  text-decoration: none;
+  display: block;
+  margin: 0 -15px;
+}
+
+.navgroup-vertical .nav li >a {
+  padding: 7px 10px;
+  word-wrap: break-word;
+}
+
+.navgroup-vertical .nav li a:hover,
+.navgroup-vertical .nav li a:focus {
+  background: #e6e6e6;
+}
+
+.navgroup .nav .nav-icon {
+  font-size: 18px;
+  color: #707070;
+  margin: 0 5px 0 0;
+  vertical-align: baseline;
+}
+
+/*trending tag*/
+.navgroup .nav .nav-item-label {
+  color: #89CDE8;
+}
+
+.navgroup .nav .nav-item-label:hover{
+  color: white;
+}
+.navgroup .nav .nav-item-2label {
+  color: #707070;
+}
+
+[aria-expanded='false'] .navgroup .nav .nav-item-label {
+  display: none;
+}
+/* sidebar footer */
+.sidebar-wrapper .sidebar-inner .sidebar-footer {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  min-height: 40px;
+  border-top: 1px solid #ccc;
+  padding: 5px 40px 0 9px;
+  box-sizing: border-box;
+}
+
+.is-stacked .sidebar-inner .sidebar-footer {
+  bottom: 0;
+}
+
+.sidebar-wrapper .sidebar-footer .sidebar-toggle {
+  display: block;
+  padding: 9px 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-overflow: clip;
+  white-space: normal;
+  text-align: right;
+  width: 100%;
+}
+
+[aria-expanded='false'] .sidebar-footer {
+  overflow: hidden;
+  padding: 5px 0 0 0;
+  box-sizing: border-box;
+}
+
+[aria-expanded='false'] .sidebar-footer .sidebar-toggle {
+  text-overflow: clip;
+  white-space: normal;
+  width: 25px;
+  position: relative;
+  padding: 10px 20px;
+  margin: -5px 0 0 -10px;
+  text-align: center;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+  /*side-bar-header*/
+[aria-expanded='false'] .sidebar-header .sidebar-toggle {
+    text-overflow: clip;
+    white-space: normal;
+    width: 25px;
+    position: relative;
+    padding: 10px 20px;
+    margin: -5px 0 0 -10px;
+    text-align: center;
+    -webkit-transform: rotate(180deg);
+           transform: rotate(180deg);
+  }
+
+
+
+[aria-expanded='false'] .sidebar-footer .sidebar-toggle {
+  text-overflow: clip;
+  white-space: normal;
+  width: 25px;
+  position: relative;
+  padding: 10px 20px;
+  margin: -5px 0 0 -10px;
+  text-align: center;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}

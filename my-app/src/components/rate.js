@@ -56,15 +56,14 @@ class Rate extends Component {
 
         <div className="rate-profile-info">
           <ul>
-            <li>Party: {this.state.member.party}</li>
-            <li>State: {this.state.member.homeState}</li>
-            <li>Position: {this.state.member.position}</li>
-            <li>Date of Birth: {this.state.member.DoB}</li>
-            <li>Address: {this.state.member.office}</li>
-            <li>Phone Number: {this.state.member.phone}</li>
-            <li>Website: {this.state.member.siteURL}</li>
-            <li>#Votes: {this.state.member.totalVotes}</li>
-            <li>#Votes Missed: {this.state.member.missedVotes}</li>
+            <li><b>Party:</b> {this.state.member.party}</li>
+            <li><b>State:</b> {this.state.member.homeState}</li>
+            <li><b>Position:</b> {this.state.member.position}</li>
+            <li><b>Date of Birth:</b> {this.state.member.DoB}</li>
+            <li><b>Address:</b> {this.state.member.office}</li>
+            <li><b>Phone Number:</b> {this.state.member.phone}</li>
+            <li><b>Website:</b> {this.state.member.siteURL}</li>
+            <li><b># Missed Votes / # Total Votes:</b> {this.state.member.missedVotes}/{this.state.member.totalVotes}</li>
             </ul>
         </div>
 

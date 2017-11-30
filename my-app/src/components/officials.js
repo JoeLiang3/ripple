@@ -55,11 +55,11 @@ class Officials extends Component {
       return (
          <div className="state-profile-image" key={i}>
            <img src={"https://theunitedstates.io/images/congress/original/"+members.photo+".jpg"} width="85" height="100" alt="" />
-             <p>Name: {members.name}</p>
-             <p>Position: {members.position}</p>
-             <p>Phone Number: {members.phone}</p>
-             <p>Party: {members.party}</p>
-             <button onClick={() => this.update(members.photo)}>More Details...</button>
+             <p><b>Name:</b> {members.name}</p>
+             <p><b>Position:</b> {members.position}</p>
+             <p><b>Phone Number:</b> {members.phone}</p>
+             <p><b>Party:</b> {members.party}</p>
+             <button onClick={() => this.update(members.photo)}>More Details</button>
          </div>
       );
    });
