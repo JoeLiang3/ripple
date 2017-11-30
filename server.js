@@ -215,7 +215,6 @@ app.get('/map/:state',(req, res) => {
 		if(err) {
 			console.log(err);
 		}
-	console.log(result);
 		// Send back an array of objects
 		var membersResult = [result.length];
 		var i = 0;
@@ -235,7 +234,7 @@ app.get('/map/:state',(req, res) => {
 	});
 });
 
-app.get('/map/:id',(req, res) => {
+app.get('/member/:id',(req, res) => {
 	// Get official id from url
 	var id = req.params.id;
 	// QUERY DATABASE based on URL

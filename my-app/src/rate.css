@@ -4,12 +4,12 @@
   font-family: "Times New Roman", Times, serif;
   position: absolute;
   top: 10%;
-  left: 38%;
+  left: 47%;
   width: 600px;
 }
 
 /*Profile Image*/
-.profile-image {
+.rate-profile-image {
   position: absolute;
   top: 25%;
   left: 19%;
@@ -17,7 +17,7 @@
 }
 
 /*Profile Info*/
-.profile-info {
+.rate-profile-info {
   position: absolute;
   top: 28%;
   left: 40%;
@@ -25,16 +25,16 @@
   font-family: "Times New Roman", Times, serif;
   font-size: 18px;
   width: 40%;
-  height: 45%;
+  height: 40%;
   margin: 0;
 
 }
 
 /*List Format of political info*/
-.profile-info ul {
+.rate-profile-info ul {
   list-style-type: none;
 }
-.profile-info li {
+.rate-profile-info li {
   padding-top: 15px;
 }
 
@@ -54,7 +54,7 @@
 
 .dropdown {
     position: absolute;
-    top: 560px;
+    top: 700px;
     left: 550px;
     display: inline-block;
 }
