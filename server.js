@@ -237,7 +237,7 @@ app.get('/member/:id',(req, res) => {
 	// Get official id from url
 	var id = req.params.id;
 	// QUERY DATABASE based on URL
-	var sql = "SELECT * FROM members,ratings WHERE photo='"+id+"'";
+	var sql = "SELECT * FROM members WHERE photo='"+id+"'";
 	var query = db.query(sql, function(err, result) {
 		if(err) {
 			console.log(err);
@@ -258,7 +258,7 @@ app.get('/member/:id',(req, res) => {
 				missedVotes: member.missedVotes,
 				totalVotes: member.totalVotes,
 				siteURL: member.siteURL,
-				avgRating: (ratings.totalRating/ratings.numReviews)
+				//avgRating: (ratings.totalRating/ratings.numReviews)
 			}
 		});
 		console.log(memberData);
