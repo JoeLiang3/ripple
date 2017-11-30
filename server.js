@@ -70,7 +70,6 @@ con.query("DROP TABLE IF EXISTS members; \ CREATE TABLE members ( \
 				DoB varchar(255) NOT NULL default '', \ office varchar(255) NOT NULL default '', \
 				missedVotes int NOT NULL, \ totalVotes int NOT NULL, \ siteURL varchar(255) NOT NULL default '', \
 				phoneNum varchar(255) NOT NULL default '', \ position varchar(255) NOT NULL default '', \
-				totalRating int NOT NULL default 0, \ numReviews int NOT NULL default 0, \
 				PRIMARY KEY (id))ENGINE=INNODB;",
 function (err, result) {
 	if (err) throw err;
@@ -106,8 +105,8 @@ function (err, result) {
 	console.log("User table created");
 });
 con.query("CREATE TABLE IF NOT EXISTS reviews ( \
-				id int NOT NULL AUTO_INCREMENT, \ bioguide varchar(255), \ stars int NOT NULL,\
-				voteStatus int NOT NULL, \ stance int NOT NULL,\
+				id int NOT NULL AUTO_INCREMENT, \ bioguide varchar(255), \
+				totalRating int NOT NULL,\ avgRating int NOT NULL,\
 				PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 ;",
 function (err, result) {
 	if (err) throw err;
@@ -215,7 +214,6 @@ app.get('/map/:state',(req, res) => {
 		if(err) {
 			console.log(err);
 		}
-	console.log(result);
 		// Send back an array of objects
 		var membersResult = [result.length];
 		var i = 0;
@@ -235,7 +233,7 @@ app.get('/map/:state',(req, res) => {
 	});
 });
 
-app.get('/map/:id',(req, res) => {
+app.get('/member/:id',(req, res) => {
 	// Get official id from url
 	var id = req.params.id;
 	// QUERY DATABASE based on URL

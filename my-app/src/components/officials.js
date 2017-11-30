@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import Datamap from 'react-datamaps';
-
+import Rate from './rate';
 class Officials extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentState: '',
-      officialArray: []
+      officialArray: [],
+      page: 'list',
+      member: ''
     };
   }
 
+  update(id) {
+     this.setState({
+        member: id,
+        page: 'individual'
+     });
+ }
   // Event Listening for datamap.
+
+
   addClickHandlers = (ref) => {
     if (ref && ref.map) {
       ref.map.svg.selectAll('.datamaps-subunit').on('click', (label) => {
@@ -29,7 +39,8 @@ class Officials extends Component {
             officialArray: response.membersResult,
             currentState: state,
           });
-          console.log(response.membersResult);
+          // console.log(response.membersResult);
+          console.log(this.state.officialArray);
         });
       });
     }
@@ -37,17 +48,20 @@ class Officials extends Component {
 
 
   render() {
-    // Map state officialArray to an array of Profile components
-    var officialComponents = this.state.officialArray.map(function(members, i) {
-      return <div className="profile-image" key={i}>
-        <img src={"https://theunitedstates.io/images/congress/original/"+members.photo+".jpg"} width="85" height="100" alt="" />
-          <p>Name: {members.name}</p>
-          <p>Position: {members.position}</p>
-          <p>Phone Number: {members.phone}</p>
-          <p>Party: {members.party}</p>
-      </div>;
-    });
 
+   var myArray = this.state.officialArray.map((members, i) => {
+      return (
+         <div className="profile-image" key={i}>
+           <img src={"https://theunitedstates.io/images/congress/original/"+members.photo+".jpg"} width="85" height="100" alt="" />
+             <p>Name: {members.name}</p>
+             <p>Position: {members.position}</p>
+             <p>Phone Number: {members.phone}</p>
+             <p>Party: {members.party}</p>
+             <button onClick={() => this.update(members.photo)}>More Details...</button>
+         </div>
+      );
+   });
+    if(this.state.page === "list") {
     return(
       <div id="page-content-wrapper">
         <div className="page-content-officials text-center middle">
@@ -56,12 +70,6 @@ class Officials extends Component {
               <Datamap
                 ref={this.addClickHandlers}
                 scope="usa"
-                geographyConfig={{
-                  highlightBorderColor: '#bada55',
-                  popupTemplate: (geography, data) =>
-                    `<div class='hoverinfo'>${geography.properties.name}\nElectoral Votes: ${data.electoralVotes}`,
-                  highlightBorderWidth: 3
-                }}
                 fills={{
                   'Republican': '#cc4731',
                   'Democrat': '#306596',
@@ -69,7 +77,13 @@ class Officials extends Component {
                   'Light Democrat': '#a9c0de',
                   'Heavy Republican': '#ca5e5b',
                   'Light Republican': '#eaa9a8',
-                  'defaultFill': '#eddc4e'
+                  'swing': '#8E4ACC'
+               }}
+                geographyConfig={{
+                  highlightBorderColor: '#bada55',
+                  popupTemplate: (geography, data) =>
+                    `<div class='hoverinfo'>${geography.properties.name}\nElectoral Votes: ${data.electoralVotes}`,
+                  highlightBorderWidth: 3
                 }}
                 data={{
                   AZ: {
@@ -86,7 +100,7 @@ class Officials extends Component {
                     electoralVotes: 32
                   },
                   FL: {
-                    fillKey: 'UNDECIDED',
+                    fillKey: 'swing',
                     electoralVotes: 29
                   },
                   GA: {
@@ -190,7 +204,7 @@ class Officials extends Component {
                     electoralVotes: 32
                   },
                   OH: {
-                    fillKey: 'UNDECIDED',
+                    fillKey: 'swing',
                     electoralVotes: 32
                   },
                   OK: {
@@ -286,12 +300,22 @@ class Officials extends Component {
               <div className="state-name">{this.state.currentState}</div>
             </div>
             <div className="profile-view text-center">
-              <div>{officialComponents}</div>
+              <div>
+              {myArray}
+              </div>
             </div>
           </div>
         </div>
       </div>
     );
+    }
+    else {
+      return (
+         <Rate
+         id = {this.state.member}
+         />
+      )
+   }
   }
 }
 

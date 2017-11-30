@@ -16,16 +16,26 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { page: "Feed" };
+    this.state = {
+      page: "Feed",
+      membersID: 0,
+   };
   }
 
   updateContentView = (View) => {
     this.setState({page: View});
   }
 
+  updateMembers = (id) => {
+     this.setState({membersID: id});
+     this.setState({page: "Individual"});
+
+ }
+
 
   render() {
     var view;
+
     if(this.state.page === "Feed") {
       view = <Feed />
    }
@@ -46,12 +56,15 @@ class App extends Component {
       );
 
     } else if(this.state.page === "officials") {
-      view = <Officials />
+      view = <Officials
+      updateMembers={this.updateMembers}
+      updateContentView={this.updateContentView}
+      />
     } else if(this.state.page === "login") {
       view = <Login />
     } else if(this.state.page == "signup") {
       view = <SignupForm/ >;
-    }
+   }
 
     return (
       <div>

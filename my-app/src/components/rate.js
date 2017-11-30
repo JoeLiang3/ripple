@@ -8,7 +8,7 @@ class Rate extends Component {
     super(props);
     this.state = {
       value: 0,
-      member: []
+      member: ''
     }
   }
 
@@ -23,55 +23,53 @@ class Rate extends Component {
   }
 
   componentDidMount(){
-     fetch('http://localhost:3001/member', {
+     console.log(this.props.id);
+     fetch('http://localhost:3001/member/' + this.props.id, {
          mode: "cors",
          headers : {
            'Content-Type': 'application/json',
            'Accept': 'application/json'
          }
        })
-     .then((response) => response.json())
-     .then(response => {
-         console.log(response.memberData);
-       this.setState({
-         member : response.memberData,
-       });
+       .then((response) => response.json())
+       .then(response => {
+         // console.log(response);
+         this.setState({member: response});
        });
   };
 
-
   render() {
-    var memberComponents = this.state.member.map(function(member, i) {
+     console.log(this.state.member);
     return(
       <div className="wrap-header">
         //Header
         <div className="rate-header">
           <h1>
-            [insert elected official name]
+            {this.state.member.name}
           </h1>
         </div>
 
-        //Profile Image
-        <div className="profile-image">
-          <img src={"https://theunitedstates.io/images/congress/original/"+member.photo+".jpg"} width="170" height="200" alt="" />
+
+        <div className="rate-profile-image">
+          <img src={"https://theunitedstates.io/images/congress/original/"+this.state.member.photo+".jpg"} width="170" height="200" alt="" />
         </div>
 
-        <div className="profile-info">
+        <div className="rate-profile-info">
           <ul>
-            <li>Party: {member.party}</li>
-            <li>State: {member.homeState}</li>
-            <li>Position: {member.position}</li>
-            <li>Date of Birth: {member.DoB}</li>
-            <li>Office Address: {member.office}</li>
-            <li>Phone Number: {member.phone}</li>
-            <li>Website: {member.siteURL}</li>
-            <li># of Votes: {member.totalVotes}</li>
-            <li># of Votes Missed: {member.missedVotes}</li>
+            <li>Party: {this.state.member.party}</li>
+            <li>State: {this.state.member.homeState}</li>
+            <li>Position: {this.state.member.position}</li>
+            <li>Date of Birth: {this.state.member.DoB}</li>
+            <li>Address: {this.state.member.office}</li>
+            <li>Phone Number: {this.state.member.phone}</li>
+            <li>Website: {this.state.member.siteURL}</li>
+            <li>#Votes: {this.state.member.totalVotes}</li>
+            <li>#Votes Missed: {this.state.member.missedVotes}</li>
             </ul>
         </div>
 
         <div className="rating-display">
-          Ripple Rating:
+          Ripple Rating: {this.state.member.avgRating}
         </div>
 
         <div class="dropdown">
@@ -98,7 +96,7 @@ class Rate extends Component {
       </div>
 
     );
-});
+
   }
 }
 
