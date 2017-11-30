@@ -1,17 +1,31 @@
 .content-header {
   position: absolute;
-  left: 228px;
-  top: 150px;
+  left: 17%;
+  top: 10%;
+  margin-bottom: 1%;
   right: -200px;
   width: 82%;
-  padding: 5px;
-  outline: 1px solid #ccc;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-color: 1px solid #ccc;
   border-radius: 6px;
   text-align: left;
   color: black;
   font-size: 15px;
+  border-width: .5px;
+  border-style: solid;
 }
 
 h2{
   font-size: medium
+}
+
+.bill-section {
+   border-width: 0px;
+   border-bottom-width: .5px;
+   border-color: black;
+   border-style: dashed;
+   border-radius: 6px;
+   padding-top: 10px;
+   padding-bottom: 5px;
 }

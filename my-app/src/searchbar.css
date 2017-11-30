@@ -1,14 +1,14 @@
 /* Search Bar */
 .search {
- width: 90%;
- position: absolute;
- padding-top: 25px;
- left: 75px;
+   width: 90%;
+   position: absolute;
+   padding-top: 25px;
+   left: 75px;
 }
 /*Search Bar attributes*/
 .searchTerm {
  float: left;
- width: 100%;
+ width: 90%;
  border: 1px solid #ccc;
  padding: 8px;
  height: 30px;
@@ -38,7 +38,7 @@
 
 .searchButton:hover{
   background-color:#ccc;
-  color: white; 
+  color: white;
 }
 
 .wrap {               /* wrap of the searchbar*/

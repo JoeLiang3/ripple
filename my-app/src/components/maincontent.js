@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Bill from './bill';
-import Search from './searchbar';
+import billSearch from './billSearch';
 import '../App.css'
 
 
@@ -9,11 +9,11 @@ class MainContent extends Component {
     super(props);
     this.state = { page: "Feed" };
   }
-  
+
   render() {
     return(
       <div id="wrapper">
-            <Search />
+            <billSearch />
             // Page content
 
             <Bill />

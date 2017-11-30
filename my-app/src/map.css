@@ -1,7 +1,7 @@
 /*datamap*/
 svg {
-   padding-top: 30px;
-  height : 900px;
+   margin-top: 2%;
+  height : 600px;
 
 }
 
@@ -36,7 +36,7 @@ svg {
 }
 
 .state-header {
-  margin: 0px 0px 0px 160px;
+  margin: 0px 0px 0px 13%;
   background-color : #008DD5;
   padding: 10px;
   color: white;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../bill.css';
 
 class Feed extends Component {
 	constructor(props) {
@@ -24,17 +25,17 @@ class Feed extends Component {
 
   render() {
 	  var feedComponents = this.state.billList.map(function(bill, i) {
-      return <div key={i}>
+      return <div className="bill-section" key={i}>
           <p><b>Title:</b> {bill.title}</p>
           <p><b>Still Active?:</b> {bill.active}</p>
           <p><b>Last Date Bill Was Acted On:</b> {bill.lastActionDate}</p>
           <p><b>Date Bill Was Introduced:</b> {bill.introducedDate}</p>
-		  <p><b>Details...</b></p>
+		  <p><b>More Details</b></p>
       </div>;
     });
     return(
       <div className="content-header">
-		{feedComponents}
+				{feedComponents}
       </div>
     );
 

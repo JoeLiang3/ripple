@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../App.css'
+import '../sidebar.css'
 class SideBar extends Component {
 
   update(view) {
@@ -28,7 +28,7 @@ class SideBar extends Component {
 		                </a>
 		              </li>
 		              <li>
-		                <a href="#" id="fork">
+		                <a href="#" id="fork" onClick= {(event) => this.update("billSearch")}>
 		                  <i className="nav-icon fa fa-code-fork"></i>
 		                  <span className="nav-item-label">Search Bills</span>
 		                </a>
@@ -52,22 +52,11 @@ class SideBar extends Component {
 		                </a>
 		              </li>
 		            </ul>
-		            <div className="nav-heading">
-		              <strong className="assistive">My Profile</strong>
-		            </div>
-		            <ul className="nav">
-		              <li>
-		                 <a href="#" id="settings">
-		                   <i className="nav-icon fa fa-cog"></i>
-		                   <span className="nav-item-2label">My Profile</span>
-		                 </a>
-		              </li>
-		            </ul>
 		          </div>
 		        </nav>
 		      </div>
 		      <div className="sidebar-footer">
-						<p><font size="1.5"> &ensp; &ensp; &ensp; &ensp; Made with &hearts; in Santa Cruz</font></p>
+						<p><font size="1.5"> &ensp; &ensp; &ensp; Made with &hearts; in Santa Cruz</font></p>
 		         <a className="sidebar-toggle" id="toggle">
 		           <i className="fa fa-angle-double-left"></i>
 						</a>

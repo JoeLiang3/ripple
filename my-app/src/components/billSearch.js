@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../searchbar.css';
-class Search extends Component {
 
+class billSearch extends Component {
   render() {
     return(
       <div class="wrap">
@@ -20,6 +20,6 @@ class Search extends Component {
 
 }
 
-export default Search;
+export default billSearch;
 
 //FETCH FOR API
