@@ -29,10 +29,7 @@ var con = mysql.createConnection({
 							// database : 'heroku_44af54f55baae38',
 							// multipleStatements: true
 						});
-
-
 global.db = con;
-
 // all environments
 app.use(cors());
 app.set('port', process.env.PORT || 3001);
@@ -61,82 +58,82 @@ con.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected!");
 });
-	//create the tables we need
-	con.query("DROP TABLE IF EXISTS members; \ CREATE TABLE members ( \
-						id int NOT NULL AUTO_INCREMENT, \ photo varchar(255) NOT NULL default '', \
-						firstName varchar(255) NOT NULL default '', \ lastName varchar(255) NOT NULL default '', \
-						party varchar(255) NOT NULL default '', \ homeState varchar(255) NOT NULL default '', \
-						DoB varchar(255) NOT NULL default '', \ office varchar(255) NOT NULL default '', \
-						missedVotes int NOT NULL, \ totalVotes int NOT NULL, \
-						siteURL varchar(255) NOT NULL default '', \
-						phoneNum varchar(255) NOT NULL default '', \ position varchar(255) NOT NULL default '', \
-						PRIMARY KEY (id))ENGINE=INNODB;",
-	function (err, result) {
-		if (err) throw err;
-		console.log("Members table created");
-	});
-	con.query("DROP TABLE IF EXISTS bills; \ CREATE TABLE bills ( \
-						id int NOT NULL AUTO_INCREMENT, \ billID varchar(255) NOT NULL default '', \ type varchar(255) NOT NULL default '', \
-						Bnumber varchar(255) NOT NULL default '', \ title text NOT NULL, \
-						sponsorTitle varchar(255) NOT NULL default '', \ sponsor varchar(255) NOT NULL default '', \
-						sponsorId varchar(255) NOT NULL default '', \ sponsorState varchar(255) NOT NULL default '', \
-						partyAffil varchar(255) NOT NULL default '', \ sponsorUri varchar(255) NOT NULL default '', \
-						gpoPdf varchar(255) NOT NULL default '', \ congressUrl varchar(255) NOT NULL default '', \
-						govtrackUrl varchar(255) NOT NULL default '', \ isActive varchar(255) NOT NULL default '', \
-						lastDate varchar(255) NOT NULL default '', \ housePassage varchar(255) NOT NULL default '', \
-						senatePassage varchar(255) NOT NULL default '', \ isEnacted varchar(255) NOT NULL default '', \
-						isVetoed varchar(255) NOT NULL default '', \ coSponsors varchar(255) NOT NULL default '', \
-						committees varchar(255) NOT NULL default '', \ committeeCodes varchar(255) NOT NULL default '', \
-						subCommitteeCodes varchar(255) NOT NULL default '', \ primarySubject varchar(255) NOT NULL default '', \
-						description text NOT NULL, \ shortDescription text NOT NULL, \
-						latestMajorAction text NOT NULL, \ introducedDate varchar(255) NOT NULL default'',\
-						latestMajorActionDate varchar(255) NOT NULL default'',\ PRIMARY KEY (id))ENGINE=INNODB;",
-	function (err, result) {
-		if (err) throw err;
-		console.log("Bill table created");
-	});
-	con.query("CREATE TABLE IF NOT EXISTS users ( \
-						id int NOT NULL AUTO_INCREMENT, \ first_name text NOT NULL,\
-						last_name text NOT NULL, \ email text NOT NULL,\
-						user_name varchar(20) NOT NULL, \ password varchar(255) NOT NULL,\
-						PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;",
-	function (err, result) {
-		if (err) throw err;
-		console.log("User table created");
-	});
-	con.query("CREATE TABLE IF NOT EXISTS reviews ( \
-						id int NOT NULL AUTO_INCREMENT, \ bioguide varchar(255), \ stars int NOT NULL,\
-						voteStatus int NOT NULL, \ stance int NOT NULL,\
-						PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 ;",
-	function (err, result) {
-		if (err) throw err;
-		console.log("Reviews table created");
-	});
+//create the tables we need
+con.query("DROP TABLE IF EXISTS members; \ CREATE TABLE members ( \
+				id int NOT NULL AUTO_INCREMENT, \ photo varchar(255) NOT NULL default '', \
+				firstName varchar(255) NOT NULL default '', \ lastName varchar(255) NOT NULL default '', \
+				party varchar(255) NOT NULL default '', \ homeState varchar(255) NOT NULL default '', \
+				DoB varchar(255) NOT NULL default '', \ office varchar(255) NOT NULL default '', \
+				missedVotes int NOT NULL, \ totalVotes int NOT NULL, \ siteURL varchar(255) NOT NULL default '', \
+				phoneNum varchar(255) NOT NULL default '', \ position varchar(255) NOT NULL default '', \
+				totalRating int NOT NULL default 0, \ numReviews int NOT NULL default 0, \
+				PRIMARY KEY (id))ENGINE=INNODB;",
+function (err, result) {
+	if (err) throw err;
+	console.log("Members table created");
+});
+con.query("DROP TABLE IF EXISTS bills; \ CREATE TABLE bills ( \
+				id int NOT NULL AUTO_INCREMENT, \ billID varchar(255) NOT NULL default '', \ type varchar(255) NOT NULL default '', \
+				Bnumber varchar(255) NOT NULL default '', \ title text NOT NULL, \
+				sponsorTitle varchar(255) NOT NULL default '', \ sponsor varchar(255) NOT NULL default '', \
+				sponsorId varchar(255) NOT NULL default '', \ sponsorState varchar(255) NOT NULL default '', \
+				partyAffil varchar(255) NOT NULL default '', \ sponsorUri varchar(255) NOT NULL default '', \
+				gpoPdf varchar(255) NOT NULL default '', \ congressUrl varchar(255) NOT NULL default '', \
+				govtrackUrl varchar(255) NOT NULL default '', \ isActive varchar(255) NOT NULL default '', \
+				lastDate varchar(255) NOT NULL default '', \ housePassage varchar(255) NOT NULL default '', \
+				senatePassage varchar(255) NOT NULL default '', \ isEnacted varchar(255) NOT NULL default '', \
+				isVetoed varchar(255) NOT NULL default '', \ coSponsors varchar(255) NOT NULL default '', \
+				committees varchar(255) NOT NULL default '', \ committeeCodes varchar(255) NOT NULL default '', \
+				subCommitteeCodes varchar(255) NOT NULL default '', \ primarySubject varchar(255) NOT NULL default '', \
+				description text NOT NULL, \ shortDescription text NOT NULL, \
+				latestMajorAction text NOT NULL, \ introducedDate varchar(255) NOT NULL default'',\
+				latestMajorActionDate varchar(255) NOT NULL default'',\ PRIMARY KEY (id))ENGINE=INNODB;",
+function (err, result) {
+	if (err) throw err;
+	console.log("Bill table created");
+});
+con.query("CREATE TABLE IF NOT EXISTS users ( \
+				id int NOT NULL AUTO_INCREMENT, \ first_name text NOT NULL,\
+				last_name text NOT NULL, \ email text NOT NULL,\
+				user_name varchar(20) NOT NULL, \ password varchar(255) NOT NULL,\
+				PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;",
+function (err, result) {
+	if (err) throw err;
+	console.log("User table created");
+});
+con.query("CREATE TABLE IF NOT EXISTS reviews ( \
+				id int NOT NULL AUTO_INCREMENT, \ bioguide varchar(255), \ stars int NOT NULL,\
+				voteStatus int NOT NULL, \ stance int NOT NULL,\
+				PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 ;",
+function (err, result) {
+	if (err) throw err;
+	console.log("Reviews table created");
+});
 
-	//populate members and bills tables
-	client.memberLists({
+//populate members and bills tables
+client.memberLists({
+	congressNumber: '115',
+	chamber: 'house',
+	responseFormat: '.json'
+}).then(function(res) {addMembers(res,false);});
+
+client.memberLists({
+	congressNumber: '115',
+	chamber: 'senate',
+	responseFormat: '.json'
+}).then(function(res) {addMembers(res,true);});
+
+client.billsRecent({
 		congressNumber: '115',
 		chamber: 'house',
-		responseFormat: '.json'
-	}).then(function(res) {addMembers(res,false);});
+		bill_type:'updated'
+}).then(function(res){addBills(res);});
 
-	client.memberLists({
+client.billsRecent({
 		congressNumber: '115',
 		chamber: 'senate',
-		responseFormat: '.json'
-	}).then(function(res) {addMembers(res,true);});
-
-	client.billsRecent({
-			congressNumber: '115',
-			chamber: 'house',
-			bill_type:'updated'
-	}).then(function(res){addBills(res);});
-
-	client.billsRecent({
-			congressNumber: '115',
-			chamber: 'senate',
-			bill_type:'updated'
-	}).then(function(res){addBills(res);});
+		bill_type:'updated'
+}).then(function(res){addBills(res);});
 
 
 // linking front/backend
@@ -254,7 +251,8 @@ app.get('/members/:id',(req, res) => {
 				office: member.office,
 				missedVotes: member.missedVotes,
 				totalVotes: member.totalVotes,
-				siteURL: member.siteURL
+				siteURL: member.siteURL,
+				avgRating: (member.totalRating/member.numReviews)
 			}
 		});
 		res.send(member)
