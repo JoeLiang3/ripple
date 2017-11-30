@@ -7,7 +7,8 @@ class Rate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0
+      value: 0,
+      member: []
     }
   }
 
@@ -21,11 +22,27 @@ class Rate extends Component {
     console.log(this.state.value);
   }
 
+  componentDidMount(){
+     fetch('http://localhost:3001/member', {
+         mode: "cors",
+         headers : {
+           'Content-Type': 'application/json',
+           'Accept': 'application/json'
+         }
+       })
+     .then((response) => response.json())
+     .then(response => {
+         console.log(response.memberData);
+       this.setState({
+         member : response.memberData,
+       });
+       });
+  };
 
 
   render() {
+    var memberComponents = this.state.member.map(function(member, i) {
     return(
-
       <div className="wrap-header">
         //Header
         <div className="rate-header">
@@ -36,20 +53,20 @@ class Rate extends Component {
 
         //Profile Image
         <div className="profile-image">
-          <img src={"https://image.ibb.co/jimGam/default_user_image.png"} width="200" height="200" alt="" />
+          <img src={"https://theunitedstates.io/images/congress/original/"+member.photo+".jpg"} width="170" height="200" alt="" />
         </div>
 
         <div className="profile-info">
           <ul>
-            <li>Party:</li>
-            <li>State:</li>
-            <li>Position:</li>
-            <li>Date of Birth:</li>
-            <li>Address:</li>
-            <li>Phone Number:</li>
-            <li>Website:</li>
-            <li>#Votes:</li>
-            <li>#Votes Missed:</li>
+            <li>Party: {member.party}</li>
+            <li>State: {member.homeState}</li>
+            <li>Position: {member.position}</li>
+            <li>Date of Birth: {member.DoB}</li>
+            <li>Office Address: {member.office}</li>
+            <li>Phone Number: {member.phone}</li>
+            <li>Website: {member.siteURL}</li>
+            <li># of Votes: {member.totalVotes}</li>
+            <li># of Votes Missed: {member.missedVotes}</li>
             </ul>
         </div>
 
@@ -81,7 +98,7 @@ class Rate extends Component {
       </div>
 
     );
-
+});
   }
 }
 

@@ -54,6 +54,10 @@ var state_abbrev = {
 				"RI":"Rhode Island",   "SC":"South Carolina",   "SD":"South Dakota",   "TN":"Tennessee",   "TX":"Texas",   "UT":"Utah",
 				"VT":"Vermont",   "VA":"Virginia",   "WA":"Washington",   "WV":"West Virginia",   "WI":"Wisconsin",   "WY":"Wyoming"};
 
+var billType_abbrev = {"hr":"House of Representative",	"hres":"House Simple Resolution",	"hconres":"House Concurrent Resolution",
+								"hjres":"House Joint Resolution",	"s":"Senate","sres":"Senate Simple Resolution",
+								"sconres":"Senate Concurrent Resolution",	"sjres":"Senate Joint Resolution"};
+
 con.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected!");
@@ -77,7 +81,7 @@ con.query("DROP TABLE IF EXISTS bills; \ CREATE TABLE bills ( \
 				Bnumber varchar(255) NOT NULL default '', \ title text NOT NULL, \
 				sponsorTitle varchar(255) NOT NULL default '', \ sponsor varchar(255) NOT NULL default '', \
 				sponsorId varchar(255) NOT NULL default '', \ sponsorState varchar(255) NOT NULL default '', \
-				partyAffil varchar(255) NOT NULL default '', \ sponsorUri varchar(255) NOT NULL default '', \
+				partyAffil varchar(255) NOT NULL default '', \
 				gpoPdf varchar(255) NOT NULL default '', \ congressUrl varchar(255) NOT NULL default '', \
 				govtrackUrl varchar(255) NOT NULL default '', \ isActive varchar(255) NOT NULL default '', \
 				lastDate varchar(255) NOT NULL default '', \ housePassage varchar(255) NOT NULL default '', \
@@ -163,44 +167,45 @@ app.get('/feed',(req,res) => {
 
 app.get('/bill/:id',(req,res) => {
 	var id=req.params.id;
-	var sql="SELECT * FROM bills WHERE billID= '"+id+"'";
+	var sql="SELECT * FROM bills WHERE billID='"+id+"'";
 	var query=db.query(sql,function(err,result) {
 		if(err){
 			console.log(err);
 		}
-		var billResult = {
-			id: bill.billID,
-			type: bill.type,
-			number: bill.Bnumber,
-			title: bill.title,
-			sponsor: bill.sponsor,
-			spnosorId: bill.sponsorId,
-			sponsorState: bill.sponsorState,
-			partyAffil: bill.partyAffil,
-			sponsorUri: bill.sponsorUri,
-			gpoPdf: bill.gpoPdf,
-			congressUrl: bill.congressUrl,
-			govtrackUrl: bill.govtrackUrl,
-			housePassage: bill.housePassage,
-			senatePassage: bill.senatePassage,
-			isEnacted: bill.isEnacted,
-			isVetoed: bill.isVetoed,
-			coSponsors: bill.coSponsors,
-			committees: bill.committees,
-			committeeCodes: bill.committeeCodes,
-			subCommitteeCodes: bill.subCommitteeCodes,
-			primarySubject: bill.primarySubject,
-			latestMajorAction: bill.latestMajorAction,
-			active: bill.isActive,
-			lastActionDate: bill.latestMajorActionDate,
-			introducedDate: bill.introducedDate
-		}
+		var billResult;
+		result.forEach((bill) => {
+			billResult = {
+				id: bill.billID,
+				type: bill.type,
+				number: bill.Bnumber,
+				title: bill.title,
+				sponsor: bill.sponsor,
+				sponsorId: bill.sponsorId,
+				sponsorState: bill.sponsorState,
+				partyAffil: bill.partyAffil,
+				//gpoPdf: bill.gpoPdf,
+				congressUrl: bill.congressUrl,
+				govtrackUrl: bill.govtrackUrl,
+				housePassage: bill.housePassage,
+				senatePassage: bill.senatePassage,
+				isEnacted: bill.isEnacted,
+				isVetoed: bill.isVetoed,
+				coSponsors: bill.coSponsors,
+				committees: bill.committees,
+				committeeCodes: bill.committeeCodes,
+				subCommitteeCodes: bill.subCommitteeCodes,
+				primarySubject: bill.primarySubject,
+				latestMajorAction: bill.latestMajorAction,
+				active: bill.isActive,
+				lastActionDate: bill.latestMajorActionDate,
+				introducedDate: bill.introducedDate
+			}
+		});
 		res.send({billResult});
-
 	});
 });
 
-app.get('/members/:state',(req, res) => {
+app.get('/map/:state',(req, res) => {
 	// Get state name from url
 	var state = req.params.state;
 
@@ -230,17 +235,20 @@ app.get('/members/:state',(req, res) => {
 	});
 });
 
-app.get('/members/:id',(req, res) => {
+app.get('/map/:id',(req, res) => {
 	// Get official id from url
 	var id = req.params.id;
 	// QUERY DATABASE based on URL
-	var sql = "SELECT * FROM members WHERE id= '"+id+"'";
+	var sql = "SELECT * FROM members WHERE photo='"+id+"'";
 	var query = db.query(sql, function(err, result) {
 		if(err) {
 			console.log(err);
 		}
+		console.log(result);
 		// Send back an object
-		var member = {
+		var memberData;
+		result.forEach((member) => {
+			memberData={
 				photo: member.photo,
 				name: member.firstName+" "+member.lastName,
 				party: member.party,
@@ -255,7 +263,9 @@ app.get('/members/:id',(req, res) => {
 				avgRating: (member.totalRating/member.numReviews)
 			}
 		});
-		res.send(member)
+		console.log(memberData);
+		res.send(memberData)
+		});
 	});
 
 //helper functions
@@ -292,7 +302,7 @@ function addBills(res){
 		{
 		var bill = res.results[0].bills[n];
 				billID= (bill.bill_id);
-				type= (bill.bill_type);
+				type= (billType_abbrev[bill.bill_type]);
 				Bnumber= (bill.number);
 
 				title= (bill.title).replace(/'/g,"''");
@@ -301,7 +311,6 @@ function addBills(res){
 				sponsorId= (bill.sponsor_id);
 				sponsorState= (bill.sponsor_state);
 				partyAffil= (bill.sponsor_party=="D") ? "Democrat" : "Republican";
-				sponsorUri= (bill.sponsor_uri);
 				gpoPdf= (bill.bill_gpo_pdf_uri);
 				congressUrl= (bill.sponsor_id);
 				govtrackUrl= (bill.govtrack_url);
@@ -323,11 +332,11 @@ function addBills(res){
 
 
 				var sql = "INSERT INTO bills (billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
-									 "partyAffil,sponsorUri,gpoPdf,congressUrl,govtrackUrl,isActive,"+
+									 "partyAffil,gpoPdf,congressUrl,govtrackUrl,isActive,"+
 									 "housePassage,senatePassage,isEnacted,isVetoed,coSponsors,committees,committeeCodes,"+
 									 "subCommitteeCodes,primarySubject,latestMajorAction,introducedDate,latestMajorActionDate) "+
 									 "VALUES ('"+billID+"', '"+type+"', '"+Bnumber+"', '"+title+"', '"+sponsor+"', '"+sponsorId+"', '"
-									 +sponsorState+"', '"+partyAffil+"','"+sponsorUri+"', '"+gpoPdf+"', '"+congressUrl+"', '"
+									 +sponsorState+"', '"+partyAffil+"', '"+gpoPdf+"', '"+congressUrl+"', '"
 									 +govtrackUrl+"', '"+isActive+"', '"+housePassage+"', '"+senatePassage+"', '"
 									 +isEnacted+"', '"+isVetoed+"', '"+coSponsors+"', '"+committees+"','"+committeeCodes+"','"
 									 +subCommitteeCodes+"', '"+primarySubject+"', '"+latestMajorAction+"', '"+introducedDate+"', '"+latestMajorActionDate+"')";

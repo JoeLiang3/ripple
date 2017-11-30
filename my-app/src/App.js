@@ -6,6 +6,7 @@ import Officials from './components/officials';
 import Login from './components/Login';
 import SignupForm from './components/signup';
 import Feed from './components/feed';
+import Bill from './components/bill';
 import './App.css';
 
 
@@ -27,6 +28,9 @@ class App extends Component {
     var view;
     if(this.state.page === "Feed") {
       view = <Feed />
+   }
+    else if(this.state.page === "Bill") {
+      view = <Bill />
     } else if(this.state.page === "Timeline") {
 
       return (
