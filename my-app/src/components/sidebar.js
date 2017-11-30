@@ -18,7 +18,7 @@ class SideBar extends Component {
 		        <nav className="navgroup navgroup-vertical">
 		          <div className="navgroup-inner">
 		            <div className="nav-heading">
-		              <strong>Feed</strong>
+		              <strong> &ensp; &ensp; Feed</strong>
 		            </div>
 		            <ul className="nav" id="actions">
 		              <li>
@@ -30,7 +30,6 @@ class SideBar extends Component {
 		              <li>
 		                <a href="#" id="fork">
 		                  <i className="nav-icon fa fa-code-fork"></i>
-											  &nbsp;&nbsp;
 		                  <span className="nav-item-label">New</span>
 		                </a>
 		              </li>
@@ -42,14 +41,14 @@ class SideBar extends Component {
 		              </li>
 		            </ul>
 
-		            <div className="nav-heading">
-		              <strong>Review</strong>
+		            <div className="nav-2heading">
+		              <strong> &ensp; &ensp; Review</strong>
 		            </div>
 		            <ul className="nav" id="navigation">
 		              <li>
-		                <a href="#" id="overview" onClick= {(event) => this.update("officials")}>
-		                  <i className="nav-icon fa fa-signal"></i>
-		                  <span className="nav-item-label">Officials</span>
+		                  <a href="#" id="overview" onClick= {(event) => this.update("officials")}>
+		                    <i className="nav-icon fa fa-signal"></i>
+		                    <span className="nav-item-label">Officials</span>
 		                </a>
 		              </li>
 		              <li>
@@ -66,7 +65,7 @@ class SideBar extends Component {
 		              <li>
 		                 <a href="#" id="settings">
 		                   <i className="nav-icon fa fa-cog"></i>
-		                   <span className="nav-item-label">My Profile</span>
+		                   <span className="nav-item-2label">My Profile</span>
 		                 </a>
 		              </li>
 		            </ul>
@@ -74,7 +73,7 @@ class SideBar extends Component {
 		        </nav>
 		      </div>
 		      <div className="sidebar-footer">
-						<p><font size="1.5">Made with &hearts; in Santa Cruz</font></p>
+						<p><font size="1.5"> &ensp; &ensp; &ensp; &ensp; Made with &hearts; in Santa Cruz</font></p>
 		         <a className="sidebar-toggle" id="toggle">
 		           <i className="fa fa-angle-double-left"></i>
 						</a>
