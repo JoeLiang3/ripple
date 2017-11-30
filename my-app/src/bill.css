@@ -1,12 +1,17 @@
 .content-header {
   position: absolute;
-  left: 250px;
+  left: 228px;
   top: 150px;
   right: -200px;
-  width: 1300px;
+  width: 82%;
   padding: 5px;
-  outline: 3px solid grey;
+  outline: 1px solid #ccc;
+  border-radius: 6px;
   text-align: left;
-  color: teal;
+  color: black;
   font-size: 15px;
+}
+
+h2{
+  font-size: medium
 }

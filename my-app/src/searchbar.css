@@ -1,38 +1,44 @@
 /* Search Bar */
 .search {
- width: 100%;
+ width: 90%;
  position: absolute;
- padding-top: 7px;
+ padding-top: 25px;
  left: 75px;
 }
 /*Search Bar attributes*/
 .searchTerm {
  float: left;
  width: 100%;
- border: 1px solid gray;
- padding: 7px;
+ border: 1px solid #ccc;
+ padding: 8px;
  height: 30px;
- border-radius: 3px;
+ border-radius: 4px;
  outline: none;
- color: teal;
+ color: #ccc;
 }
 
 .searchTerm:focus {
- color: teal;
+ color: black;
 }
 /*Search Button attributes*/
 .searchButton {
  position: absolute;
- right: -40px;
- width: 28px;
+ right: -110px;
+ width: 100px;
  height: 30px;
- border: 1px solid gray;
+ line-height: 1.8;
+ border: 1px solid #ccc;
  background: white;
+ color: gray;
  text-align: center;
- color: white;
- border-radius: 3px;
+ border-radius: 6px;
  cursor: pointer;
- font-size: 20px;
+ font-size: 15px;
+}
+
+.searchButton:hover{
+  background-color:#ccc;
+  color: white; 
 }
 
 .wrap {               /* wrap of the searchbar*/
