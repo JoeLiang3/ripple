@@ -104,9 +104,9 @@ function (err, result) {
 	if (err) throw err;
 	console.log("User table created");
 });
-con.query("CREATE TABLE IF NOT EXISTS reviews ( \
-				id int NOT NULL AUTO_INCREMENT, \ bioguide varchar(255), \
-				totalRating int NOT NULL,\ avgRating int NOT NULL,\
+con.query("CREATE TABLE IF NOT EXISTS ratings ( \
+				id int NOT NULL AUTO_INCREMENT, \ photo varchar(255), \
+				totalRating int NOT NULL,\ numReviews int NOT NULL,\
 				PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 ;",
 function (err, result) {
 	if (err) throw err;
@@ -237,7 +237,7 @@ app.get('/member/:id',(req, res) => {
 	// Get official id from url
 	var id = req.params.id;
 	// QUERY DATABASE based on URL
-	var sql = "SELECT * FROM members WHERE photo='"+id+"'";
+	var sql = "SELECT * FROM members,ratings WHERE photo='"+id+"'";
 	var query = db.query(sql, function(err, result) {
 		if(err) {
 			console.log(err);
@@ -258,7 +258,7 @@ app.get('/member/:id',(req, res) => {
 				missedVotes: member.missedVotes,
 				totalVotes: member.totalVotes,
 				siteURL: member.siteURL,
-				avgRating: (member.totalRating/member.numReviews)
+				avgRating: (ratings.totalRating/ratings.numReviews)
 			}
 		});
 		console.log(memberData);
