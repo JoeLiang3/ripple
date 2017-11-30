@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Datamap from 'react-datamaps';
 import Rate from './rate';
+import '../map.css';
+
 class Officials extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +53,7 @@ class Officials extends Component {
 
    var myArray = this.state.officialArray.map((members, i) => {
       return (
-         <div className="profile-image" key={i}>
+         <div className="state-profile-image" key={i}>
            <img src={"https://theunitedstates.io/images/congress/original/"+members.photo+".jpg"} width="85" height="100" alt="" />
              <p>Name: {members.name}</p>
              <p>Position: {members.position}</p>
@@ -64,7 +66,7 @@ class Officials extends Component {
     if(this.state.page === "list") {
     return(
       <div id="page-content-wrapper">
-        <div className="page-content-officials text-center middle">
+        <div className="page-content-officials text-center state-middle">
           <div className="state-container">
             <div label="label">
               <Datamap
@@ -294,12 +296,12 @@ class Officials extends Component {
 
           </div>
         </div>
-        <div className="page-content-names">
+        <div className="state-page-content-names">
           <div className="state-officials">
             <div className="state-header text-center">
               <div className="state-name">{this.state.currentState}</div>
             </div>
-            <div className="profile-view text-center">
+            <div className="state-profile-view text-center">
               <div>
               {myArray}
               </div>

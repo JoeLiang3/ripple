@@ -18,43 +18,37 @@ class SideBar extends Component {
 		        <nav className="navgroup navgroup-vertical">
 		          <div className="navgroup-inner">
 		            <div className="nav-heading">
-		              <strong> &ensp; &ensp; Feed</strong>
+		              <strong> &ensp; &ensp; Legislation</strong>
 		            </div>
 		            <ul className="nav" id="actions">
 		              <li>
-		                <a href="#" id="download">
+		                <a href="#" id="overview" onClick= {(event) => this.update("Feed")}>
 		                  <i className="nav-icon fa fa-download"></i>
-		                  <span className="nav-item-label">Trending</span>
+		                  <span className="nav-item-label">Feed</span>
 		                </a>
 		              </li>
 		              <li>
 		                <a href="#" id="fork">
 		                  <i className="nav-icon fa fa-code-fork"></i>
-		                  <span className="nav-item-label">New</span>
-		                </a>
-		              </li>
-		              <li>
-		                <a href="#" id="pull" onClick= {(event) => this.update("Timeline")}>
-		                  <i className="nav-icon fa fa-cloud-upload"></i>
-		                  <span className="nav-item-label">Explore</span>
+		                  <span className="nav-item-label">Search Bills</span>
 		                </a>
 		              </li>
 		            </ul>
 
 		            <div className="nav-2heading">
-		              <strong> &ensp; &ensp; Review</strong>
+		              <strong> &ensp; &ensp; Elected Officials</strong>
 		            </div>
 		            <ul className="nav" id="navigation">
 		              <li>
 		                  <a href="#" id="overview" onClick= {(event) => this.update("officials")}>
 		                    <i className="nav-icon fa fa-signal"></i>
-		                    <span className="nav-item-label">Officials</span>
+		                    <span className="nav-item-label">Officials Map</span>
 		                </a>
 		              </li>
 		              <li>
 		                <a href="#">
 		                  <i className="nav-icon fa fa-file-text-o"></i>
-		                  <span className="nav-item-label">Rate</span>
+		                  <span className="nav-item-label">Search Officials</span>
 		                </a>
 		              </li>
 		            </ul>
