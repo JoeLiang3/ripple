@@ -69,20 +69,25 @@ class Rate extends Component {
             <li><b>Website:</b> {this.state.member.siteURL}</li>
             <li><b># Missed Votes / # Total Votes:</b> {this.state.member.missedVotes}/{this.state.member.totalVotes}</li>
             <li><b>Next Election Year:</b> {this.state.member.nextElection}</li>
-            <li><b>Facebook Account:</b> {this.state.member.facebook}</li>
-            <li><b>YouTube Account:</b> {this.state.member.youtube}</li>
-            <li><b>Twitter Account:</b> {this.state.member.twitter}</li>
             <li><b>Contact Form:</b> {this.state.member.contactForm}</li>
-            </ul>
+          </ul>
+        </div>
+
+        <div className="socialmedia">
+        <ul>
+          <li> <img src="https://cdn.worldvectorlogo.com/logos/facebook-4.svg" alt="Facebook:" />{this.state.member.facebook}</li>
+          <li><img src="https://cdn.worldvectorlogo.com/logos/twitter-4.svg" alt="Twitter:" /> {this.state.member.twitter}</li>
+          <li><img src="https://seeklogo.com/images/Y/youtube-logo-FF3BEE4378-seeklogo.com.png" alt="Youtube:" /> {this.state.member.youtube}</li>
+        </ul>
         </div>
 
         <div className="rating-display">
           Ripple Rating: {this.state.member.avgRating}
         </div>
 
-        <div class="dropdown">
-          <button class="dropbtn">Rate Here</button>
-          <div class="dropdown-content">
+        <div className="dropdown">
+          <button className="dropbtn">Rate Here</button>
+          <div className="dropdown-content">
 
         <div onChange={this.setRating.bind(this)}>
             <fieldset className="rating">

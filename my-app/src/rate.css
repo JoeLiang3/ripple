@@ -1,7 +1,7 @@
 /*Header*/
 .rate-header {
   font-size: 20px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   position: absolute;
   top: 10%;
   left: 50%;
@@ -19,10 +19,9 @@
 /*Profile Info*/
 .rate-profile-info {
   position: absolute;
-  top: 28%;
+  top: 23%;
   left: 40%;
-  border: 1px solid black;
-  font-family: "Times New Roman", Times, serif;
+  font-style: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
   width: 40%;
   height: 50%;
@@ -38,6 +37,27 @@
   padding-top: 15px;
 }
 
+.socialmedia {
+  position: absolute;
+  top: 25%;
+  left: 60%;
+  font-style: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  width: 40%;
+  height: 50%;
+  margin: 0;
+}
+
+.socialmedia ul img {
+  width: 20px;
+  height: 20px;
+
+}
+
+.socialmedia ul {
+  list-style-type: none;
+}
+
 /*Rating of Elected Official*/
 .rating-display {
   position: absolute;
@@ -46,16 +66,15 @@
   height: 50px;
   width: 215px;
   border: none;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 22px;
-  font-style: italic;
 }
 
 
 .dropdown {
     position: absolute;
-    top: 700px;
-    left: 550px;
+    top: 510px;
+    left: 260px;
     display: inline-block;
 }
 
@@ -67,14 +86,14 @@
     border: none;
     cursor: pointer;
     font-family: "Times New Roman", Times, serif;
-    width: 300px;
+    font-size: 20px;
     text-align: center;
 }
 
 .dropdown-content {
     display: none;
     position: relative;
-    left: -200px;
+    left: -295px;
     width: 400px;
     height: 60px;
     background-color: white;
@@ -101,7 +120,7 @@
 
 /*Star Rating*/
 .rating {
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .rating > input { display: none; }
@@ -133,13 +152,14 @@
   color: white;
   padding: 10px;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: 12px;
+  font-size: 10px;
   margin: 4px 2px;
   cursor: pointer;
   display: inline-block;
   position: absolute;
   left: 405px;
-  top: 5px;
+  top: 4px;
+  font-size: 8px;
+
 }
