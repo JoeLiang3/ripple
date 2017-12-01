@@ -4,9 +4,9 @@
   font-family: "Times New Roman", Times, serif;
   position: absolute;
   top: 10%;
-  left: 47%;
-  width: 600px;
+  left: 50%;
 }
+
 
 /*Profile Image*/
 .rate-profile-image {
@@ -25,7 +25,7 @@
   font-family: "Times New Roman", Times, serif;
   font-size: 18px;
   width: 40%;
-  height: 40%;
+  height: 50%;
   margin: 0;
 
 }

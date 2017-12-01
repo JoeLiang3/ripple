@@ -12,6 +12,7 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.16.1",
+    "bootstrap": "^4.0.0-beta.2",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.1",
     "debug": "^2.2.0",
@@ -25,7 +26,11 @@
     "mysql": "^2.13.0",
     "nodemon": "^1.12.1",
     "propublica-congress-node": "^0.1.2",
+    "react": "^16.2.0",
+    "react-bootstrap": "^0.31.5",
     "react-datamaps": "^0.4.0",
+    "react-dom": "^16.2.0",
+    "reactstrap": "^5.0.0-alpha.4",
     "req-flash": "0.0.3",
     "request": "^2.83.0",
     "serve-favicon": "~2.3.0"

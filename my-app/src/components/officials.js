@@ -59,7 +59,7 @@ class Officials extends Component {
              <p><b>Position:</b> {members.position}</p>
              <p><b>Phone Number:</b> {members.phone}</p>
              <p><b>Party:</b> {members.party}</p>
-             <button onClick={() => this.update(members.photo)}>More Details</button>
+             <button type="button" class="btn btn-primary" onClick={() => this.update(members.photo)}>More Details</button>
          </div>
       );
    });
