@@ -11,19 +11,7 @@
 background-color: white;
 }
 
-/*top navbar setup*/
-.topnav a {
- float: right;
- display: inline;
- color: black;
- text-align: center;
- padding: 14px;
- text-decoration: none;
- font-size: 17px;
- background-color: white;
-}
 
-/*Joe's Nav-bar CSS*/
 /*Navbar*/
 
 
@@ -62,23 +50,4 @@ a > span {
 
 #wrapper {
   margin-top: 60px;
-}
-
-/*end of Joe's shit/
-
-/*hover turn gray*/
-/*.topnav a{*/
- /*background-color: #ffffff;*/
- /*border-bottom: 1px solid #ccc;*/
-/*}*/
-
-.navbar-default {
-  min-height:20px;
-  background-color: white;
- }
-
-/*Sign Up is red*/
-.topnav a.active {
-   background-color: tomato;
-   color: white;
 }
