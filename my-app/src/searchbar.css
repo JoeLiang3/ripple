@@ -1,27 +1,41 @@
 /* Search Bar */
 
-.search {
-   width: 90%;
-   position: absolute;
-   padding-top: 25px;
-   left: 75px;
-}
-/*Search Bar attributes*/
-.searchTerm {
- float: left;
- width: 90%;
- border: 1px solid #ccc;
- padding: 8px;
- height: 30px;
- border-radius: 4px;
- outline: none;
- color: #ccc;
+.searching{
+color: #77D0F9;
+margin-left: 17%;
+margin-top: 7%;
+margin-right: 0%;
+width: 50%;
+font-size: 18px;
+position: fixed;
 }
 
-.searchTerm:focus {
- color: black;
+.SearchButton{
+   margin-left: 50%;
+   margin-top: -2.6%;
+   margin-right: 0%;
+   float:right;
+   color: white;
+   height: 4%;
+   width: 5%;
+   background-color: #77D0F9;
+   font-size: ="2";
+   display: inline;
+   backface-visibility: hidden;
+   border-width:2px;
+   border-radius: 8px;
+   font-size: 15px;
+   text-align: center;
+   position:fixed;
 }
-/*Search Button attributes*/
+
+.SearchButton:hover {
+    background-color: #65B0D2;
+    color: white;
+}
+
+
+/*Search Button attributes*//*
 .searchButton {
  position: absolute;
  right: 110px;
@@ -40,68 +54,4 @@
 .searchButton:hover{
   background-color:#ccc;
   color: white;
-}
-
-.wrap {               /* wrap of the searchbar*/
- width:78%;
- position: absolute;
- top: 15%;
- left: 10%;
- display:block;
-
-}
-
-form{
-position: left;
-left: 40%;
-right: 40%;
-width: 50%;
-
-}
-
-input:focus {outline:0;}
-
-
-.searching{
-color: #77D0F9;
-padding-right: 5px;
-padding-top: 15%;
-margin-left: 40%;
-margin-top: 0%;
-margin-right: 60%;
-width: 80%;
-}
-
-.SearchButton{
-  padding-right: 5px;
-  position: left;
-  margin-left: 40%;
-  margin-right: 40%;
-  margin-top: 1%;
-  top: 50%;
-  width:100%
-
-}
-
-.btn{
-    font-size: ="2";
-    display: inline;
-    border-radius: 150px;
-    backface-visibility: hidden;
-    background-color: Transparent;
-    border: 2px solid #77D0F9 ;
-    border-width:3px;
-    color: #77D0F9;
-    padding: 20px 80px;
-    text-align: center;
-    text-decoration: black;
-    font-size: 16px;
-    transition: padding 1s;
-}
-
-.btn:hover {
-    background-color: #77D0F9;
-    color: white;
-    padding: 1% 66% 1% 5%;
-}
-.btn:focus {outline:0;}
+}*/

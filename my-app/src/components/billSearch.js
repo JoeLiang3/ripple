@@ -5,8 +5,9 @@ class BillSearch extends Component {
   constructor(props){
       super(props);
       this.state = {
-        search: '',
-      }
+        searcher: '',
+        billList: []
+     };
   this.onChange = this.onChange.bind(this);
   this.onSubmit = this.onSubmit.bind(this);
 }
@@ -30,18 +31,13 @@ onSubmit(e) {
           <input
             onChange= {this.onChange}
             value={this.state.search}
-            placeholder="Bernie Sanders, Healthcare, etc..."
+            placeholder="Type keywords for any bills..."
             type="text"
-            name="search"
+            name="searcher"
             className="form-control"
           />
-          </div>
-
-          <div className="SearchButton">
-      <button className="btn btn-primary btn-lg">
-        <b>Search </b>
-      </button>
-    </div>
+          <button type="button" class="SearchButton"><b>Search</b></button>
+      </div>
 
       </form>
 

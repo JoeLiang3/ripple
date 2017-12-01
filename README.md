@@ -4,7 +4,7 @@ Client currently runs on locahost:3000
 Server currently runs on localhost:3001
 
 # Running Instructions:
-Run "npm install" in ripple folder and my-app folder
+Run "npm install" in ripple folder and my-app folder if package.json files have been changed
 Type "npm start" in terminal to run server and my-app concurrently
 
 # First Time Users:
