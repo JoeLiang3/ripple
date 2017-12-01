@@ -7,7 +7,12 @@ import Login from './components/Login';
 import SignupForm from './components/signup';
 import Feed from './components/feed';
 import Bill from './components/bill';
+<<<<<<< HEAD
 import BillSearch from './components/billSearch';
+=======
+import billSearch from './components/billSearch';
+import memberSearch from './components/memberSearch';
+>>>>>>> 131b5c63d1df30bbd32a23a52728713b3787c747
 import Rate from './components/rate';
 import './App.css';
 
@@ -50,6 +55,10 @@ class App extends Component {
    }
    else if(this.state.page === "billSearch"){
       view=<BillSearch
+      />
+   }
+   else if(this.state.page === "memberSearch"){
+      view=<memberSearch
       />
    }
    else if(this.state.page === "billPage"){

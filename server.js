@@ -1,11 +1,9 @@
 /**
 * Module dependencies.
 */
-
 var express = require('express')
 	, http = require('http')
 	, path = require('path');
-//var methodOverride = require('method-override');
 var session = require('express-session');
 var app = express();
 // var bcrypt = require('bcrypt');
@@ -30,6 +28,7 @@ var con = mysql.createConnection({
 							// multipleStatements: true
 						});
 global.db = con;
+
 // all environments
 app.use(cors());
 app.set('port', process.env.PORT || 3001);
@@ -57,6 +56,13 @@ var state_abbrev = {
 var billType_abbrev = {"hr":"House of Representative",	"hres":"House Simple Resolution",	"hconres":"House Concurrent Resolution",
 								"hjres":"House Joint Resolution",	"s":"Senate","sres":"Senate Simple Resolution",
 								"sconres":"Senate Concurrent Resolution",	"sjres":"Senate Joint Resolution"};
+
+var billColumns ="billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,partyAffil,gpoPdf,congressUrl,govtrackUrl,"+
+						"isActive,housePassage,senatePassage,isEnacted,isVetoed,coSponsors,committees,committeeCodes,"+
+						"subCommitteeCodes,primarySubject,latestMajorAction,introducedDate,latestMajorActionDate";
+
+var memberColumns ="photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,"
+							+"phoneNum,position,facebook,youtube,twitter,contactForm,nextElection";
 
 con.connect(function(err) {
 	if (err) throw err;
@@ -143,6 +149,55 @@ client.billsRecent({
 
 
 // linking front/backend
+
+app.get('/billSearch/:query',(req,res) => {
+	var query=req.params.query;
+	var sql="SELECT * FROM bills WHERE "+billColumns+"='"+query+"'";
+	var query=db.query(sql,function(err,result) {
+		if(err){
+			console.log(err);
+		}
+		var memberQuery = [result.length];
+		var i = 0;
+		result.forEach((bill) => {
+			var bill = {
+				id: bill.billID,
+				title: bill.title,
+				active: bill.isActive,
+				lastActionDate: bill.latestMajorActionDate,
+				introducedDate: bill.introducedDate
+			}
+			memberQuery[i] = bill;
+			i++;
+		});
+		res.send({memberQuery})
+	});
+});
+
+app.get('/memberSearch/:query',(req,res) => {
+	var query=req.params.query;
+	var sql="SELECT * FROM members WHERE "+memberColumns+"='"+query+"'";
+	var query=db.query(sql,function(err,result) {
+		if(err){
+			console.log(err);
+		}
+		var memberQuery = [result.length];
+		var i = 0;
+		result.forEach((member) => {
+			var member = {
+				photo: member.photo,
+				name: member.firstName+" "+member.lastName,
+				party: member.party,
+				homeState: member.homeState,
+				phone: member.phoneNum,
+				position: member.position
+			}
+			memberQuery[i] = member;
+			i++;
+		});
+		res.send({memberQuery})
+	});
+});
 
 app.get('/feed',(req,res) => {
 	var sql="SELECT * FROM bills";
@@ -332,8 +387,7 @@ function addMembers(res,isSenator){
 			youtube= (member.youtube_account==null) ? "N/A" : member.youtube_account;
 			contactForm= (member.contact_form==null) ? "N/A" : member.contact_form;
 			nextElection= (member.next_election);
-			var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,"
-							+"phoneNum,position,facebook,youtube,twitter,contactForm,nextElection) "
+			var sql = "INSERT INTO members ("+memberColumns+") "
 								+"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+DoB+"', '"
 								+office+"', '"+missedVotes+"', '"+totalVotes+"', '"+siteURL+"', '"+phone+"', '"+position+"', '"+facebook+"', '"
 								+youtube+"', '"+twitter+"', '"+contactForm+"', '"+nextElection+"')";
@@ -383,10 +437,7 @@ function addBills(res){
 				latestMajorActionDate= (bill.latest_major_action_date);
 
 
-				var sql = "INSERT INTO bills (billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,"+
-									 "partyAffil,gpoPdf,congressUrl,govtrackUrl,isActive,"+
-									 "housePassage,senatePassage,isEnacted,isVetoed,coSponsors,committees,committeeCodes,"+
-									 "subCommitteeCodes,primarySubject,latestMajorAction,introducedDate,latestMajorActionDate) "+
+				var sql = "INSERT INTO bills ("+billColumns+") "+
 									 "VALUES ('"+billID+"', '"+type+"', '"+Bnumber+"', '"+title+"', '"+sponsor+"', '"+sponsorId+"', '"
 									 +sponsorState+"', '"+partyAffil+"', '"+gpoPdf+"', '"+congressUrl+"', '"
 									 +govtrackUrl+"', '"+isActive+"', '"+housePassage+"', '"+senatePassage+"', '"

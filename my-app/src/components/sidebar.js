@@ -22,13 +22,13 @@ class SideBar extends Component {
 		            </div>
 		            <ul className="nav" id="actions">
 		              <li>
-		                <a href="#" id="overview" onClick= {(event) => this.update("Feed")}>
+		                <a href="#" id="feed" onClick= {(event) => this.update("Feed")}>
 		                  <i className="nav-icon fa fa-download"></i>
 		                  <span className="nav-item-label">Feed</span>
 		                </a>
 		              </li>
 		              <li>
-		                <a href="#" id="fork" onClick= {(event) => this.update("billSearch")}>
+		                <a href="#" id="billSearch" onClick= {(event) => this.update("billSearch")}>
 		                  <i className="nav-icon fa fa-code-fork"></i>
 		                  <span className="nav-item-label">Search Bills</span>
 		                </a>
@@ -40,13 +40,13 @@ class SideBar extends Component {
 		            </div>
 		            <ul className="nav" id="navigation">
 		              <li>
-		                  <a href="#" id="overview" onClick= {(event) => this.update("officials")}>
+		                  <a href="#" id="map" onClick= {(event) => this.update("officials")}>
 		                    <i className="nav-icon fa fa-signal"></i>
 		                    <span className="nav-item-label">Officials Map</span>
 		                </a>
 		              </li>
 		              <li>
-		                <a href="#">
+		                <a href="#" id="memberSearch" onClick= {(event) => this.update("memberSearch")}>
 		                  <i className="nav-icon fa fa-file-text-o"></i>
 		                  <span className="nav-item-label">Search Officials</span>
 		                </a>
