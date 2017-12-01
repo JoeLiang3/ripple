@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../searchbar.css';
 
-class BillSearch extends Component {
+class searchBills extends Component {
   constructor(props){
       super(props);
       this.state = {
@@ -26,7 +26,7 @@ onSubmit(e) {
       <form onSubmit ={this.onSubmit}>
 
       <div className="searching" >
-        <label className="control-label"><b>Find a Bill:</b>  </label>
+        <label className="control-label"><b>Search:</b>  </label>
           <input
             onChange= {this.onChange}
             value={this.state.search}
@@ -38,7 +38,7 @@ onSubmit(e) {
           </div>
 
           <div className="SearchButton">
-      <button className="btn btn-primary btn-lg">
+      <button className="btn btn-primary btn-lg" >
         <b>Search </b>
       </button>
     </div>
@@ -49,4 +49,4 @@ onSubmit(e) {
   }
 }
 
-export default BillSearch;
+export default searchBills;

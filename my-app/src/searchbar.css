@@ -1,4 +1,5 @@
 /* Search Bar */
+
 .search {
    width: 90%;
    position: absolute;
@@ -23,7 +24,7 @@
 /*Search Button attributes*/
 .searchButton {
  position: absolute;
- right: -110px;
+ right: 110px;
  width: 100px;
  height: 30px;
  line-height: 1.8;
@@ -49,3 +50,58 @@
  display:block;
 
 }
+
+form{
+position: left;
+left: 40%;
+right: 40%;
+width: 50%;
+
+}
+
+input:focus {outline:0;}
+
+
+.searching{
+color: #77D0F9;
+padding-right: 5px;
+padding-top: 15%;
+margin-left: 40%;
+margin-top: 0%;
+margin-right: 60%;
+width: 80%;
+}
+
+.SearchButton{
+  padding-right: 5px;
+  position: left;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-top: 1%;
+  top: 50%;
+  width:100%
+
+}
+
+.btn{
+    font-size: ="2";
+    display: inline;
+    border-radius: 150px;
+    backface-visibility: hidden;
+    background-color: Transparent;
+    border: 2px solid #77D0F9 ;
+    border-width:3px;
+    color: #77D0F9;
+    padding: 20px 80px;
+    text-align: center;
+    text-decoration: black;
+    font-size: 16px;
+    transition: padding 1s;
+}
+
+.btn:hover {
+    background-color: #77D0F9;
+    color: white;
+    padding: 1% 66% 1% 5%;
+}
+.btn:focus {outline:0;}

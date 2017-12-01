@@ -3,7 +3,7 @@ import '../sidebar.css'
 class SideBar extends Component {
 
   update(view) {
-    console.log(this.props);
+    console.log(view);
     this.props.updateContentView(view);
   }
 
