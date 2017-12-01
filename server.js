@@ -292,10 +292,10 @@ function addMembers(res,isSenator){
 			missedVotes= (member.missed_votes);
 			totalVotes= (member.total_votes);
 			bioguide= (member.id);
-			facebook= (member.facebook_account);
-			twitter= (member.twitter_account);
-			youtube= (member.youtube_account);
-			contactForm= (member.contact_form);
+			facebook= (member.facebook_account==null) ? "N/A" : member.facebook_account;
+			twitter= (member.twitter_account==null) ? "N/A" : member.twitter_account;
+			youtube= (member.youtube_account==null) ? "N/A" : member.youtube_account;
+			contactForm= (member.contact_form==null) ? "N/A" : member.contact_form;
 			nextElection= (member.next_election);
 			var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,"
 							+"phoneNum,position,facebook,youtube,twitter,contactForm,nextElection) "

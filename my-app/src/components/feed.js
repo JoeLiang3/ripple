@@ -23,14 +23,18 @@ class Feed extends Component {
         });
 	};
 
+	update(id) {
+      this.props.updateBill(id);
+		this.props.updateContentView('billPage');
+  }
   render() {
-	  var feedComponents = this.state.billList.map(function(bill, i) {
+	  var feedComponents = this.state.billList.map((bill, i) => {
       return <div className="bill-section" key={i}>
           <p><b>Title:</b> {bill.title}</p>
           <p><b>Still Active?:</b> {bill.active}</p>
           <p><b>Last Date Bill Was Acted On:</b> {bill.lastActionDate}</p>
           <p><b>Date Bill Was Introduced:</b> {bill.introducedDate}</p>
-		  <p><b>More Details</b></p>
+		  <p><a onClick={() => this.update(bill.id)}><b>More Details</b></a></p>
       </div>;
     });
     return(

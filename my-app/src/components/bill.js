@@ -7,7 +7,7 @@ class Bill extends Component {
   }
 
 componentDidMount(){
-   fetch('http://localhost:3001/bill/hr4471-115', {
+   fetch('http://localhost:3001/bill/'+this.props.id, {
       mode: "cors",
       headers : {
          'Content-Type': 'application/json',

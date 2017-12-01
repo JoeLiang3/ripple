@@ -17,10 +17,8 @@ class Officials extends Component {
   }
 
   update(id) {
-     this.setState({
-        member: id,
-        page: 'individual'
-     });
+     this.props.updateMember(id);
+     this.props.updateContentView('Individual');
  }
   // Event Listening for datamap.
 
@@ -68,7 +66,6 @@ class Officials extends Component {
          </div>
       );
    });
-    if(this.state.page === "list") {
     return(
       <div id="page-content-wrapper">
         <div className="page-content-officials text-center state-middle">
@@ -315,14 +312,6 @@ class Officials extends Component {
         </div>
       </div>
     );
-    }
-    else {
-      return (
-         <Rate
-         id = {this.state.member}
-         />
-      )
-   }
   }
 }
 
