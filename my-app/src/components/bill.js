@@ -40,7 +40,7 @@ componentDidMount(){
             <br/>
             <h3><b>Last Major Action of the Bill was on</b> {this.state.billDetails.lastActionDate} </h3>
             <p>{this.state.billDetails.latestMajorAction}</p>
-         </div>;
+         </div>
       </div>
    );
 }
