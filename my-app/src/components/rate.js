@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
 import '../rate.css'
+import noPic from '../missingPic.png';
+var imageExists = require('image-exists');
 
 
 class Rate extends Component {
@@ -39,7 +41,9 @@ class Rate extends Component {
   };
 
   render() {
-     console.log(this.state.member);
+     var profPic = "https://theunitedstates.io/images/congress/original/"+this.state.member.photo+".jpg";
+     if(!UrlExists(profPic))
+       profPic = noPic;
     return(
       <div className="wrap-header">
         //Header
@@ -51,7 +55,7 @@ class Rate extends Component {
 
 
         <div className="rate-profile-image">
-          <img src={"https://theunitedstates.io/images/congress/original/"+this.state.member.photo+".jpg"} width="170" height="200" alt="" />
+          <img src={profPic} width="200" height="225" alt="" />
         </div>
 
         <div className="rate-profile-info">
@@ -64,6 +68,11 @@ class Rate extends Component {
             <li><b>Phone Number:</b> {this.state.member.phone}</li>
             <li><b>Website:</b> {this.state.member.siteURL}</li>
             <li><b># Missed Votes / # Total Votes:</b> {this.state.member.missedVotes}/{this.state.member.totalVotes}</li>
+            <li><b>Next Election Year:</b> {this.state.member.nextElection}</li>
+            <li><b>Facebook Account:</b> {this.state.member.facebook}</li>
+            <li><b>YouTube Account:</b> {this.state.member.youtube}</li>
+            <li><b>Twitter Account:</b> {this.state.member.twitter}</li>
+            <li><b>Contact Form:</b> {this.state.member.contactForm}</li>
             </ul>
         </div>
 
@@ -99,6 +108,15 @@ class Rate extends Component {
   }
 }
 
+function UrlExists(url)
+{
+   var http = new XMLHttpRequest();
+   http.open('HEAD', url, false);
+   http.send();
+   if(http.status==404)
+      return false;
+   else return true;
+}
 
 
 export default Rate;

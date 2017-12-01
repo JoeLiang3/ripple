@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Datamap from 'react-datamaps';
 import Rate from './rate';
 import '../map.css';
+import noPic from '../missingPic.png';
+var imageExists = require('image-exists');
 
 class Officials extends Component {
   constructor(props) {
@@ -48,13 +50,16 @@ class Officials extends Component {
     }
   };
 
-
   render() {
 
    var myArray = this.state.officialArray.map((members, i) => {
+      var profPic = "https://theunitedstates.io/images/congress/original/"+members.photo+".jpg";
+      if(!UrlExists(profPic))
+         profPic = noPic;
       return (
          <div className="state-profile-image" key={i}>
-           <img src={"https://theunitedstates.io/images/congress/original/"+members.photo+".jpg"} width="85" height="100" alt="" />
+           <img src={profPic} width="85" height="100" alt="" />
+            <p></p>
              <p><b>Name:</b> {members.name}</p>
              <p><b>Position:</b> {members.position}</p>
              <p><b>Phone Number:</b> {members.phone}</p>
@@ -319,6 +324,16 @@ class Officials extends Component {
       )
    }
   }
+}
+
+function UrlExists(url)
+{
+   var http = new XMLHttpRequest();
+   http.open('HEAD', url, false);
+   http.send();
+   if(http.status==404)
+      return false;
+   else return true;
 }
 
 export default Officials;

@@ -70,6 +70,9 @@ con.query("DROP TABLE IF EXISTS members; \ CREATE TABLE members ( \
 				DoB varchar(255) NOT NULL default '', \ office varchar(255) NOT NULL default '', \
 				missedVotes int NOT NULL, \ totalVotes int NOT NULL, \ siteURL varchar(255) NOT NULL default '', \
 				phoneNum varchar(255) NOT NULL default '', \ position varchar(255) NOT NULL default '', \
+				facebook varchar(255) NOT NULL default '', \ twitter varchar(255) NOT NULL default '',\
+				youtube varchar(255) NOT NULL default '', \ contactForm varchar(255) NOT NULL default '',\
+				nextElection varchar(255) NOT NULL default '',\
 				PRIMARY KEY (id))ENGINE=INNODB;",
 function (err, result) {
 	if (err) throw err;
@@ -258,6 +261,11 @@ app.get('/member/:id',(req, res) => {
 				missedVotes: member.missedVotes,
 				totalVotes: member.totalVotes,
 				siteURL: member.siteURL,
+				facebook: member.facebook,
+				twitter: member.twitter,
+				youtube: member.youtube,
+				contactForm: member.contactForm,
+				nextElection: member.nextElection,
 				//avgRating: (ratings.totalRating/ratings.numReviews)
 			}
 		});
@@ -284,9 +292,16 @@ function addMembers(res,isSenator){
 			missedVotes= (member.missed_votes);
 			totalVotes= (member.total_votes);
 			bioguide= (member.id);
-			var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,phoneNum,position) "
+			facebook= (member.facebook_account);
+			twitter= (member.twitter_account);
+			youtube= (member.youtube_account);
+			contactForm= (member.contact_form);
+			nextElection= (member.next_election);
+			var sql = "INSERT INTO members (photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,"
+							+"phoneNum,position,facebook,youtube,twitter,contactForm,nextElection) "
 								+"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+DoB+"', '"
-				+office+"', '"+missedVotes+"', '"+totalVotes+"', '"+siteURL+"', '"+phone+"', '"+position+"')";
+								+office+"', '"+missedVotes+"', '"+totalVotes+"', '"+siteURL+"', '"+phone+"', '"+position+"', '"+facebook+"', '"
+								+youtube+"', '"+twitter+"', '"+contactForm+"', '"+nextElection+"')";
 			con.query(sql, function (err, result) {
 				if (err) console.log(err);
 			});
