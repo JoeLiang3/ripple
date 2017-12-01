@@ -72,7 +72,7 @@ con.query("DROP TABLE IF EXISTS members; \ CREATE TABLE members ( \
 				phoneNum varchar(255) NOT NULL default '', \ position varchar(255) NOT NULL default '', \
 				facebook varchar(255) NOT NULL default '', \ twitter varchar(255) NOT NULL default '',\
 				youtube varchar(255) NOT NULL default '', \ contactForm varchar(255) NOT NULL default '',\
-				nextElection varchar(255) NOT NULL default '',\
+				nextElection varchar(255) NOT NULL default '',\ totalRating int NOT NULL default 0,\ numReviews int NOT NULL default 0,\
 				PRIMARY KEY (id))ENGINE=INNODB;",
 function (err, result) {
 	if (err) throw err;
@@ -108,8 +108,8 @@ function (err, result) {
 	console.log("User table created");
 });
 con.query("CREATE TABLE IF NOT EXISTS ratings ( \
-				id int NOT NULL AUTO_INCREMENT, \ photo varchar(255), \
-				totalRating int NOT NULL,\ numReviews int NOT NULL,\
+				id varchar(255), \
+				totalRating int NOT NULL default 0,\ numReviews int NOT NULL default 0,\
 				PRIMARY KEY (id)) ENGINE=INNODB  DEFAULT CHARSET=latin1 ;",
 function (err, result) {
 	if (err) throw err;
@@ -240,15 +240,34 @@ app.get('/member/:id',(req, res) => {
 	// Get official id from url
 	var id = req.params.id;
 	// QUERY DATABASE based on URL
-	var sql = "SELECT * FROM members WHERE photo='"+id+"'";
+	var sql = "UPDATE members INNER JOIN ratings ON members.photo = ratings.id \
+					SET members.numReviews = ratings.numReviews";
+	var query = db.query(sql, function(err, result) {
+		if(err) {
+			console.log(err);
+		}		console.log("numReviews updated");
+	});
+	var sql = "UPDATE members INNER JOIN ratings ON members.photo = ratings.id \
+					SET members.totalRating = ratings.totalRating";
+	var query = db.query(sql, function(err, result) {
+		if(err) {
+			console.log(err);
+		}		console.log("totalRating updated");
+	});
+
+	var sql = "(SELECT * FROM members WHERE photo='"+id+"')";
 	var query = db.query(sql, function(err, result) {
 		if(err) {
 			console.log(err);
 		}
-		console.log(result);
 		// Send back an object
 		var memberData;
 		result.forEach((member) => {
+			if(member.numReviews>0){
+				avgRating = member.totalRating/member.numReviews;
+			}else {
+				avgRating = "N/A";
+			}
 			memberData={
 				photo: member.photo,
 				name: member.firstName+" "+member.lastName,
@@ -266,11 +285,27 @@ app.get('/member/:id',(req, res) => {
 				youtube: member.youtube,
 				contactForm: member.contactForm,
 				nextElection: member.nextElection,
-				//avgRating: (ratings.totalRating/ratings.numReviews)
+				avgRating: avgRating,
+
 			}
 		});
-		console.log(memberData);
 		res.send(memberData)
+		});
+	});
+
+	app.get('/member/:id/:rating',(req, res) => {
+		// Get state name from url
+		var id = req.params.id;
+		var rating = req.params.rating;
+
+		// QUERY DATABASE based on URL
+		var sql = "UPDATE ratings SET totalRating = totalRating + '"+rating+"' \
+		 										numReviews = numReviews + 1 \
+						WHERE id= '"+id+"'";
+		var query = db.query(sql, function(err, result) {
+			if(err) {
+				console.log(err);
+			}
 		});
 	});
 
@@ -302,6 +337,10 @@ function addMembers(res,isSenator){
 								+"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+DoB+"', '"
 								+office+"', '"+missedVotes+"', '"+totalVotes+"', '"+siteURL+"', '"+phone+"', '"+position+"', '"+facebook+"', '"
 								+youtube+"', '"+twitter+"', '"+contactForm+"', '"+nextElection+"')";
+			con.query(sql, function (err, result) {
+				if (err) console.log(err);
+			});
+			var sql = "INSERT INTO ratings (photo) VALUES ('"+bioguide+"')";
 			con.query(sql, function (err, result) {
 				if (err) console.log(err);
 			});

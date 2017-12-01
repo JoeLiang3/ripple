@@ -85,7 +85,7 @@ class App extends Component {
       />
     } else if(this.state.page === "login") {
       view = <Login />
-    } else if(this.state.page == "signup") {
+   } else if(this.state.page === "signup") {
       view = <SignupForm/ >;
    }
 

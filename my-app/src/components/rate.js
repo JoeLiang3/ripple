@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'
 import '../rate.css'
 import noPic from '../missingPic.png';
+import fbIcon from '../facebook-logo.png';
+import twitIcon from '../twitter-icon.svg';
+import YTicon from '../youtube-logo.png';
 var imageExists = require('image-exists');
 
 
@@ -75,9 +78,9 @@ class Rate extends Component {
 
         <div className="socialmedia">
         <ul>
-          <li> <img src="https://cdn.worldvectorlogo.com/logos/facebook-4.svg" alt="Facebook:" />{this.state.member.facebook}</li>
-          <li><img src="https://cdn.worldvectorlogo.com/logos/twitter-4.svg" alt="Twitter:" /> {this.state.member.twitter}</li>
-          <li><img src="https://seeklogo.com/images/Y/youtube-logo-FF3BEE4378-seeklogo.com.png" alt="Youtube:" /> {this.state.member.youtube}</li>
+          <li> <img src={fbIcon} alt="Facebook:" />  {this.state.member.facebook}</li>
+          <li><img src={twitIcon} alt="Twitter:" />  {this.state.member.twitter}</li>
+          <li><img src={YTicon} alt="Youtube:" />  {this.state.member.youtube}</li>
         </ul>
         </div>
 
