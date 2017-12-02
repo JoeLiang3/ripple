@@ -5,3 +5,9 @@
   top: 10%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+.CoverPhoto {
+  position: absolute;
+  left: 55%;
+  top: 20%;
+}
