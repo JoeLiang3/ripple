@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'
 import '../rate.css'
+import '../submission.css'
 import noPic from '../missingPic.png';
 import fbIcon from '../facebook-logo.png';
 import twitIcon from '../twitter-icon.svg';
@@ -17,6 +18,10 @@ class Rate extends Component {
     }
   }
 
+
+  update(id) {
+     this.props.updateContentView(id);
+ }
   setRating(event) {
     this.setState({
       value: event.target.value,
@@ -25,6 +30,16 @@ class Rate extends Component {
 
   handleClick() {
     console.log(this.state.value);
+  }
+
+  sendRating() {
+    fetch('http://localhost:3001/rating' + this.state.value, {
+      mode: "cors",
+      headers : {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    });
   }
 
   componentDidMount(){
@@ -101,7 +116,11 @@ class Rate extends Component {
                 <input type="radio" id="star1" name="rating" value="1" /><label className = "full" for="star1" title="Very Unpopular - 1 star">&#9734;</label>
             </fieldset>
         </div>
-            <button onClick={(e) => this.handleClick(e)}>
+            <button onClick={() => {
+              this.sendRating();
+              this.update('submission');
+            }
+          }>
               <div className="go-button">
                 Go!
               </div>

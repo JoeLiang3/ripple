@@ -1,0 +1,19 @@
+.prompt {
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 40px;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  color: #7fd8ff;
+  text-shadow: 2px 2px rgb(255, 153, 153);
+  font-weight: 600;
+}
+
+.submission-logo {
+  position:absolute;
+  top: 40%;
+  left: 45%;
+  width: 400px;
+  height: 400px;
+}

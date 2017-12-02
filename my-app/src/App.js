@@ -10,8 +10,12 @@ import Bill from './components/bill';
 import BillSearch from './components/billSearch';
 import MemberSearch from './components/memberSearch';
 import Rate from './components/rate';
+<<<<<<< HEAD
 import SearchFeed from './components/searchFeed';
 import SearchFeedMember from './components/searchFeedMember';
+=======
+import Submission from './components/submission';
+>>>>>>> 1905e9840bbec2d11b419975acc8d48e9361f7bd
 import './App.css';
 
 
@@ -95,6 +99,7 @@ updateQueryMember = (id) => {
    }
    else if(this.state.page === "Individual"){
       view=<Rate
+      updateContentView={this.updateContentView}
       id={this.state.memberID}
       />
    }
@@ -123,6 +128,10 @@ updateQueryMember = (id) => {
       view = <Login />
    } else if(this.state.page === "signup") {
       view = <SignupForm/ >;
+   } else if(this.state.page === "submission") {
+      view = <Submission
+      updateContentView={this.updateContentView}
+      / >;
    }
 
     return (
