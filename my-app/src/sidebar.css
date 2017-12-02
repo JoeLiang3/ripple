@@ -60,11 +60,23 @@
   color: #707070;
 }
 
+.sidebar-wrapper .navgroup .nav-3heading {
+  margin: 5px 5px -25px 0px;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  padding: 30px 0;
+  color: #707070;
+}
+
 [aria-expanded='false'] .navgroup .nav-heading {
   display: none;
 }
 
 [aria-expanded='false'] .navgroup .nav-2heading {
+  display: none;
+}
+
+[aria-expanded='false'] .navgroup .nav-heading {
   display: none;
 }
 

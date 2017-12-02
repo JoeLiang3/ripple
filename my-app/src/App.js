@@ -13,6 +13,8 @@ import Rate from './components/rate';
 import SearchFeed from './components/searchFeed';
 import SearchFeedMember from './components/searchFeedMember';
 import Submission from './components/submission';
+import AboutUs from './components/aboutus';
+import Faq from './components/faq';
 import './App.css';
 
 
@@ -99,7 +101,20 @@ updateQueryMember = (id) => {
       updateContentView={this.updateContentView}
       id={this.state.memberID}
       />
+    }
+  else if(this.state.page === "aboutus"){
+      view=<AboutUs
+      updateContentView={this.updateContentView}
+      />
+
    }
+
+   else if(this.state.page === "faq"){
+       view=<Faq
+       updateContentView={this.updateContentView}
+       />
+
+    }
     else if(this.state.page === "Bill") {
       view = <Bill />
     } else if(this.state.page === "Timeline") {
