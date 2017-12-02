@@ -43,6 +43,8 @@ class Officials extends Component {
           });
           // console.log(response.membersResult);
           console.log(this.state.officialArray);
+          window.scrollTo(0, 600)
+
         });
       });
     }

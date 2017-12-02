@@ -1,20 +1,44 @@
 import React, { Component } from 'react';
 import '../searchbar.css';
 
-class memberSearch extends Component {
+class MemberSearch extends Component {
+  constructor(props){
+      super(props);
+      this.state = {
+        searcher: '',
+        officialArray: []
+     };
+  this.onChange = this.onChange.bind(this);
+  this.onSubmit = this.onSubmit.bind(this);
+}
+onChange(e) {
+    this.setState({[e.target.name]: e.target.value});
+}
+
+onSubmit(e) {
+
+    e.preventDefault();
+    this.props.updateQueryMember(this.state.searcher);
+    this.props.updateContentView('searchFeedMember');
+
+  }
   render() {
     return(
-      <div class="wrap">
-         <div class="search">
-            <input type="text" class="searchTerm" placeholder="Bernie Sanders, Healthcare, etc..." />
-            <input type="image" className="searchButton" src="search_icon.png" alt="Search" />
-          <button>
-              <i class="fa fa-search"></i>
-           </button>
-         </div>
+      <form onSubmit ={this.onSubmit}>
+      <div className="searching" >
+        <label className="control-label"><b>Find an Official:</b>  </label>
+          <input
+            onChange= {this.onChange}
+            value={this.state.search}
+            placeholder="Type keywords for any elected official then press enter..."
+            type="text"
+            name="searcher"
+            className="form-control"
+          />
       </div>
-    );
+      </form>
+   );
   }
 }
 
-export default memberSearch;
+export default MemberSearch;

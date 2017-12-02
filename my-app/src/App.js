@@ -8,8 +8,10 @@ import SignupForm from './components/signup';
 import Feed from './components/feed';
 import Bill from './components/bill';
 import BillSearch from './components/billSearch';
-import memberSearch from './components/memberSearch';
+import MemberSearch from './components/memberSearch';
 import Rate from './components/rate';
+import SearchFeed from './components/searchFeed';
+import SearchFeedMember from './components/searchFeedMember';
 import './App.css';
 
 
@@ -21,7 +23,9 @@ class App extends Component {
     this.state = {
       page: "Feed",
       memberID: 0,
-      billID: 0
+      billID: 0,
+      billQuery: '',
+      memberQuery: ''
    };
   }
 
@@ -39,6 +43,15 @@ class App extends Component {
     this.setState({page: "billPage"});
 }
 
+updateQuery = (id) => {
+   this.setState({billQuery: id});
+   this.setState({page: "searchFeed"});
+}
+
+updateQueryMember = (id) => {
+   this.setState({memberQuery: id});
+   this.setState({page: "searchFeedMember"});
+}
 
   render() {
     var view;
@@ -51,10 +64,28 @@ class App extends Component {
    }
    else if(this.state.page === "billSearch"){
       view=<BillSearch
+      updateContentView={this.updateContentView}
+      updateQuery={this.updateQuery}
+      />
+   }
+   else if(this.state.page === "searchFeed"){
+      view=<SearchFeed
+      query={this.state.billQuery}
+      updateContentView={this.updateContentView}
+      updateBill={this.updateBill}
+      />
+   }
+   else if(this.state.page === "searchFeedMember"){
+      view=<SearchFeedMember
+      query={this.state.memberQuery}
+      updateMember={this.updateMember}
+      updateContentView={this.updateContentView}
       />
    }
    else if(this.state.page === "memberSearch"){
-      view=<memberSearch
+      view=<MemberSearch
+      updateContentView={this.updateContentView}
+      updateQueryMember={this.updateQueryMember}
       />
    }
    else if(this.state.page === "billPage"){

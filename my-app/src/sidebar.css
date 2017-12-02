@@ -1,7 +1,7 @@
 /* Start Sidebar Styles */
 .sidebar-wrapper {
   min-width: 30px;
-  width: 15%;
+  width: 180px;
   height: 100%;
   position: fixed; /* you can customize here */
   z-index: 1;
@@ -36,11 +36,7 @@
   overflow-y: auto;
   position: absolute;
   bottom: 40px;
-  top: 40px;
-}
-
-.sidebar-wrapper .sidebar-body .page-header {
-  margin: 30px 20px 0px 15px;
+  top: 30px;
 }
 
 /* Start navigation */

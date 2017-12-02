@@ -152,12 +152,16 @@ client.billsRecent({
 
 app.get('/billSearch/:query',(req,res) => {
 	var query=req.params.query;
-	var sql="SELECT * FROM bills WHERE "+billColumns+"='"+query+"'";
+	var isLike = "title LIKE '%"+query+"%' OR billID LIKE '%"+query+"%' OR type LIKE '%"+query+"%' OR introducedDate LIKE '%"+query+
+				"%' OR committees LIKE '%"+query+"%' OR Bnumber LIKE '%"+query+"%' OR sponsor LIKE '%"+query+"%' OR sponsorId LIKE '%"+query+
+				"%' OR sponsorState LIKE '%"+query+"%' OR latestMajorActionDate LIKE '%"+query+"%' OR latestMajorAction LIKE '%"+query+"%'";
+	var sql="SELECT * FROM bills WHERE "+isLike+"";
 	var query=db.query(sql,function(err,result) {
 		if(err){
 			console.log(err);
 		}
-		var memberQuery = [result.length];
+		console.log(result);
+		var billQuery = [result.length];
 		var i = 0;
 		result.forEach((bill) => {
 			var bill = {
@@ -167,16 +171,20 @@ app.get('/billSearch/:query',(req,res) => {
 				lastActionDate: bill.latestMajorActionDate,
 				introducedDate: bill.introducedDate
 			}
-			memberQuery[i] = bill;
+			billQuery[i] = bill;
 			i++;
+			console.log(billQuery);
 		});
-		res.send({memberQuery})
+		res.send({billQuery})
 	});
 });
 
 app.get('/memberSearch/:query',(req,res) => {
 	var query=req.params.query;
-	var sql="SELECT * FROM members WHERE "+memberColumns+"='"+query+"'";
+	var isLike = "photo LIKE '%"+query+"%' OR firstName LIKE '%"+query+"%' OR lastName LIKE '%"+query+"%' OR party LIKE '%"+query+
+				"%' OR homeState LIKE '%"+query+"%' OR DoB LIKE '%"+query+"%' OR office LIKE '%"+query+"%' OR missedVotes LIKE '%"+query+
+				"%' OR totalVotes LIKE '%"+query+"%' OR phoneNum LIKE '%"+query+"%' OR position LIKE '%"+query+"%' OR nextElection LIKE '%"+query+"%'";
+	var sql="SELECT * FROM members WHERE "+isLike+"";	
 	var query=db.query(sql,function(err,result) {
 		if(err){
 			console.log(err);
