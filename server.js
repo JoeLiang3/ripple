@@ -184,7 +184,7 @@ app.get('/memberSearch/:query',(req,res) => {
 	var isLike = "photo LIKE '%"+query+"%' OR firstName LIKE '%"+query+"%' OR lastName LIKE '%"+query+"%' OR party LIKE '%"+query+
 				"%' OR homeState LIKE '%"+query+"%' OR DoB LIKE '%"+query+"%' OR office LIKE '%"+query+"%' OR missedVotes LIKE '%"+query+
 				"%' OR totalVotes LIKE '%"+query+"%' OR phoneNum LIKE '%"+query+"%' OR position LIKE '%"+query+"%' OR nextElection LIKE '%"+query+"%'";
-	var sql="SELECT * FROM members WHERE "+isLike+"";	
+	var sql="SELECT * FROM members WHERE "+isLike+"";
 	var query=db.query(sql,function(err,result) {
 		if(err){
 			console.log(err);
@@ -308,14 +308,14 @@ app.get('/member/:id',(req, res) => {
 	var query = db.query(sql, function(err, result) {
 		if(err) {
 			console.log(err);
-		}		console.log("numReviews updated");
+		}
 	});
 	var sql = "UPDATE members INNER JOIN ratings ON members.photo = ratings.id \
 					SET members.totalRating = ratings.totalRating";
 	var query = db.query(sql, function(err, result) {
 		if(err) {
 			console.log(err);
-		}		console.log("totalRating updated");
+		}
 	});
 
 	var sql = "(SELECT * FROM members WHERE photo='"+id+"')";
@@ -356,13 +356,14 @@ app.get('/member/:id',(req, res) => {
 		});
 	});
 
-	app.get('/member/:id/:rating',(req, res) => {
+	app.get('/rating/:id/:rating',(req, res) => {
 		// Get state name from url
 		var id = req.params.id;
 		var rating = req.params.rating;
-
+		console.log(id);
+		console.log(rating);
 		// QUERY DATABASE based on URL
-		var sql = "UPDATE ratings SET totalRating = totalRating + '"+rating+"' \
+		var sql = "UPDATE ratings SET totalRating = totalRating + '"+rating+"', \
 		 										numReviews = numReviews + 1 \
 						WHERE id= '"+id+"'";
 		var query = db.query(sql, function(err, result) {
@@ -370,6 +371,7 @@ app.get('/member/:id',(req, res) => {
 				console.log(err);
 			}
 		});
+		console.log("done");
 	});
 
 //helper functions
@@ -395,16 +397,15 @@ function addMembers(res,isSenator){
 			youtube= (member.youtube_account==null) ? "N/A" : member.youtube_account;
 			contactForm= (member.contact_form==null) ? "N/A" : member.contact_form;
 			nextElection= (member.next_election);
-			var sql = "INSERT INTO members ("+memberColumns+") "
+			var sql = "INSERT IGNORE INTO members ("+memberColumns+") "
 								+"VALUES ('"+bioguide+"', '"+firstName+"', '"+lastName+"', '"+partyAffil+"', '"+state+"', '"+DoB+"', '"
 								+office+"', '"+missedVotes+"', '"+totalVotes+"', '"+siteURL+"', '"+phone+"', '"+position+"', '"+facebook+"', '"
 								+youtube+"', '"+twitter+"', '"+contactForm+"', '"+nextElection+"')";
 			con.query(sql, function (err, result) {
 				if (err) console.log(err);
 			});
-			var sql = "INSERT INTO ratings (photo) VALUES ('"+bioguide+"')";
+			var sql = "INSERT INTO ratings (id) VALUES ('"+bioguide+"')";
 			con.query(sql, function (err, result) {
-				if (err) console.log(err);
 			});
 		}
 		console.log("One portion of members table filled");

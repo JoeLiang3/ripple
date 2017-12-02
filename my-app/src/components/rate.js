@@ -33,7 +33,7 @@ class Rate extends Component {
   }
 
   sendRating() {
-    fetch('http://localhost:3001/rating' + this.state.value, {
+    fetch('http://localhost:3001/rating/'+this.props.id+'/'+this.state.value, {
       mode: "cors",
       headers : {
         'Content-Type': 'application/json',
