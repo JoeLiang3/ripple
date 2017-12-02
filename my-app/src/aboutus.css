@@ -1,13 +1,29 @@
 .about-us-Header {
-  font-size: 40px;
   position: absolute;
-  left: 15%;
-  top: 10%;
+  font-size: 160px;
+  left: 13%;
+  top: 5%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.about-us-Header h1 {
+  font-size: 100px;
 }
 
 .CoverPhoto {
   position: absolute;
-  left: 55%;
+  left: 43%;
   top: 20%;
+}
+
+.AboutUsBio {
+  position: absolute;
+  font-size: 25px;
+  border: 1px solid #CCC;
+  left: 13%;
+  top: 25%;
+  height: 500px;
+  width: 500px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 15px;
 }
