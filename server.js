@@ -22,7 +22,12 @@ var con = mysql.createConnection({
 							user     : 'root',
 							password : '',
 							database : 'rippleDB',
+							// host : us-cdbr-iron-east-05.cleardb.net
+							// user : 'b93a5bd6b9c505',
+							// password : '5f3b5647',
+							// database : 'heroku_5bf1aba3d4eb08f'
 							multipleStatements: true
+
 						});
 global.db = con;
 

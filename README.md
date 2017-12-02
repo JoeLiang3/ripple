@@ -2,6 +2,7 @@
 
 Client currently runs on locahost:3000, proxy 3001
 Server currently runs on localhost:3001
+Attempting to deploy to Heroku
 
 # Running Instructions:
 Run "npm install" in ripple folder and my-app folder if package.json files have been changed

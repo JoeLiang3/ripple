@@ -1,1 +1,1 @@
-<?php header( 'Location: /my-app/src/App.js' ) ;  ?>
+<?php header( 'Location: /index.html' ) ;  ?>

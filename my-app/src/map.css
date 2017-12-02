@@ -36,9 +36,10 @@ svg {
 }
 
 .state-header {
-  margin: 0px 0px 0px 11%;
+  margin: 0px 0px 0px 0px;
   background-color : #008DD5;
   padding: 10px;
+  padding-left: 12%;
   color: white;
   height: 50px;
 }
