@@ -1,3 +1,5 @@
+/*Large sections of commented-out code are unimplemented features*/
+
 /**
 * Module dependencies.
 */
@@ -21,11 +23,6 @@ var con = mysql.createConnection({
 							password : '',
 							database : 'rippleDB',
 							multipleStatements: true
-							// host     : 'us-cdbr-iron-east-05.cleardb.net',
-							// user     : 'be9dbda2b18efa',
-							// password : 'f5254516',
-							// database : 'heroku_44af54f55baae38',
-							// multipleStatements: true
 						});
 global.db = con;
 
@@ -43,6 +40,8 @@ app.use(session({
 							saveUninitialized: true,
 							cookie: { maxAge: 60000 }
 						}))
+
+// variables
 var state_abbrev = {
 				"AL":"Alabama",   "AK":"Alaska",   "AZ":"Arizona",   "AR":"Arkansas",   "CA":"California",   "CO":"Colorado",
 				"CT":"Connecticut",   "DE":"Delaware",   "FL":"Florida",   "GA":"Georgia",   "HI":"Hawaii",   "ID":"Idaho",   "IL":"Illinois",
@@ -64,6 +63,7 @@ var billColumns ="billID,type,Bnumber,title,sponsor,sponsorId,sponsorState,party
 var memberColumns ="photo,firstName,lastName,party,homeState,DoB,office,missedVotes,totalVotes,siteURL,"
 							+"phoneNum,position,facebook,youtube,twitter,contactForm,nextElection";
 
+// creating tables
 con.connect(function(err) {
 	if (err) throw err;
 	console.log("Connected!");
@@ -104,7 +104,7 @@ function (err, result) {
 	if (err) throw err;
 	console.log("Bill table created");
 });
-con.query("CREATE TABLE IF NOT EXISTS users ( \
+/*con.query("CREATE TABLE IF NOT EXISTS users ( \
 				id int NOT NULL AUTO_INCREMENT, \ first_name text NOT NULL,\
 				last_name text NOT NULL, \ email text NOT NULL,\
 				user_name varchar(20) NOT NULL, \ password varchar(255) NOT NULL,\
@@ -112,7 +112,7 @@ con.query("CREATE TABLE IF NOT EXISTS users ( \
 function (err, result) {
 	if (err) throw err;
 	console.log("User table created");
-});
+});*/
 con.query("CREATE TABLE IF NOT EXISTS ratings ( \
 				id varchar(255), \
 				totalRating int NOT NULL default 0,\ numReviews int NOT NULL default 0,\
@@ -148,8 +148,9 @@ client.billsRecent({
 }).then(function(res){addBills(res);});
 
 
-// linking front/backend
+// for when frontend fetches info from backend
 
+// bill search
 app.get('/billSearch/:query',(req,res) => {
 	var query=req.params.query;
 	var isLike = "title LIKE '%"+query+"%' OR billID LIKE '%"+query+"%' OR type LIKE '%"+query+"%' OR introducedDate LIKE '%"+query+
@@ -179,6 +180,7 @@ app.get('/billSearch/:query',(req,res) => {
 	});
 });
 
+// member search
 app.get('/memberSearch/:query',(req,res) => {
 	var query=req.params.query;
 	var isLike = "photo LIKE '%"+query+"%' OR firstName LIKE '%"+query+"%' OR lastName LIKE '%"+query+"%' OR party LIKE '%"+query+
@@ -207,6 +209,7 @@ app.get('/memberSearch/:query',(req,res) => {
 	});
 });
 
+// bill feed
 app.get('/feed',(req,res) => {
 	var sql="SELECT * FROM bills";
 	var query=db.query(sql,function(err,result) {
@@ -230,6 +233,7 @@ app.get('/feed',(req,res) => {
 	});
 });
 
+// individual bill
 app.get('/bill/:id',(req,res) => {
 	var id=req.params.id;
 	var sql="SELECT * FROM bills WHERE billID='"+id+"'";
@@ -270,6 +274,7 @@ app.get('/bill/:id',(req,res) => {
 	});
 });
 
+// officials map
 app.get('/map/:state',(req, res) => {
 	// Get state name from url
 	var state = req.params.state;
@@ -299,6 +304,7 @@ app.get('/map/:state',(req, res) => {
 	});
 });
 
+// individual official
 app.get('/member/:id',(req, res) => {
 	// Get official id from url
 	var id = req.params.id;
@@ -317,7 +323,6 @@ app.get('/member/:id',(req, res) => {
 			console.log(err);
 		}
 	});
-
 	var sql = "(SELECT * FROM members WHERE photo='"+id+"')";
 	var query = db.query(sql, function(err, result) {
 		if(err) {
@@ -349,7 +354,6 @@ app.get('/member/:id',(req, res) => {
 				contactForm: member.contactForm,
 				nextElection: member.nextElection,
 				avgRating: avgRating,
-
 			}
 		});
 		res.send(memberData)
@@ -375,6 +379,8 @@ app.get('/member/:id',(req, res) => {
 	});
 
 //helper functions
+
+// function to add individual members information to the database
 function addMembers(res,isSenator){
 	num_members = res.results[0].num_results;
 	position = (isSenator==true) ? "Senator" : "House of Rep."
@@ -411,6 +417,7 @@ function addMembers(res,isSenator){
 		console.log("One portion of members table filled");
 	}
 
+// function to add individual bill information to the database
 function addBills(res){
 	num_bills = res.results[0].num_results;
 		for(var n = 0; n < num_bills; n++)
