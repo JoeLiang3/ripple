@@ -1,7 +1,51 @@
 .about-us-Header {
-  font-size: 40px;
+  font-size: 25px;
   position: absolute;
   left: 15%;
   top: 10%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.bug-fix {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  position: absolute;
+  top: 90%;
+  left: 15%;
+}
+
+.overview {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  position: absolute;
+  top: 25%;
+  left: 15%;
+}
+
+.overview ul {
+  list-style-type: none;
+
+}
+
+.legislation {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  position: absolute;
+  top: 48%;
+  left: 15%;
+}
+
+.legislation ul {
+  list-style-type: none;
+}
+
+.officials {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  position: absolute;
+  top: 65%;
+  left: 15%;
+}
+.officials ul {
+  list-style-type: none;
 }
