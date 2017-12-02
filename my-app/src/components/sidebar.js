@@ -53,6 +53,24 @@ class SideBar extends Component {
 		              </li>
 		            </ul>
 		          </div>
+
+              <div className="nav-3heading">
+                <strong> &ensp; &ensp; Information</strong>
+              </div>
+              <ul className="nav" id="navigation">
+                <li>
+                    <a href="#" id="map" onClick= {(event) => this.update("aboutus")}>
+                      <i className="nav-icon fa fa-signal"></i>
+                      <span className="nav-item-label"><b>About Us</b></span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="memberSearch" onClick= {(event) => this.update("faq")}>
+                    <i className="nav-icon fa fa-file-text-o"></i>
+                    <span className="nav-item-label"><b>FAQ</b></span>
+                  </a>
+                </li>
+              </ul>
 		        </nav>
 		      </div>
 		      <div className="sidebar-footer">
@@ -61,6 +79,7 @@ class SideBar extends Component {
 		           <i className="fa fa-angle-double-left"></i>
 						</a>
 		      </div>
+
 		    </div>
 		  </div>
     );
