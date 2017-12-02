@@ -10,7 +10,7 @@ class SearchFeed extends Component {
 		this.state = { officialArray: [] };
 	}
 	componentDidMount(){
-		fetch('http://localhost:3001/memberSearch/' + this.props.query, {
+		fetch('http://localhost:3000/memberSearch/' + this.props.query, {
           mode: "cors",
           headers : {
             'Content-Type': 'application/json',

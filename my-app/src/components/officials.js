@@ -27,7 +27,7 @@ class Officials extends Component {
     if (ref && ref.map) {
       ref.map.svg.selectAll('.datamaps-subunit').on('click', (label) => {
         var state = label.properties.name;
-        fetch('http://localhost:3001/map/' + state, {
+        fetch('http://localhost:3000/map/' + state, {
           mode: "cors",
           headers : {
             'Content-Type': 'application/json',
@@ -88,42 +88,42 @@ class Officials extends Component {
                 geographyConfig={{
                   highlightBorderColor: '#bada55',
                   popupTemplate: (geography, data) =>
-                    `<div class='hoverinfo'>${geography.properties.name}\nElectoral Votes: ${data.electoralVotes}`,
+                    `<div class='hoverinfo'>${geography.properties.name} (${data.electoralVotes} Electoral Votes)`,
                   highlightBorderWidth: 3
                 }}
                 data={{
                   AZ: {
                     name: "Alaska",
                     fillKey: 'Republican',
-                    electoralVotes: 5
+                    electoralVotes: 3
                   },
                   CO: {
                     fillKey: 'Light Democrat',
-                    electoralVotes: 5
+                    electoralVotes: 9
                   },
                   DE: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 3
                   },
                   FL: {
                     fillKey: 'swing',
-                    electoralVotes: 29
+                    electoralVotes: 27
                   },
                   GA: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 15
                   },
                   HI: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 4
                   },
                   ID: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 4
                   },
                   IL: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 21
                   },
                   IN: {
                     fillKey: 'Republican',
@@ -131,167 +131,167 @@ class Officials extends Component {
                   },
                   IA: {
                     fillKey: 'Light Democrat',
-                    electoralVotes: 11
+                    electoralVotes: 7
                   },
                   KS: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 8
                   },
                   KY: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 8
                   },
                   LA: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 9
                   },
                   MD: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 10
                   },
                   ME: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 4
                   },
                   MA: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 12
                   },
                   MN: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 10
                   },
                   MI: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 17
                   },
                   MS: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 6
                   },
                   MO: {
                     fillKey: 'Republican',
-                    electoralVotes: 13
+                    electoralVotes: 11
                   },
                   MT: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 3
                   },
                   NC: {
                     fillKey: 'Light Republican',
-                    electoralVotes: 32
+                    electoralVotes: 15
                   },
                   NE: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 5
                   },
                   NV: {
                     fillKey: 'Heavy Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 5
                   },
                   NH: {
                     fillKey: 'Light Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 4
                   },
                   NJ: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 15
                   },
                   NY: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 31
                   },
                   ND: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 3
                   },
                   NM: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 5
                   },
                   OH: {
                     fillKey: 'swing',
-                    electoralVotes: 32
+                    electoralVotes: 20
                   },
                   OK: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 7
                   },
                   OR: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 7
                   },
                   PA: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 21
                   },
                   RI: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 4
                   },
                   SC: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 8
                   },
                   SD: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 3
                   },
                   TN: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 11
                   },
                   TX: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 34
                   },
                   UT: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 5
                   },
                   WI: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 10
                   },
                   VA: {
                     fillKey: 'Light Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 13
                   },
                   VT: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 3
                   },
                   WA: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 11
                   },
                   WV: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 5
                   },
                   WY: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 3
                   },
                   CA: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 55
                   },
                   CT: {
                     fillKey: 'Democrat',
-                    electoralVotes: 32
+                    electoralVotes: 7
                   },
                   AK: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 3
                   },
                   AR: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 10
                   },
                   AL: {
                     fillKey: 'Republican',
-                    electoralVotes: 32
+                    electoralVotes: 9
                   }
                 }}
               labels

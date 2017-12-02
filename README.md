@@ -1,6 +1,6 @@
 # ripple app
 
-Client currently runs on locahost:3000
+Client currently runs on locahost:3000, proxy 3001
 Server currently runs on localhost:3001
 
 # Running Instructions:

@@ -7,7 +7,7 @@ class SearchFeed extends Component {
 		this.state = { billList: [] };
 	}
 	componentDidMount(){
-		fetch('http://localhost:3001/billSearch/' + this.props.query, {
+		fetch('http://localhost:3000/billSearch/' + this.props.query, {
           mode: "cors",
           headers : {
             'Content-Type': 'application/json',

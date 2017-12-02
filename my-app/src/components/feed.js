@@ -7,7 +7,7 @@ class Feed extends Component {
 		this.state = { billList: [] };
 	}
 	componentDidMount(){
-		fetch('http://localhost:3001/feed', {
+		fetch('http://localhost:3000/feed', {
           mode: "cors",
           headers : {
             'Content-Type': 'application/json',

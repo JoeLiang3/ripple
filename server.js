@@ -1,4 +1,4 @@
-/*Large sections of commented-out code are unimplemented features*/
+/*Commented out code was unimplemented features*/
 
 /**
 * Module dependencies.
