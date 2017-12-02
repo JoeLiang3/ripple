@@ -10,6 +10,7 @@ import Bill from './components/bill';
 import BillSearch from './components/billSearch';
 import memberSearch from './components/memberSearch';
 import Rate from './components/rate';
+import Submission from './components/submission';
 import './App.css';
 
 
@@ -64,6 +65,7 @@ class App extends Component {
    }
    else if(this.state.page === "Individual"){
       view=<Rate
+      updateContentView={this.updateContentView}
       id={this.state.memberID}
       />
    }
@@ -92,6 +94,10 @@ class App extends Component {
       view = <Login />
    } else if(this.state.page === "signup") {
       view = <SignupForm/ >;
+   } else if(this.state.page === "submission") {
+      view = <Submission
+      updateContentView={this.updateContentView}
+      / >;
    }
 
     return (
