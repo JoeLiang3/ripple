@@ -151,10 +151,18 @@ updateQueryMember = (id) => {
         <NavBar
           updateContentView={this.updateContentView}
         />
-        <SideBar
-          updateContentView={this.updateContentView}
-        />
+
+
+  <SideBar
+    updateContentView={this.updateContentView}
+  />
+
+
+
+
         {view}
+
+
       </div>
     );
 

@@ -6,6 +6,7 @@
   position: fixed; /* you can customize here */
   z-index: 1;
   box-sizing: border-box;
+  margin-right: 10%;
 }
 
 .sidebar-wrapper.is-stacked {
