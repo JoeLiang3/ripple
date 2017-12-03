@@ -36,4 +36,4 @@ Wordpress CSS: https://make.wordpress.org/core/handbook/best-practices/coding-st
 
 - some members photos are squished and/or distorted
 
-- search bar disappears after performing a search (since rendering new page)
+- search bar disappears after performing a search (since it renders a new page)
