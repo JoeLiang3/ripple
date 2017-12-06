@@ -43,12 +43,12 @@ class Faq extends Component {
       <div className="officials">
       <ul>
         <li><b>Elected Officials:</b></li>
-        <li><b>Q.</b>How do I use the Officials Map?</li>
-        <li><b>A.</b>To use the Officials Map, just click on a state of your choice to view a list of elected officials from that state. You will be able to then navigate to the individual elected officials profile and rate them.</li>
-        <li><b>Q.</b>How do I rate my Elected Official?</li>
-        <li><b>A.</b>To rate your elected officials, just choose a number of stars and click.</li>
-        <li><b>Q.</b>How do I search for officials</li>
-        <li><b>A.</b>To search for officials, you just need to type into the input field of the search bar and press enter.</li>
+        <li><b>Q.</b> How do I use the Officials Map?</li>
+        <li><b>A.</b> To use the Officials Map, just click on a state of your choice to view a list of elected officials from that state. You will be able to then navigate to the individual elected officials profile and rate them.</li>
+        <li><b>Q.</b> How do I rate my Elected Official?</li>
+        <li><b>A.</b> To rate your elected officials, just choose a number of stars and click.</li>
+        <li><b>Q.</b> How do I search for officials</li>
+        <li><b>A.</b> To search for officials, you just need to type into the input field of the search bar and press enter.</li>
       </ul>
       </div>
 
