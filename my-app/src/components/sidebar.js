@@ -74,7 +74,7 @@ class SideBar extends Component {
 		        </nav>
 		      </div>
 		      <div className="sidebar-footer">
-						<p><font size="1.5"> &ensp; &ensp; &ensp; Made with &hearts; in Santa Cruz</font></p>
+						<p><font size="1.5"> &ensp; Made with &hearts; in Santa Cruz</font></p>
 		         <a className="sidebar-toggle" id="toggle">
 		           <i className="fa fa-angle-double-left"></i>
 						</a>
